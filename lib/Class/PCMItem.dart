@@ -1,0 +1,98 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:liquidity_gallery/Class.dart';
+
+
+enum ShipmentMethod{
+  SEA,
+  AIR,
+  LOCAL,
+}
+
+class PCMItem {
+  DocumentReference? docRef;
+  DateTime createDate; 
+  String name;
+  String? spec;
+  String? brand;
+  Country origin;
+  String get originName => describeEnum(origin);
+  String pcmSuppilerId;
+  String? pcmSuppilerName;
+ List<PriceRange>? priceRange;
+
+
+
+  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange});
+  Map<String, dynamic> get toMap => {
+        'createDate': createDate,
+        'name': name,
+        'spec': spec,
+        'brand': brand,
+    'origin' : Country.values.indexOf(this.origin!),
+    'pcmSuppilerId' : pcmSuppilerId,
+    'pcmSuppilerName' : pcmSuppilerName,
+
+    'priceRange': (priceRange ?? []).map((e) => e.toMap).toList(),
+
+      };
+  factory PCMItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return PCMItem(
+      docRef: doc.reference,
+      createDate: doc.data()?['createDate']?.toDate(),
+      name: doc.data()!['name'],
+      spec: doc.data()!['spec'] ?? '',
+      brand: doc.data()!['brand'] ?? '',
+      origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
+      pcmSuppilerId: doc.data()!['pcmSuppilerId'] ?? '',
+      pcmSuppilerName: doc.data()!['pcmSuppilerName'] ?? '',
+
+      priceRange: List<PriceRange>.from((doc.data()!['priceRange'] ?? []).map((e) => PriceRange.fromMap(e)).toList()),
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
+
+
+
+
+class PriceRange {
+  DateTime Timestamp;
+  num price;
+  String? remark;
+  Currency currency;
+  String get currencyName => describeEnum(currency);
+ Unit unit;
+  String get unitName => describeEnum(unit);
+  ShipmentMethod shipmentMethod;
+  String get shipmentMethodName => describeEnum(shipmentMethod);
+  double rate;
+  
+
+  PriceRange({ required this.Timestamp, required this.price, this.remark, required this.currency, required this.unit, required this.shipmentMethod,required this.rate});
+
+  Map<String, dynamic> get toMap => {
+    'Timestamp': Timestamp,
+    'price': price,
+    'remark' : remark,
+    'currency' : Currency.values.indexOf(this.currency),
+    'unit' : Unit.values.indexOf(this.unit),
+    'shipmentMethod' : ShipmentMethod.values.indexOf(this.shipmentMethod),
+    'rate' : rate,
+
+  };
+
+  factory PriceRange.fromMap(Map<String, dynamic> map) {
+    return PriceRange(
+      Timestamp: map['Timestamp']?.toDate(),
+      price: map['price'],
+      remark: map['remark'],
+      rate: map['rate'],
+      currency: Currency.values.elementAt(map!['currency'] ?? 0),
+      unit: Unit.values.elementAt(map!['unit'] ?? 0),
+      shipmentMethod: ShipmentMethod.values.elementAt(map!['shipmentMethod'] ?? 0),
+    );
+  }}
