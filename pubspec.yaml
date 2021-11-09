@@ -20,6 +20,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 
+  # Debug
+  package_info_plus: ^1.0.4 #https://pub.dev/packages/package_info_plus
+  device_info_plus: ^2.1.0 #https://pub.dev/packages/device_info_plus
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
