@@ -17,7 +17,7 @@ class PO {
   Term term;
   String get termName => describeEnum(term);
   POStatus poStatus;
-  String get poStatusName => describeEnum(poStatusName);
+  String get poStatusName => describeEnum(poStatus);
 
 
 
