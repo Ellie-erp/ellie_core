@@ -11,12 +11,12 @@ class POItem {
   num unitPrice;
   String? remark;
   String poId;
-  Currency currency;
 
 
 
 
-  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.currency=Currency.HKD});
+
+  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'name': name,
@@ -26,7 +26,6 @@ class POItem {
         'unitPrice': unitPrice,
         'remark': remark,
         'poId': poId,
-    'currency' : Currency.values.indexOf(this.currency),
 
 
       };
@@ -41,7 +40,7 @@ class POItem {
       unitPrice: doc.data()?['unitPrice'],
       remark: doc.data()?['remark'],
       poId: doc.data()?['poId'],
-currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
+
 
     );
   }
