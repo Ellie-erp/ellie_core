@@ -19,10 +19,10 @@ class PO {
   String get termName => describeEnum(term);
   POStatus poStatus;
   String get poStatusName => describeEnum(poStatus);
-List<POItem>? poItem;
 
 
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus, this.poItem});
+
+  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -30,7 +30,7 @@ List<POItem>? poItem;
         'transportCost': transportCost,
     'term' : Term.values.indexOf(this.term),
     'poStatus' : POStatus.values.indexOf(this.poStatus),
-    'poItem': (poItem ?? []).map((e) => e.toMap).toList(),
+
 
       };
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -42,7 +42,7 @@ List<POItem>? poItem;
       transportCost: doc.data()?['transportCost'] ?? 0,
       term: Term.values.elementAt(doc.data()!['term'] ?? 0),
       poStatus: POStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
-      poItem: List<POItem>.from((doc.data()!['poItem'] ?? []).map((e) => POItem.fromMap(e)).toList()),
+
     );
   }
 
@@ -56,37 +56,3 @@ List<POItem>? poItem;
 
 
 
-class POItem {
-  DateTime updateDate;
-  String name;
-  num? ctn;
-  num qty;
-  Unit unit;
-  num unitPrice;
-  String? remark;
-
-
-  POItem({required this.updateDate, required this.name, this.ctn,required this.qty, required this.unit, required this.unitPrice, this.remark});
-
-  Map<String, dynamic> get toMap => {
-    'updateDate': updateDate,
-    'name': name,
-    'ctn' : ctn,
-    'qty' : qty,
-    'unit' : unit,
-    'unitPrice' : unitPrice,
-    'remark' : remark,
-
-  };
-
-  factory POItem.fromMap(Map<String, dynamic> map) {
-    return POItem(
-      updateDate: map['updateDate']?.toDate(),
-      name: map['name'],
-      ctn: map['ctn'],
-      qty: map['qty'],
-      unit: map['unit'],
-      unitPrice: map['unitPrice'],
-      remark: map['remark'],
-    );
-  }}
