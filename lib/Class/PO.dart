@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
+import 'PCMItem.dart';
 import 'PCMSuppiler.dart';
 enum POStatus {
   DRAFT,
@@ -21,9 +22,11 @@ class PO {
   String get poStatusName => describeEnum(poStatus);
   Currency currency;
 num rate;
+ShipmentMethod shipmentMethod;
+String get shipmentMethodName => describeEnum(shipmentMethod);
 
 
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1});
+  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -32,6 +35,7 @@ num rate;
     'term' : Term.values.indexOf(this.term),
     'poStatus' : POStatus.values.indexOf(this.poStatus),
     'currency': Currency.values.indexOf(this.currency),
+    'shipmentMethod': ShipmentMethod.values.indexOf(this.shipmentMethod),
     'rate' : rate,
 
       };
@@ -46,6 +50,7 @@ num rate;
       poStatus: POStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
       currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
       rate: doc.data()?['rate'] ?? 1,
+      shipmentMethod:  ShipmentMethod.values.elementAt(doc.data()!['shipmentMethod'] ?? 0),
     );
   }
 
