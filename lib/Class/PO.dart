@@ -24,9 +24,11 @@ class PO {
 num rate;
 ShipmentMethod shipmentMethod;
 String get shipmentMethodName => describeEnum(shipmentMethod);
+DateTime? ETD;
+DateTime? ETA;
 
 
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL});
+  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL, this.ETA, this.ETD});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -37,8 +39,10 @@ String get shipmentMethodName => describeEnum(shipmentMethod);
     'currency': Currency.values.indexOf(this.currency),
     'shipmentMethod': ShipmentMethod.values.indexOf(this.shipmentMethod),
     'rate' : rate,
-
+'ETD' : ETD,
+    'ETA' : ETA,
       };
+
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PO(
       docRef: doc.reference,
@@ -51,6 +55,8 @@ String get shipmentMethodName => describeEnum(shipmentMethod);
       currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
       rate: doc.data()?['rate'] ?? 1,
       shipmentMethod:  ShipmentMethod.values.elementAt(doc.data()!['shipmentMethod'] ?? 0),
+      ETD: doc.data()?['ETD']?.toDate(),
+      ETA: doc.data()?['ETA']?.toDate(),
     );
   }
 
