@@ -20,9 +20,9 @@ class PO {
   POStatus poStatus;
   String get poStatusName => describeEnum(poStatus);
   Currency currency;
+num rate;
 
-
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD});
+  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -31,6 +31,7 @@ class PO {
     'term' : Term.values.indexOf(this.term),
     'poStatus' : POStatus.values.indexOf(this.poStatus),
     'currency': Currency.values.indexOf(this.currency),
+    'rate' : rate,
 
       };
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -43,6 +44,7 @@ class PO {
       term: Term.values.elementAt(doc.data()!['term'] ?? 0),
       poStatus: POStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
       currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
+      rate: doc.data()?['rate'] ?? 1,
     );
   }
 
