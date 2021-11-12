@@ -3,7 +3,7 @@ import 'package:liquidity_gallery/Class.dart';
 
 class POItem {
   DocumentReference? docRef;
-  DateTime timeStamp;
+  DateTime timestamp;
   String name;
   num? ctn;
   num qty;
@@ -15,9 +15,9 @@ class POItem {
 
 
 
-  POItem({this.docRef,required this.timeStamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId });
+  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId });
   Map<String, dynamic> get toMap => {
-        'timeStamp': timeStamp,
+        'timestamp': timestamp,
         'name': name,
         'ctn': ctn,
         'qty': qty,
@@ -31,7 +31,7 @@ class POItem {
   factory POItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return POItem(
       docRef: doc.reference,
-      timeStamp: doc.data()?['timeStamp']?.toDate(),
+      timestamp: doc.data()?['timestamp']?.toDate(),
       name: doc.data()?['name'],
       ctn: doc.data()?['ctn'],
       qty: doc.data()?['qty'],
