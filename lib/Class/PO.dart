@@ -22,6 +22,7 @@ class PO {
   Currency currency;
 num rate;
 
+
   PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
