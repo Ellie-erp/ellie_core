@@ -18,16 +18,18 @@ class ItemAdjRcd {
   String title;
   String? subtitle;
   String plu;
+  String id;
   ItemAdjType itemAdjType;
   String get itemAdjTypeName => describeEnum(itemAdjType);
 
 
 
-  ItemAdjRcd({this.docRef, required this.timestamp,required this.title, this.subtitle,required this.itemAdjType, required this.plu});
+  ItemAdjRcd({this.docRef, required this.timestamp,required this.title, this.subtitle,required this.itemAdjType, required this.plu, required this.id});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'title': title,
     'plu' : plu,
+    'id' : id,
         'subtitle': subtitle,
     'itemAdjType' : ItemAdjType.values.indexOf(this.itemAdjType),
 
@@ -38,6 +40,7 @@ class ItemAdjRcd {
       timestamp: doc.data()?['timestamp']?.toDate(),
       title: doc.data()?['title'],
       plu: doc.data()?['plu'],
+      id: doc.data()?['id'],
       subtitle: doc.data()?['subtitle'],
       itemAdjType: ItemAdjType.values.elementAt(doc.data()?['itemAdjType'] ?? 0),
 
