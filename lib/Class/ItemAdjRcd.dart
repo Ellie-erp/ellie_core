@@ -7,6 +7,8 @@ enum ItemAdjType {
   ADJ,  ///pricing adjustment
  ON,
   OFF,
+  ACTIVE,
+  INACTIVE,
 }
 
 
