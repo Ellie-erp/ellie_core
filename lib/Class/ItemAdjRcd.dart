@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 enum ItemAdjType {
   NEW,
   ADJ,  ///pricing adjustment
-
+ ON,
+  OFF,
 }
 
 
