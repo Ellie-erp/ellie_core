@@ -7,6 +7,7 @@ import 'PCMSuppiler.dart';
 enum POStatus {
   DRAFT,
   ACTIVE,
+  DISABLE,
 }
 
 
