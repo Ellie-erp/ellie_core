@@ -23,3 +23,4 @@ export 'Views/AboutEllieERPView.dart';
 export 'Views/AboutOptionsView.dart';
 export 'Views/AboutPlatformView.dart';
 export 'Views/SettingView.dart';
+export 'Class/CatKeyword.dart';
