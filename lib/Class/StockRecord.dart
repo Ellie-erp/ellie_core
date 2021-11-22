@@ -9,7 +9,7 @@ enum STType{
 
 }
 
-class StockTransfer {
+class StockRecord {
   DocumentReference? docRef;
   DateTime timestamp;
   String plu;
@@ -23,7 +23,7 @@ class StockTransfer {
 
 
 
-  StockTransfer({this.docRef, required this.timestamp, required this.plu, this.productName , required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stType });
+  StockRecord({this.docRef, required this.timestamp, required this.plu, this.productName , required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stType });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'plu': plu,
@@ -36,8 +36,8 @@ class StockTransfer {
 
 
       };
-  factory StockTransfer.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return StockTransfer(
+  factory StockRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return StockRecord(
       docRef: doc.reference,
       timestamp: doc.data()?['timestamp']?.toDate(),
       plu: doc.data()?['plu'],

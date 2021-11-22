@@ -18,7 +18,7 @@ export 'Class/PCMItem.dart';
 export 'Class/PCMSuppiler.dart';
 export 'Class/PO.dart';
 export 'Class/Sales.dart';
-export 'Class/StockTransfer.dart';
+export 'Class/StockRecord.dart';
 export 'Views/AboutEllieERPView.dart';
 export 'Views/AboutOptionsView.dart';
 export 'Views/AboutPlatformView.dart';
