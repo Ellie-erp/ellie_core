@@ -4,11 +4,11 @@ class Stock {
   DocumentReference? docRef;
   DateTime updateDate; 
   String plu;
-  Map<String, num> stockMap;
+  Map<String, num>? stockMap;
 
 
 
-  Stock({this.docRef,required this.updateDate,required this.plu, required this.stockMap});
+  Stock({this.docRef,required this.updateDate,required this.plu,  this.stockMap});
   Map<String, dynamic> get toMap => {
         'updateDate': updateDate,
         'plu': plu,
