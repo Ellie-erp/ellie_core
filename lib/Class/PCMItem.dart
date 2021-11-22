@@ -20,10 +20,11 @@ class PCMItem {
   String pcmSuppilerId;
   String? pcmSuppilerName;
  List<PriceRange>? priceRange;
+ String? plu;
 
 
 
-  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange});
+  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'name': name,
@@ -34,6 +35,7 @@ class PCMItem {
     'pcmSuppilerName' : pcmSuppilerName,
 
     'priceRange': (priceRange ?? []).map((e) => e.toMap).toList(),
+    'plu' : plu,
 
       };
   factory PCMItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -46,6 +48,7 @@ class PCMItem {
       origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
       pcmSuppilerId: doc.data()!['pcmSuppilerId'] ?? '',
       pcmSuppilerName: doc.data()!['pcmSuppilerName'] ?? '',
+      plu: doc.data()!['plu'] ?? '',
 
       priceRange: List<PriceRange>.from((doc.data()!['priceRange'] ?? []).map((e) => PriceRange.fromMap(e)).toList()),
     );
