@@ -20,7 +20,7 @@ class Stock {
       docRef: doc.reference,
       updateDate: doc.data()!['updateDate']?.toDate(),
       plu: doc.data()!['plu'],
-      stockMap: doc.data()!['stockMap'],
+      stockMap: Map<String, num>.from(doc.data()!['stockMap']),
     );
   }
 
