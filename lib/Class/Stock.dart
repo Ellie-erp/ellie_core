@@ -4,15 +4,15 @@ class Stock {
   DocumentReference? docRef;
   DateTime updateDate; 
   String plu;
-List<StockMap>? stockMap;
+  Map<String, num> stockMap;
 
 
 
-  Stock({this.docRef,required this.updateDate,required this.plu, this.stockMap});
+  Stock({this.docRef,required this.updateDate,required this.plu, required this.stockMap});
   Map<String, dynamic> get toMap => {
         'updateDate': updateDate,
         'plu': plu,
-    'stockMap': (stockMap ?? []).map((e) => e.toMap).toList(),
+    'stockMap': stockMap,
 
       };
   factory Stock.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -20,7 +20,7 @@ List<StockMap>? stockMap;
       docRef: doc.reference,
       updateDate: doc.data()!['updateDate']?.toDate(),
       plu: doc.data()!['plu'],
-      stockMap: List<StockMap>.from((doc.data()!['stockMap'] ?? []).map((e) => StockMap.fromMap(e)).toList()),
+      stockMap: doc.data()!['stockMap'],
     );
   }
 
@@ -32,26 +32,3 @@ List<StockMap>? stockMap;
 
 
 
-
-class StockMap {
-  String locationId;
-  num qty;
-
-
-
-  StockMap({ required this.locationId, required this.qty,});
-
-  Map<String, dynamic> get toMap => {
-    'locationId': locationId,
-    'qty': qty,
-
-
-  };
-
-  factory StockMap.fromMap(Map<String, dynamic> map) {
-    return StockMap(
-      locationId: map['locationId'],
-      qty: map['qty'],
-
-    );
-  }}
