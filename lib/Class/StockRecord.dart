@@ -20,10 +20,11 @@ class StockRecord {
   String? location2Name;
  STType stType;
  String get stTypeName => describeEnum(stType);
+ num qty;
 
 
 
-  StockRecord({this.docRef, required this.timestamp, required this.plu, this.productName , required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stType });
+  StockRecord({this.docRef, required this.timestamp, required this.plu, this.productName , required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stType ,required this.qty});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'plu': plu,
@@ -33,6 +34,7 @@ class StockRecord {
         'location2Id': location2Id,
         'location2Name': location2Name,
     'stType' : STType.values.indexOf(this.stType),
+    'qty' : qty,
 
 
       };
@@ -47,6 +49,7 @@ class StockRecord {
       location2Id: doc.data()?['location2Id'],
       location2Name: doc.data()?['location2Name'],
       stType: STType.values.elementAt(doc.data()?['stType'] ?? 0),
+      qty: doc.data()?['qty'],
     );
   }
 
