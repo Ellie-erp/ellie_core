@@ -3,6 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:liquidity_gallery/Class.dart';
 
+enum PCMType {
+  SUPPILER,
+  MARKET,
+}
+
 
 enum Term {
   NONE,
@@ -22,6 +27,8 @@ enum Term {
 class PCMSuppiler {
   DocumentReference? docRef;
   DateTime createDate;
+  PCMType pcmType;
+  String get PCMTypeName => describeEnum(PCMType!);
   String name;
   String? brand;
   String? website;
@@ -38,9 +45,10 @@ class PCMSuppiler {
 
 
 
-  PCMSuppiler({ this.docRef, required this.createDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website});
+  PCMSuppiler({ this.docRef, required this.createDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website, required this.pcmType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
+    'PCMType' : PCMType.values.indexOf(this.pcmType),
         'name': name,
         'brand': brand,
     'website' : website,
@@ -59,6 +67,7 @@ class PCMSuppiler {
       name: doc.data()!['name'],
       website: doc.data()!['website'],
       brand: doc.data()!['brand'] ?? '',
+      pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
       currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
       origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
       address: doc.data()!['address'] ?? '',
