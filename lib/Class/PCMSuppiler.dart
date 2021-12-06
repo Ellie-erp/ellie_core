@@ -28,7 +28,7 @@ class PCMSuppiler {
   DocumentReference? docRef;
   DateTime createDate;
   PCMType pcmType;
-  String get PCMTypeName => describeEnum(PCMType!);
+  String get PCMTypeName => describeEnum(pcmType);
   String name;
   String? brand;
   String? website;
@@ -48,7 +48,7 @@ class PCMSuppiler {
   PCMSuppiler({ this.docRef, required this.createDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website, required this.pcmType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'PCMType' : PCMType.values.indexOf(this.pcmType),
+    'pcmType' : PCMType.values.indexOf(this.pcmType),
         'name': name,
         'brand': brand,
     'website' : website,

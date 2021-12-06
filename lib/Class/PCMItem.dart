@@ -16,7 +16,7 @@ class PCMItem {
   DateTime createDate;
 
   PCMType pcmType;
-  String get PCMTypeName => describeEnum(PCMType!);
+  String get PCMTypeName => describeEnum(pcmType);
   String name;
   String? spec;
   String? brand;
@@ -32,7 +32,7 @@ class PCMItem {
   PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'PCMType' : PCMType.values.indexOf(this.pcmType),
+    'pcmType' : PCMType.values.indexOf(this.pcmType),
         'name': name,
         'spec': spec,
         'brand': brand,
