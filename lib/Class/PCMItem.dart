@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
+import 'PCMSuppiler.dart';
+
 
 enum ShipmentMethod{
   SEA,
@@ -11,7 +13,10 @@ enum ShipmentMethod{
 
 class PCMItem {
   DocumentReference? docRef;
-  DateTime createDate; 
+  DateTime createDate;
+
+  PCMType pcmType;
+  String get PCMTypeName => describeEnum(PCMType!);
   String name;
   String? spec;
   String? brand;
@@ -24,9 +29,10 @@ class PCMItem {
 
 
 
-  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu});
+  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
+    'PCMType' : PCMType.values.indexOf(this.pcmType),
         'name': name,
         'spec': spec,
         'brand': brand,
@@ -42,6 +48,7 @@ class PCMItem {
     return PCMItem(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate(),
+      pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
       name: doc.data()!['name'],
       spec: doc.data()!['spec'] ?? '',
       brand: doc.data()!['brand'] ?? '',
