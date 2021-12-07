@@ -1,19 +1,25 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquidity_gallery/liquidity_gallery.dart';
 
 import 'AboutOptionsView.dart';
 
-
 class SettingView extends StatelessWidget {
-  const SettingView({Key? key}) : super(key: key);
+  const SettingView(
+      {Key? key,
+      required this.name,
+      required this.title,
+      required this.onLogOut})
+      : super(key: key);
+
+  final String name;
+  final String title;
+  final Function() onLogOut;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         toolbarHeight: 50,
         centerTitle: true,
         elevation: 0,
@@ -29,17 +35,26 @@ class SettingView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),
             child: MailboxContainer(
-              onTap: (){
-
-              },
+              onTap: () {},
               Radius: 18,
               padding: 8,
               child: ListTile(
-                leading: Icon(Icons.account_circle_rounded,color: Colors.cyan[600],size: 30,),
-                title: Text("Sam Siu",style: TextStyle(fontSize: 19),),
-                subtitle: Text("System Manager"),
-                trailing: Text("Account",style: TextStyle(fontSize: 15),),
-              ),),
+                leading: Icon(
+                  Icons.account_circle_rounded,
+                  color: Colors.cyan[600],
+                  size: 30,
+                ),
+                title: Text(
+                  name,
+                  style: TextStyle(fontSize: 19),
+                ),
+                subtitle: Text(title),
+                trailing: Text(
+                  "Account",
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+            ),
           ),
           ListTile(
             dense: true,
@@ -48,18 +63,25 @@ class SettingView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),
             child: MailboxContainer(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=> AboutOptionsView()));
-              },
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => AboutOptionsView()));
+                },
                 Radius: 8,
                 padding: 0,
-                child: ListTile(title: Text("About"),)),
+                child: ListTile(
+                  title: Text("About"),
+                )),
           ),
-
           Divider(),
           Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),
-            child: ListTile(title: Text("Logout"),),
+            child: ListTile(
+              title: Text("Logout"),
+              onTap: () async {
+                await onLogOut();
+              },
+            ),
           ),
         ],
       ),
