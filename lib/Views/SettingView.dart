@@ -79,7 +79,9 @@ class SettingView extends StatelessWidget {
             child: ListTile(
               title: Text("Logout"),
               onTap: () async {
-                await onLogOut();
+                await showYesNoModal(context, () async {
+                  await onLogOut();
+                });
               },
             ),
           ),
