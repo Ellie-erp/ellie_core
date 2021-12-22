@@ -121,9 +121,10 @@ class OrderItem {
   num? weight;
   num? preQTY;
   List? array;
+  String? remark;
   
 
-  OrderItem({ required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.weight, this.preQTY, this.array});
+  OrderItem({ required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.weight, this.preQTY, this.array, this.remark});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
@@ -135,6 +136,7 @@ class OrderItem {
     'weight' : weight,
     'preQTY' : preQTY,
     'array': array,
+    'remark' : remark,
   };
 
   factory OrderItem.fromMap(Map<String, dynamic> map) {
@@ -148,5 +150,6 @@ class OrderItem {
       unit: Unit.values.elementAt(map?['unit'] ?? 0),
       preQTY: map['preQTY'],
       array: map['array'],
+      remark: map['remark'] ?? '',
     );
   }}
