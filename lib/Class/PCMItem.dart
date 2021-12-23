@@ -14,7 +14,7 @@ enum ShipmentMethod{
 class PCMItem {
   DocumentReference? docRef;
   DateTime createDate;
-
+  DateTime updateDate;
   PCMType pcmType;
   String get PCMTypeName => describeEnum(pcmType);
   String name;
@@ -29,9 +29,10 @@ class PCMItem {
 
 
 
-  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType});
+  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType,required this.updateDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
+    'updateDate' updateDate,
     'pcmType' : PCMType.values.indexOf(this.pcmType),
         'name': name,
         'spec': spec,
@@ -48,6 +49,7 @@ class PCMItem {
     return PCMItem(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate(),
+      updateDate: doc.data()?['updateDate']?.toDate(),
       pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
       name: doc.data()!['name'],
       spec: doc.data()!['spec'] ?? '',
