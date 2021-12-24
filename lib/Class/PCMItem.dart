@@ -28,7 +28,6 @@ class PCMItem {
  String? plu;
 
 
-
   PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType,required this.updateDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
