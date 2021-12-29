@@ -1,7 +1,6 @@
 name: ellie_core
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -10,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^2.4.0 #https://pub.dev/packages/cloud_firestore
+  cloud_firestore: any
   liquidity_gallery:
     git:
       url: https://github.com/LiquidityGallery/liquidity_gallery.git
@@ -18,11 +17,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: any
 
   # Debug
-  package_info_plus: ^1.0.4 #https://pub.dev/packages/package_info_plus
-  device_info_plus: ^2.1.0 #https://pub.dev/packages/device_info_plus
+  package_info_plus: any #https://pub.dev/packages/package_info_plus
+  device_info_plus: any #https://pub.dev/packages/device_info_plus
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
