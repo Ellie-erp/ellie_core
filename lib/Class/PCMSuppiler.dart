@@ -132,7 +132,7 @@ class History {
 
   factory History.fromMap(Map<String, dynamic> map) {
     return History(
-      timestamp: map['Timestamp']?.toDate(),
+      timestamp: map['timestamp']?.toDate(),
       remark: map['remark'],
     );
   }}
