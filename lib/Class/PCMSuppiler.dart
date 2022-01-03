@@ -40,12 +40,13 @@ class PCMSuppiler {
   String get termName => describeEnum(term);
   Currency currency;
   String get currencyName => describeEnum(currency);
+  List<History>? history;
 
 
 
 
 
-  PCMSuppiler({ this.docRef, required this.createDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website, required this.pcmType});
+  PCMSuppiler({ this.docRef, required this.createDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website, required this.pcmType, this.history});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'pcmType' : PCMType.values.indexOf(this.pcmType),
@@ -57,6 +58,7 @@ class PCMSuppiler {
     'term' : Term.values.indexOf(this.term),
     'contact': (contact ?? []).map((e) => e.toMap).toList(),
     'currency' : Currency.values.indexOf(this.currency),
+    'history': (history ?? []).map((e) => e.toMap).toList(),
 
 
       };
@@ -73,6 +75,7 @@ class PCMSuppiler {
       address: doc.data()!['address'] ?? '',
       term: Term.values.elementAt(doc.data()!['term'] ?? 0),
       contact: List<Contact>.from((doc.data()!['contact'] ?? []).map((e) => Contact.fromMap(e)).toList()),
+      history: List<History>.from((doc.data()!['history'] ?? []).map((e) => History.fromMap(e)).toList()),
     );
   }
 
@@ -109,5 +112,27 @@ class Contact {
       email: map['email'],
       tel: map['tel'],
 
+    );
+  }}
+
+class History {
+  DateTime timestamp;
+  String? remark;
+
+
+
+  History({ required this.timestamp,  this.remark,});
+
+  Map<String, dynamic> get toMap => {
+    'timestamp': timestamp,
+    'remark' : remark,
+
+
+  };
+
+  factory History.fromMap(Map<String, dynamic> map) {
+    return History(
+      timestamp: map['Timestamp']?.toDate(),
+      remark: map['remark'],
     );
   }}

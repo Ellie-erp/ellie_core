@@ -17,6 +17,7 @@ class PCMItem {
   DateTime updateDate;
   PCMType pcmType;
   String get PCMTypeName => describeEnum(pcmType);
+  String? nameZh;
   String name;
   String? spec;
   String? brand;
@@ -28,11 +29,12 @@ class PCMItem {
  String? plu;
 
 
-  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType,required this.updateDate});
+  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType,required this.updateDate, this.nameZh});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
     'pcmType' : PCMType.values.indexOf(this.pcmType),
+    'nameZh' : nameZh,
         'name': name,
         'spec': spec,
         'brand': brand,
@@ -50,6 +52,7 @@ class PCMItem {
       createDate: doc.data()?['createDate']?.toDate(),
       updateDate: doc.data()?['updateDate']?.toDate(),
       pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
+      nameZh: doc.data()!['nameZh'],
       name: doc.data()!['name'],
       spec: doc.data()!['spec'] ?? '',
       brand: doc.data()!['brand'] ?? '',
@@ -71,7 +74,7 @@ class PCMItem {
 
 
 class PriceRange {
-  DateTime Timestamp;
+  DateTime timestamp;
   num price;
   String? remark;
   Currency currency;
@@ -81,12 +84,12 @@ class PriceRange {
   ShipmentMethod shipmentMethod;
   String get shipmentMethodName => describeEnum(shipmentMethod);
   double rate;
-  
 
-  PriceRange({ required this.Timestamp, required this.price, this.remark, required this.currency, required this.unit, required this.shipmentMethod,required this.rate});
+
+  PriceRange({ required this.timestamp, required this.price, this.remark, required this.currency, required this.unit, required this.shipmentMethod,required this.rate});
 
   Map<String, dynamic> get toMap => {
-    'Timestamp': Timestamp,
+    'timestamp': timestamp,
     'price': price,
     'remark' : remark,
     'currency' : Currency.values.indexOf(this.currency),
@@ -98,7 +101,7 @@ class PriceRange {
 
   factory PriceRange.fromMap(Map<String, dynamic> map) {
     return PriceRange(
-      Timestamp: map['Timestamp']?.toDate(),
+      timestamp: map['timestamp']?.toDate(),
       price: map['price'],
       remark: map['remark'],
       rate: map['rate'],
@@ -107,3 +110,5 @@ class PriceRange {
       shipmentMethod: ShipmentMethod.values.elementAt(map!['shipmentMethod'] ?? 0),
     );
   }}
+
+
