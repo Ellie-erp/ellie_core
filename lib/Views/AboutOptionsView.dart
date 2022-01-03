@@ -20,12 +20,12 @@ class AboutOptionsView extends StatelessWidget {
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => AboutEllieERPView())),
           ),
-          ListTile(
-            title: Text('About this platform'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AboutPlatformView())),
-          )
+          // ListTile(
+          //   title: Text('About this platform'),
+          //   trailing: Icon(Icons.chevron_right),
+          //   onTap: () => Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => AboutPlatformView())),
+          // )
         ],
       ),
     );
