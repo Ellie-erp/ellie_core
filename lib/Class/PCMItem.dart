@@ -83,7 +83,7 @@ class PriceRange {
   String get unitName => describeEnum(unit);
   ShipmentMethod shipmentMethod;
   String get shipmentMethodName => describeEnum(shipmentMethod);
-  double rate;
+  num rate;
 
 
   PriceRange({ required this.timestamp, required this.price, this.remark, required this.currency, required this.unit, required this.shipmentMethod,required this.rate});
