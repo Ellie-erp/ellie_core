@@ -74,7 +74,7 @@ class Sales {
 
 
 
-      };
+      }..removeWhere((key, value) => value==null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
       docRef: doc.reference,
