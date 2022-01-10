@@ -30,9 +30,10 @@ DateTime? ETA;
 String? pcmSuppilerId;
 String ? pcmSuppilerName;
 num? adjAmount;
+String? refNo;
 
 
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL, this.ETA, this.ETD, this.pcmSuppilerId, this.pcmSuppilerName, this.adjAmount});
+  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL, this.ETA, this.ETD, this.pcmSuppilerId, this.pcmSuppilerName, this.adjAmount, this.refNo});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -48,6 +49,7 @@ num? adjAmount;
     'pcmSuppilerId' : pcmSuppilerId,
     'pcmSuppilerName' : pcmSuppilerName,
     'adjAmount' : adjAmount,
+    'refNo' : refNo,
       };
 
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -67,6 +69,7 @@ num? adjAmount;
       pcmSuppilerId: doc.data()?['pcmSuppilerId'],
       pcmSuppilerName: doc.data()?['pcmSuppilerName'],
       adjAmount: doc.data()?['adjAmount'],
+      refNo: doc.data()?['refNo'] ?? '',
     );
   }
 
