@@ -22,8 +22,8 @@ class BrandList {
   factory BrandList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BrandList(
       docRef: doc.reference,
-      createDate: doc.data()!['createDate']?.date(),
-      updateDate: doc.data()!['updateDate']?.date(),
+      createDate: doc.data()!['createDate']?.toDate(),
+      updateDate: doc.data()!['updateDate']?.toDate(),
       name: doc.data()!['name'],
       detail: doc.data()!['detail'] ?? '',
 
