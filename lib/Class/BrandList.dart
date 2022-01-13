@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BrandList {
-  DocumentReference docRef;
+  DocumentReference? docRef;
   DateTime createDate;
   DateTime updateDate;
   String name;
@@ -10,7 +10,7 @@ class BrandList {
 
 
 
-  BrandList({required this.docRef, required this.createDate, required this.updateDate, required this.name ,this.detail,});
+  BrandList({this.docRef, required this.createDate, required this.updateDate, required this.name ,this.detail,});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -32,6 +32,6 @@ class BrandList {
   }
 
   Future<void> update() async {
-    await docRef.update(toMap);
+    await docRef!.update(toMap);
   }
 }
