@@ -6,6 +6,7 @@ enum LocationType{
   STORAGE,
   WORKSHOP,
   ESHOP,
+  OFFICE,
 }
 
 class Location {
