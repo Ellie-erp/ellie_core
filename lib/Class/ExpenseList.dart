@@ -20,8 +20,6 @@ class ExpenseList {
   String locationId;
   String seller;
   num? transportCost;
-  Term term;
-  String get termName => describeEnum(term);
   EXPStatus expStatus;
   Currency currency;
 num rate;
@@ -30,14 +28,14 @@ num? adjAmount;
 String? refNo;
 
 
-  ExpenseList({this.docRef, required this.createDate, required this.updateDate, required this.locationId, required this.seller ,this.transportCost,required this.term, required this.expStatus,this.currency=Currency.HKD ,this.rate=1, this.adjAmount, this.refNo});
+  ExpenseList({this.docRef, required this.createDate, required this.updateDate, required this.locationId, required this.seller ,this.transportCost, required this.expStatus,this.currency=Currency.HKD ,this.rate=1, this.adjAmount, this.refNo});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
     'locationId': locationId,
         'seller': seller,
         'transportCost': transportCost,
-    'term' : Term.values.indexOf(this.term),
+
     'expStatus' : EXPStatus.values.indexOf(this.expStatus),
     'currency': Currency.values.indexOf(this.currency),
 
@@ -55,7 +53,7 @@ String? refNo;
       locationId: doc.data()?['locationId'],
       seller: doc.data()?['seller'],
       transportCost: doc.data()?['transportCost'] ?? 0,
-      term: Term.values.elementAt(doc.data()!['term'] ?? 0),
+
       expStatus: EXPStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
       currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
       rate: doc.data()?['rate'] ?? 1,
