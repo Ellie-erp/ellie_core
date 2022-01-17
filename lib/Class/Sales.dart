@@ -42,7 +42,7 @@ class Sales {
   String get salesTypeName => describeEnum(SalesType);
   String? clientId;
   String? clientName;
-  List<OrderItem>? orderItem;
+
   String locationId;
   String? locationName;
   num? deduction;
@@ -55,7 +55,7 @@ class Sales {
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, this.orderItem, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod});
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'amount': amount,
@@ -64,7 +64,7 @@ class Sales {
     'salesType': SalesType.values.indexOf(this.salesType),
     'clientId' : clientId,
     'clientName' : clientName,
-    'orderItem': (orderItem ?? []).map((e) => e.toMap).toList(),
+
     'locationId' : locationId,
     'locationName' : locationName,
     'deduction' : deduction,
@@ -86,7 +86,6 @@ class Sales {
       clientName: doc.data()?['clientName'],
      locationId: doc.data()?['locationId'],
       locationName: doc.data()?['locationName'] ?? '',
-      orderItem: List<OrderItem>.from((doc.data()?['orderItem'] ?? []).map((e) => OrderItem.fromMap(e)).toList()),
       deduction: doc.data()?['deduction'],
       discount: doc.data()?['discount'],
       paidAmount: doc.data()?['paidAmount'],
@@ -139,17 +138,18 @@ class OrderItem {
     'remark' : remark,
   };
 
-  factory OrderItem.fromMap(Map<String, dynamic> map) {
+
+  factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderItem(
-      timestamp: map['timestamp']?.toDate(),
-      title: map['title'],
-      code: map['code'],
-      unitPrice: map['unitPrice'],
-      amount: map['amount'],
-      weight: map['weight'],
-      unit: Unit.values.elementAt(map?['unit'] ?? 0),
-      preQTY: map['preQTY'],
-      array: map['array'],
-      remark: map['remark'] ?? '',
+      timestamp: doc.data()?['timestamp']?.toDate(),
+      title: doc.data()?['title'],
+      code: doc.data()?['code'],
+      unitPrice: doc.data()?['unitPrice'],
+      amount: doc.data()?['amount'],
+      weight: doc.data()?['weight'],
+      unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
+      preQTY: doc.data()?['preQTY'],
+      array: doc.data()?['array'],
+      remark: doc.data()?['remark'] ?? '',
     );
   }}
