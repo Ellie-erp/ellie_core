@@ -13,11 +13,10 @@ enum EXPStatus {
 
 
 
-class ExpenseList {
+class Expense {
   DocumentReference? docRef;
   DateTime createDate;
   DateTime updateDate;
-  String locationId;
   String seller;
   num? transportCost;
   EXPStatus expStatus;
@@ -28,11 +27,10 @@ num? adjAmount;
 String? refNo;
 
 
-  ExpenseList({this.docRef, required this.createDate, required this.updateDate, required this.locationId, required this.seller ,this.transportCost, required this.expStatus,this.currency=Currency.HKD ,this.rate=1, this.adjAmount, this.refNo});
+  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus,this.currency=Currency.HKD ,this.rate=1, this.adjAmount, this.refNo});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
-    'locationId': locationId,
         'seller': seller,
         'transportCost': transportCost,
 
@@ -45,12 +43,11 @@ String? refNo;
     'refNo' : refNo,
       };
 
-  factory ExpenseList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return ExpenseList(
+  factory Expense.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return Expense(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate(),
       updateDate: doc.data()?['updateDate']?.toDate(),
-      locationId: doc.data()?['locationId'],
       seller: doc.data()?['seller'],
       transportCost: doc.data()?['transportCost'] ?? 0,
 
