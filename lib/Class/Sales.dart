@@ -110,6 +110,7 @@ class Sales {
 
 
 class OrderItem {
+  DocumentReference? docRef;
   DateTime timestamp;
   String title;
   String? code;
@@ -123,7 +124,7 @@ class OrderItem {
   String? remark;
   
 
-  OrderItem({ required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.weight, this.preQTY, this.array, this.remark});
+  OrderItem({this.docRef, required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.weight, this.preQTY, this.array, this.remark});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
@@ -141,6 +142,7 @@ class OrderItem {
 
   factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderItem(
+      docRef: doc.reference,
       timestamp: doc.data()?['timestamp']?.toDate(),
       title: doc.data()?['title'],
       code: doc.data()?['code'],
@@ -152,4 +154,8 @@ class OrderItem {
       array: doc.data()?['array'],
       remark: doc.data()?['remark'] ?? '',
     );
-  }}
+  }
+
+  Future<void> update() async => await docRef!.update(toMap);
+
+}
