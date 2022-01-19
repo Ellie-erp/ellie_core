@@ -34,6 +34,7 @@ enum SalesStatus {
 class Sales {
   DocumentReference? docRef;
   DateTime createDate;
+  DateTime updateDate;
   num? amount;
   num? total;
   SalesStatus salesStatus;
@@ -55,9 +56,10 @@ class Sales {
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod});
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
+    'updateDate' : updateDate,
         'amount': amount,
         'total': total,
         'salesStatus': SalesStatus.values.indexOf(this.salesStatus),
@@ -79,6 +81,7 @@ class Sales {
     return Sales(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
+      updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
       amount: doc.data()?['amount'],
       total: doc.data()?['total'],
       salesStatus: SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
