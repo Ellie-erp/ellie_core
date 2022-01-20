@@ -20,27 +20,23 @@ class Expense {
   String seller;
   num? transportCost;
   EXPStatus expStatus;
-  Currency currency;
-num rate;
-
-num? adjAmount;
+num? total;
 String? refNo;
+String userId;
+String userName;
 
 
-  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus,this.currency=Currency.HKD ,this.rate=1, this.adjAmount, this.refNo});
+  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.userId,required this.userName});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'seller': seller,
         'transportCost': transportCost,
-
     'expStatus' : EXPStatus.values.indexOf(this.expStatus),
-    'currency': Currency.values.indexOf(this.currency),
-
-    'rate' : rate,
-
-    'adjAmount' : adjAmount,
+    'total' : total,
     'refNo' : refNo,
+    'userId' : userId,
+    'userName' : userName,
       };
 
   factory Expense.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -50,14 +46,11 @@ String? refNo;
       updateDate: doc.data()?['updateDate']?.toDate(),
       seller: doc.data()?['seller'],
       transportCost: doc.data()?['transportCost'] ?? 0,
-
       expStatus: EXPStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
-      currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
-      rate: doc.data()?['rate'] ?? 1,
-
-
-      adjAmount: doc.data()?['adjAmount'],
+      total: doc.data()?['total'] ?? 0,
       refNo: doc.data()?['refNo'] ?? '',
+      userId: doc.data()?['userId'],
+      userName: doc.data()?['userName'],
     );
   }
 
