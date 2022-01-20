@@ -1,5 +1,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+enum InfoStatus {
+  ACTIVE,
+  DRAFT,
+}
+
+
 enum InfoType {
   Announcement,
   Guideline
@@ -14,18 +21,19 @@ class Info {
   String title;
   String? content;
   InfoType infoType;
+  InfoStatus infoStatus;
 
 
 
 
-  Info({this.docRef,required this.createDate,required this.updateDate,required this.title ,this.content,required this.infoType,});
+  Info({this.docRef,required this.createDate,required this.updateDate,required this.title ,this.content,required this.infoType, required this.infoStatus});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'title': title,
         'content': content,
         'infoType': InfoType.values.indexOf(this.infoType),
-
+    'infoStatus': InfoStatus.values.indexOf(this.infoStatus),
 
       };
   factory Info.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -36,6 +44,7 @@ class Info {
       title: doc.data()!['title'],
       content: doc.data()!['content'] ?? '',
       infoType: InfoType.values.elementAt(doc.data()?['infoType'] ?? 0),
+      infoStatus: InfoStatus.values.elementAt(doc.data()?['infoStatus'] ?? 1),
     );
   }
 
