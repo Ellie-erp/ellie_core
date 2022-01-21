@@ -24,9 +24,10 @@ num? total;
 String? refNo;
 String userId;
 String userName;
+String remark;
 
 
-  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.userId,required this.userName});
+  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.userId,required this.userName, required this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -37,6 +38,7 @@ String userName;
     'refNo' : refNo,
     'userId' : userId,
     'userName' : userName,
+    'remark' : remark,
       };
 
   factory Expense.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -51,6 +53,7 @@ String userName;
       refNo: doc.data()?['refNo'] ?? '',
       userId: doc.data()?['userId'],
       userName: doc.data()?['userName'],
+      remark: doc.data()?['remark'],
     );
   }
 
