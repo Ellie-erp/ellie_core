@@ -121,13 +121,13 @@ class OrderItem {
   num? amount;
   Unit unit;
   String get unitName => describeEnum(unit);
-  num? weight;
+
   num? preQTY;
   List? array;
   String? remark;
   
 
-  OrderItem({this.docRef, required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.weight, this.preQTY, this.array, this.remark});
+  OrderItem({this.docRef, required this.timestamp,  required this.title, this.code, required this.unitPrice, this.amount, required this.unit, this.preQTY, this.array, this.remark});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
@@ -136,7 +136,7 @@ class OrderItem {
     'unitPrice' : unitPrice,
     'amount' : amount,
     'unit': Unit.values.indexOf(this.unit),
-    'weight' : weight,
+
     'preQTY' : preQTY,
     'array': array,
     'remark' : remark,
@@ -151,7 +151,6 @@ class OrderItem {
       code: doc.data()?['code'],
       unitPrice: doc.data()?['unitPrice'],
       amount: doc.data()?['amount'],
-      weight: doc.data()?['weight'],
       unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
       preQTY: doc.data()?['preQTY'],
       array: doc.data()?['array'] ?? [],
