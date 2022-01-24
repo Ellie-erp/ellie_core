@@ -154,7 +154,7 @@ class OrderItem {
       weight: doc.data()?['weight'],
       unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
       preQTY: doc.data()?['preQTY'],
-      array: doc.data()?['array'],
+      array: doc.data()?['array'] ?? [],
       remark: doc.data()?['remark'] ?? '',
     );
   }
