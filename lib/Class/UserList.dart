@@ -21,7 +21,7 @@ class UserList {
     return UserList(
       docRef: doc.reference,
       createDate: doc.data()!['createDate']?.toDate(),
-      displayName: doc.data()!['displayName']? 'Undefined',
+      displayName: doc.data()!['displayName']?? 'Undefined',
       email: doc.data()!['email']?? '',
 
 
