@@ -38,9 +38,7 @@ class Sales {
   num? amount;
   num? total;
   SalesStatus salesStatus;
-  String get salesStatusName => describeEnum(salesStatus);
   SalesType salesType;
-  String get salesTypeName => describeEnum(SalesType);
   String? clientId;
   String? clientName;
 
@@ -51,12 +49,13 @@ class Sales {
   num? paidAmount; ///Show how much customer paid in reality
   PayMethod? payMethod;
   String get payMethodName => describeEnum(PayMethod);
+  String? deliveryAddress;
 
 
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate});
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, required this.deliveryAddress});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -73,7 +72,7 @@ class Sales {
     'discount' : discount,
     'paidAmount' : paidAmount,
     'payMethod' : PayMethod.values.indexOf(this.payMethod!),
-
+    'deliveryAddress' : deliveryAddress,
 
 
       }..removeWhere((key, value) => value==null);
@@ -93,6 +92,7 @@ class Sales {
       discount: doc.data()?['discount'],
       paidAmount: doc.data()?['paidAmount'],
       payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
+      deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
     );
   }
 
