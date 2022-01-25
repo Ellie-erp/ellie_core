@@ -27,7 +27,10 @@ enum SalesStatus {
   OPEN,
   COMPLETE,
   CANCEL,
-  SENT,
+  AWAIT,
+  PREPARING,
+  RFD,  ///Ready for delivery
+
 }
 
 
@@ -50,13 +53,13 @@ class Sales {
   PayMethod? payMethod;
   String get payMethodName => describeEnum(PayMethod);
   String? deliveryAddress;
-  String staffId;
-  String staffName;
+  String? staffId;
+  String? staffName;
 
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress,required this.staffId,required this.staffName, });
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName, });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
