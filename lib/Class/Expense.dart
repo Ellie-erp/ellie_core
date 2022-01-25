@@ -22,12 +22,12 @@ class Expense {
   EXPStatus expStatus;
 num? total;
 String? refNo;
-String userId;
-String userName;
+String staffId;
+String staffName;
 String remark;
 
 
-  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.userId,required this.userName, required this.remark});
+  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.staffId,required this.staffName, required this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -36,8 +36,8 @@ String remark;
     'expStatus' : EXPStatus.values.indexOf(this.expStatus),
     'total' : total,
     'refNo' : refNo,
-    'userId' : userId,
-    'userName' : userName,
+    'staffId' : staffId,
+    'staffName' : staffName,
     'remark' : remark,
       };
 
@@ -51,8 +51,8 @@ String remark;
       expStatus: EXPStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
       total: doc.data()?['total'] ?? 0,
       refNo: doc.data()?['refNo'] ?? '',
-      userId: doc.data()?['userId'],
-      userName: doc.data()?['userName'],
+      staffId: doc.data()?['staffId'],
+      staffName: doc.data()?['staffName'],
       remark: doc.data()?['remark'],
     );
   }
