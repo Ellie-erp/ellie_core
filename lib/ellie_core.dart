@@ -30,3 +30,4 @@ export 'Class/StockRecord.dart';
 export 'Class/CatKeyword.dart';
 export 'Class/ItemAdjRcd.dart';
 export 'Class/PriceRecord.dart';
+export 'Class/BusinessClient.dart';
