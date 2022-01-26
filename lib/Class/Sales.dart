@@ -52,6 +52,7 @@ class Sales {
   num? paidAmount; ///Show how much customer paid in reality
   PayMethod? payMethod;
   String get payMethodName => describeEnum(PayMethod);
+
   String? deliveryAddress;
   String? staffId;
   String? staffName;

@@ -13,12 +13,13 @@ class POItem {
   String poId;
   String? plu;
   String? pcmItemId;
+  DateTime? expiryDate;
 
 
 
 
 
-  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.plu, this.pcmItemId});
+  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.plu, this.pcmItemId, this.expiryDate});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'name': name,
@@ -30,6 +31,7 @@ class POItem {
         'poId': poId,
     'plu' : plu,
     'pcmItemId' : pcmItemId,
+    'expiryDate': expiryDate,
 
 
       };
@@ -46,7 +48,7 @@ class POItem {
       poId: doc.data()?['poId'],
       plu: doc.data()?['plu'],
       pcmItemId: doc.data()?['pcmItemId'],
-
+      expiryDate: doc.data()?['expiryDate']?.toDate(),
 
     );
   }
