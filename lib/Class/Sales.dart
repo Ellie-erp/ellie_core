@@ -51,16 +51,17 @@ class Sales {
   num? discount;
   num? paidAmount; ///Show how much customer paid in reality
   PayMethod? payMethod;
-  String get payMethodName => describeEnum(PayMethod);
+
 
   String? deliveryAddress;
   String? staffId;
   String? staffName;
+  bool isPaid;
 
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName, });
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -80,6 +81,7 @@ class Sales {
     'deliveryAddress' : deliveryAddress,
     'staffId' : staffId,
     'staffName' : staffName,
+    'isPaid' : isPaid,
 
 
       }..removeWhere((key, value) => value==null);
@@ -102,6 +104,7 @@ class Sales {
       deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
       staffId: doc.data()?['staffId'],
       staffName: doc.data()?['staffName'],
+      isPaid:  doc.data()?['isPaid'] ?? false,
     );
   }
 
