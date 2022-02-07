@@ -5,7 +5,6 @@ export 'Class/ConsumptionVoucher/CVDailyCount.dart';
 export 'Class/ConsumptionVoucher/Receipts.dart';
 export 'Class/ConsumptionVoucher/Voucher.dart';
 export 'Class/ConsumptionVoucher/VoucherOut.dart';
-export 'Class/Announce.dart';
 export 'Class/BankAcc.dart';
 export 'Class/Client.dart';
 export 'Class/Coupon.dart';
