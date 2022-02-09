@@ -38,3 +38,41 @@ class BusinessClient {
     await docRef!.update(toMap);
   }
 }
+
+
+
+class BCBranch {
+  DocumentReference? docRef;
+  String branchName;
+  String? tel;
+  String? address;
+  String? contactName;
+
+
+
+
+  BCBranch({this.docRef,required  this.branchName, this.tel, this.address ,this.contactName,});
+  Map<String, dynamic> get toMap => {
+        'branchName': branchName,
+        'tel': tel,
+        'address': address,
+        'contactName': contactName,  
+
+
+      };
+  factory BCBranch.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return BCBranch(
+      docRef: doc.reference,
+      branchName: doc.data()!['branchName'],
+      tel: doc.data()!['tel']?? '',
+      address: doc.data()!['address']?? '',
+      contactName: doc.data()!['contactName']?? '',
+
+
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
