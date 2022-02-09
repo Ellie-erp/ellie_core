@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class BusinessClient {
   DocumentReference? docRef;
   DateTime createDate;
-  String? orgName;
+  String orgName;
   String orgNameEn;
   String tel;
   String address;
@@ -11,7 +11,7 @@ class BusinessClient {
 
 
 
-  BusinessClient({this.docRef, required this.createDate, this.orgName,required this.orgNameEn ,required this.tel,required this.address,});
+  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address,});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
@@ -56,7 +56,7 @@ class BCBranch {
         'branchName': branchName,
         'tel': tel,
         'address': address,
-        'contactName': contactName,  
+        'contactName': contactName,
 
 
       };
