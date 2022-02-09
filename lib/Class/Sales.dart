@@ -57,11 +57,12 @@ DateTime? deliveryDate;
   String? staffId;
   String? staffName;
   bool isPaid;
+ String? businessClientId;
+  String? businessClientName;
 
 
 
-
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid, this.deliveryDate });
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid, this.deliveryDate , this.businessClientId, this.businessClientName});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -82,7 +83,9 @@ DateTime? deliveryDate;
     'staffId' : staffId,
     'staffName' : staffName,
     'isPaid' : isPaid,
-    'deliveryDate': deliveryDate
+    'deliveryDate': deliveryDate,
+    'businessClientId' : businessClientId,
+    'businessClientName' : businessClientName,
 
 
       }..removeWhere((key, value) => value==null);
@@ -107,6 +110,8 @@ DateTime? deliveryDate;
       staffName: doc.data()?['staffName'],
       isPaid:  doc.data()?['isPaid'] ?? false,
       deliveryDate: doc.data()?['deliveryDate']?.toDate(),
+      businessClientId: doc.data()?['businessClientId'],
+      businessClientName: doc.data()?['businessClientName'],
     );
   }
 
