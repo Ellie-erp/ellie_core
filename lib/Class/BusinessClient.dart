@@ -7,17 +7,19 @@ class BusinessClient {
   String orgNameEn;
   String tel;
   String address;
+  DateTime updateDate;
 
 
 
 
-  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address,});
+  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
         'orgNameEn': orgNameEn,
         'tel': tel,
         'address': address,
+    'updateDate' : updateDate,
 
 
       };
@@ -29,7 +31,7 @@ class BusinessClient {
       orgNameEn: doc.data()!['orgNameEn'],
       tel: doc.data()!['tel'],
       address: doc.data()!['address'],
-
+     updateDate: doc.data()!['updateDate']?.toDate(),
 
     );
   }
@@ -47,18 +49,19 @@ class BCBranch {
   String? tel;
   String? address;
   String? contactName;
+DateTime createDate;
+DateTime updateDate;
 
 
 
-
-  BCBranch({this.docRef,required  this.branchName, this.tel, this.address ,this.contactName,});
+  BCBranch({this.docRef,required  this.branchName, this.tel, this.address ,this.contactName, required this.createDate, required this.updateDate});
   Map<String, dynamic> get toMap => {
         'branchName': branchName,
         'tel': tel,
         'address': address,
         'contactName': contactName,
-
-
+    'createDate': createDate,
+    'updateDate' : updateDate,
       };
   factory BCBranch.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BCBranch(
@@ -67,8 +70,8 @@ class BCBranch {
       tel: doc.data()!['tel']?? '',
       address: doc.data()!['address']?? '',
       contactName: doc.data()!['contactName']?? '',
-
-
+      createDate: doc.data()!['createDate']?.toDate(),
+      updateDate: doc.data()!['updateDate']?.toDate(),
     );
   }
 
