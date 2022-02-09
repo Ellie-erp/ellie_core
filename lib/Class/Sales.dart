@@ -106,7 +106,7 @@ DateTime? deliveryDate;
       staffId: doc.data()?['staffId'],
       staffName: doc.data()?['staffName'],
       isPaid:  doc.data()?['isPaid'] ?? false,
-      deliveryDate: doc.data()?['deliveryDate']?.toDate() ?? DateTime(0),
+      deliveryDate: doc.data()?['deliveryDate']?.toDate(),
     );
   }
 
