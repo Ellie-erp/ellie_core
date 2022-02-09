@@ -52,7 +52,7 @@ class Sales {
   num? paidAmount; ///Show how much customer paid in reality
   PayMethod? payMethod;
 
-
+DateTime? deliveryDate;
   String? deliveryAddress;
   String? staffId;
   String? staffName;
@@ -61,7 +61,7 @@ class Sales {
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid });
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid, this.deliveryDate });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -82,6 +82,7 @@ class Sales {
     'staffId' : staffId,
     'staffName' : staffName,
     'isPaid' : isPaid,
+    'deliveryDate': deliveryDate
 
 
       }..removeWhere((key, value) => value==null);
@@ -105,6 +106,7 @@ class Sales {
       staffId: doc.data()?['staffId'],
       staffName: doc.data()?['staffName'],
       isPaid:  doc.data()?['isPaid'] ?? false,
+      deliveryDate: doc.data()?['deliveryDate']?.toDate() ?? DateTime(0),
     );
   }
 
