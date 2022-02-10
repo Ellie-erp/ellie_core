@@ -1,5 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+/// a user list mananging the current user who registered in the ERP system. For interApp uses such as order taking.
+/// NOT for managing the account detail/authentication/
+
+
 class UserList {
   DocumentReference? docRef;
   DateTime createDate;
