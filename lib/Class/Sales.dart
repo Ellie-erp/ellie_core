@@ -56,13 +56,15 @@ DateTime? deliveryDate;
   String? deliveryAddress;
   String? staffId;
   String? staffName;
-  bool isPaid;
- String? businessClientId;
+
+ String? businessClientId;   ///if wholesale, the business company name and ID will be record
   String? businessClientName;
+  String? bcBranchId;    /// if any branch exist, it will record the branch id and name.
+  String? bcBranchName;
 
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,required this.isPaid, this.deliveryDate , this.businessClientId, this.businessClientName});
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -82,10 +84,12 @@ DateTime? deliveryDate;
     'deliveryAddress' : deliveryAddress,
     'staffId' : staffId,
     'staffName' : staffName,
-    'isPaid' : isPaid,
+
     'deliveryDate': deliveryDate,
     'businessClientId' : businessClientId,
     'businessClientName' : businessClientName,
+    'bcBranchId': bcBranchId,
+    'bcBranchName' : bcBranchName,
 
 
       }..removeWhere((key, value) => value==null);
@@ -108,10 +112,11 @@ DateTime? deliveryDate;
       deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
       staffId: doc.data()?['staffId'],
       staffName: doc.data()?['staffName'],
-      isPaid:  doc.data()?['isPaid'] ?? false,
       deliveryDate: doc.data()?['deliveryDate']?.toDate(),
       businessClientId: doc.data()?['businessClientId'],
       businessClientName: doc.data()?['businessClientName'],
+      bcBranchId: doc.data()?['bcBranchId'],
+      bcBranchName: doc.data()?['bcBranchName'],
     );
   }
 
