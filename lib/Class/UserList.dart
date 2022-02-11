@@ -10,16 +10,16 @@ class UserList {
   DateTime createDate;
   String? displayName;
   String? email;
+List<DelAddress>? delAddress;
 
 
 
-
-  UserList({this.docRef,required this.createDate, this.displayName, this.email});
+  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
         'email': email,
-
+    'delAddress': (delAddress ?? []).map((e) => e.toMap).toList(),
 
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -28,7 +28,7 @@ class UserList {
       createDate: doc.data()!['createDate']?.toDate(),
       displayName: doc.data()!['displayName']?? 'Undefined',
       email: doc.data()!['email']?? '',
-
+      delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? []).map((e) => DelAddress.fromMap(e)).toList()),
 
     );
   }
@@ -37,3 +37,29 @@ class UserList {
     await docRef!.update(toMap);
   }
 }
+
+
+
+
+
+
+class DelAddress {
+  String? address;
+  String? remark;
+
+
+  DelAddress({this.address, this.remark});
+
+  Map<String, dynamic> get toMap => {
+    'address': address,
+    'remark': remark,
+
+  };
+
+  factory DelAddress.fromMap(Map<String, dynamic> map) {
+    return DelAddress(
+      address: map['address'],
+      remark: map['remark'],
+
+    );
+  }}
