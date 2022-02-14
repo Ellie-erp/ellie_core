@@ -62,9 +62,10 @@ DateTime? deliveryDate;
   String? bcBranchId;    /// if any branch exist, it will record the branch id and name.
   String? bcBranchName;
 
+  String? remark;
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName});
+  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
@@ -90,6 +91,8 @@ DateTime? deliveryDate;
     'businessClientName' : businessClientName,
     'bcBranchId': bcBranchId,
     'bcBranchName' : bcBranchName,
+
+    'remark' : remark,
 
 
       }..removeWhere((key, value) => value==null);
@@ -117,6 +120,7 @@ DateTime? deliveryDate;
       businessClientName: doc.data()?['businessClientName'],
       bcBranchId: doc.data()?['bcBranchId'],
       bcBranchName: doc.data()?['bcBranchName'],
+      remark:  doc.data()?['remark'],
     );
   }
 
