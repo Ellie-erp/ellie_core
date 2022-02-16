@@ -31,4 +31,5 @@ export 'Class/ItemAdjRcd.dart';
 export 'Class/PriceRecord.dart';
 export 'Class/BusinessClient.dart';
 export 'Class/PromList.dart';
+export 'Class/Info.dart';
 

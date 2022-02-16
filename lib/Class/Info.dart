@@ -8,7 +8,7 @@ enum Department {
   ESHOP,
   PCM,
   ACCOUNTING,
-
+  IT,
 }
 
 enum InfoStatus {
