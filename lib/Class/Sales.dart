@@ -30,7 +30,7 @@ enum SalesStatus {
   AWAIT,
   PREPARING,
   RFD,  ///Ready for delivery
-
+  MANUAL /// For backend Colleague to create order for customer, same as await, but not will not show in client's order list before sending
 }
 
 
