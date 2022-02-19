@@ -8,11 +8,13 @@ class BusinessClient {
   String tel;
   String address;
   DateTime updateDate;
+  String? staffId;
+  String? staffName;
 
 
 
 
-  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate});
+  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate, this.staffName, this.staffId});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
@@ -20,6 +22,8 @@ class BusinessClient {
         'tel': tel,
         'address': address,
     'updateDate' : updateDate,
+    'staffId': staffId,
+    'staffName' : staffName,
 
 
       };
@@ -32,6 +36,8 @@ class BusinessClient {
       tel: doc.data()!['tel'],
       address: doc.data()!['address'],
      updateDate: doc.data()!['updateDate']?.toDate(),
+      staffId: doc.data()!['staffId'],
+      staffName: doc.data()!['staffName'],
 
     );
   }
