@@ -189,3 +189,35 @@ class OrderItem {
   Future<void> update() async => await docRef!.update(toMap);
 
 }
+
+
+
+class OrderHistory {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  String text;
+
+
+
+
+  OrderHistory({this.docRef, required this.timestamp, required this.text, });
+  Map<String, dynamic> get toMap => {
+        'timestamp': timestamp,
+        'text': text,
+
+
+      };
+  factory OrderHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return OrderHistory(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp']?.toDate(),
+      text: doc.data()!['text']?? '',
+
+
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
