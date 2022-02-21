@@ -106,6 +106,7 @@ DateTime? deliveryDate;
       salesStatus: SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
       salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
       clientName: doc.data()?['clientName'],
+      clientId: doc.data()?['clientId'],
      locationId: doc.data()?['locationId'],
       locationName: doc.data()?['locationName'] ?? '',
       deduction: doc.data()?['deduction'],
