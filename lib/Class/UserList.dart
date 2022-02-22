@@ -10,16 +10,18 @@ class UserList {
   DateTime createDate;
   String? displayName;
   String? email;
+  num? credit;
 List<DelAddress>? delAddress;
 
 
 
-  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress});
+  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress, this.credit});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
         'email': email,
     'delAddress': (delAddress ?? []).map((e) => e.toMap).toList(),
+    'credit': credit,
 
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -29,7 +31,7 @@ List<DelAddress>? delAddress;
       displayName: doc.data()!['displayName']?? 'Undefined',
       email: doc.data()!['email']?? '',
       delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? []).map((e) => DelAddress.fromMap(e)).toList()),
-
+      credit: doc.data()!['credit']?? 0,
     );
   }
 
@@ -63,3 +65,39 @@ class DelAddress {
 
     );
   }}
+
+
+
+
+class CreditRecord {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  num amount;
+  String? remark;
+
+
+
+
+  CreditRecord({this.docRef, required this.timestamp,required this.amount, this.remark});
+  Map<String, dynamic> get toMap => {
+        'timestamp': timestamp,
+        'amount': amount,
+        'remark': remark,
+
+
+      };
+  factory CreditRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CreditRecord(
+      docRef: doc.reference,
+      timestamp: doc.data()?['timestamp'],
+      amount: doc.data()?['amount'],
+      remark: doc.data()?['remark'],
+
+
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
