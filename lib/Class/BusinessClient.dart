@@ -11,11 +11,11 @@ class BusinessClient {
   String? staffId;
   String? staffName;
   num credit;
+ num paymentPeriod;
 
 
 
-
-  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate, this.staffName, this.staffId, required this.credit});
+  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate, this.staffName, this.staffId, required this.credit, required this.paymentPeriod});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
@@ -26,6 +26,7 @@ class BusinessClient {
     'staffId': staffId,
     'staffName' : staffName,
     'credit': credit,
+    'paymentPeriod': paymentPeriod,
 
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -40,6 +41,7 @@ class BusinessClient {
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
       credit: doc.data()!['credit'],
+      paymentPeriod:  doc.data()!['paymentPeriod']?? 0,
     );
   }
 
