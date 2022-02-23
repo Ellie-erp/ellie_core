@@ -225,7 +225,7 @@ enum PaymentRecordType{
   Payment,
   Change,
   CreditTransfer,
-  Return,
+  Refund,
 }
 
 
