@@ -38,7 +38,7 @@ class Sales {
   DocumentReference? docRef;
   DateTime createDate;
   DateTime updateDate;
-  num? amount;
+  num amount;
 
   SalesStatus salesStatus;
   SalesType salesType;
@@ -49,7 +49,7 @@ class Sales {
   String? locationName;
   num? deduction;
   num? discount;
-  num? paidAmount; ///Show how much customer paid in reality
+  num paidAmount; ///Show how much customer paid in reality
   PayMethod? payMethod;
 
 DateTime? deliveryDate;
@@ -65,7 +65,7 @@ DateTime? deliveryDate;
   String? remark;
 
 
-  Sales({this.docRef, required this.createDate, this.amount,  required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
+  Sales({this.docRef, required this.createDate, required this.amount,  required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount,required this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
