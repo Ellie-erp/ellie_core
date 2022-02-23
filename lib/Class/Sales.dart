@@ -39,7 +39,7 @@ class Sales {
   DateTime createDate;
   DateTime updateDate;
   num? amount;
-  num? total;
+
   SalesStatus salesStatus;
   SalesType salesType;
   String? clientId;
@@ -65,12 +65,12 @@ DateTime? deliveryDate;
   String? remark;
 
 
-  Sales({this.docRef, required this.createDate, this.amount, this.total, required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
+  Sales({this.docRef, required this.createDate, this.amount,  required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount, this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate' : updateDate,
         'amount': amount,
-        'total': total,
+
         'salesStatus': SalesStatus.values.indexOf(this.salesStatus),
     'salesType': SalesType.values.indexOf(this.salesType),
     'clientId' : clientId,
@@ -102,7 +102,7 @@ DateTime? deliveryDate;
       createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
       updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
       amount: doc.data()?['amount'],
-      total: doc.data()?['total'],
+
       salesStatus: SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
       salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
       clientName: doc.data()?['clientName'],
