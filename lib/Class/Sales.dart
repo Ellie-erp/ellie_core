@@ -240,7 +240,7 @@ class PaymentRecord {
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(
       docRef: doc.reference,
-      timestamp: doc.data()!['timestamp']?? '',
+      timestamp: doc.data()!['timestamp']?.toDate(),
       amount: doc.data()!['amount'],
       remark: doc.data()!['remark'],
 
