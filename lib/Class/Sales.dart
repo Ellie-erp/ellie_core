@@ -221,6 +221,12 @@ class OrderHistory {
 
 
 
+enum PaymentRecordType{
+  Payment,
+  Change,
+  CreditTransfer,
+  Return,
+}
 
 
 class PaymentRecord {
@@ -228,13 +234,19 @@ class PaymentRecord {
   DateTime timestamp;
   num amount;
   String? remark;
+  String staffId;
+  String staffName;
+PaymentRecordType paymentRecordType;
 
 
-  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark});
+  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.paymentRecordType});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'amount': amount,
         'remark': remark,
+    'staffId' : staffId,
+    'staffName' : staffName,
+    'paymentRecordType': PaymentRecordType.values.indexOf(this.paymentRecordType),
 
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -243,6 +255,9 @@ class PaymentRecord {
       timestamp: doc.data()!['timestamp']?.toDate(),
       amount: doc.data()!['amount'],
       remark: doc.data()!['remark'],
+      staffId: doc.data()!['staffId'],
+      staffName: doc.data()!['staffName'],
+      paymentRecordType: PaymentRecordType.values.elementAt(doc.data()?['paymentRecordType'] ?? 0),
 
     );
   }
