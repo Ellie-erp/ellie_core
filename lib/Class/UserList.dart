@@ -31,7 +31,7 @@ List<DelAddress>? delAddress;
       displayName: doc.data()!['displayName']?? 'Undefined',
       email: doc.data()!['email']?? '',
       delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? []).map((e) => DelAddress.fromMap(e)).toList()),
-      credit: doc.data()!['credit']?? 0,
+      credit: doc.data()!['credit'],
     );
   }
 
