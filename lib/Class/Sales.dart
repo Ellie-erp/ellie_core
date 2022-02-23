@@ -199,13 +199,10 @@ class OrderHistory {
   String text;
 
 
-
-
   OrderHistory({this.docRef, required this.timestamp, required this.text, });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'text': text,
-
 
       };
   factory OrderHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -214,6 +211,38 @@ class OrderHistory {
       timestamp: doc.data()!['timestamp']?.toDate(),
       text: doc.data()!['text']?? '',
 
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
+
+
+
+
+
+class PaymentRecord {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  num amount;
+  String? remark;
+
+
+  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark});
+  Map<String, dynamic> get toMap => {
+        'timestamp': timestamp,
+        'amount': amount,
+        'remark': remark,
+
+      };
+  factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return PaymentRecord(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp']?? '',
+      amount: doc.data()!['amount'],
+      remark: doc.data()!['remark'],
 
     );
   }
