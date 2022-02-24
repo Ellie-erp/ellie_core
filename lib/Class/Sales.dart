@@ -226,6 +226,7 @@ enum PaymentRecordType{
   Change,
   CreditTransfer,
   Refund,
+  CreditPayment,
 }
 
 
@@ -237,9 +238,10 @@ class PaymentRecord {
   String staffId;
   String staffName;
 PaymentRecordType paymentRecordType;
+ String? orderId;
 
 
-  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.paymentRecordType});
+  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.paymentRecordType, this.orderId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'amount': amount,
@@ -247,6 +249,7 @@ PaymentRecordType paymentRecordType;
     'staffId' : staffId,
     'staffName' : staffName,
     'paymentRecordType': PaymentRecordType.values.indexOf(this.paymentRecordType),
+    'orderId' : orderId,
 
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -258,6 +261,7 @@ PaymentRecordType paymentRecordType;
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
       paymentRecordType: PaymentRecordType.values.elementAt(doc.data()?['paymentRecordType'] ?? 0),
+      orderId: doc.data()!['orderId'],
 
     );
   }
