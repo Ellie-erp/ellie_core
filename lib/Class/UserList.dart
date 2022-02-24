@@ -69,35 +69,3 @@ class DelAddress {
 
 
 
-class CreditRecord {
-  DocumentReference? docRef;
-  DateTime timestamp;
-  num amount;
-  String? remark;
-
-
-
-
-  CreditRecord({this.docRef, required this.timestamp,required this.amount, this.remark});
-  Map<String, dynamic> get toMap => {
-        'timestamp': timestamp,
-        'amount': amount,
-        'remark': remark,
-
-
-      };
-  factory CreditRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return CreditRecord(
-      docRef: doc.reference,
-      timestamp: doc.data()?['timestamp'],
-      amount: doc.data()?['amount'],
-      remark: doc.data()?['remark'],
-
-
-    );
-  }
-
-  Future<void> update() async {
-    await docRef!.update(toMap);
-  }
-}
