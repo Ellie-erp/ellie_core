@@ -4,15 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
 enum PayMethod{
-  NONE,
-  CASH,
-  VISA,
-  MASTER,
-  OCTOPUS,
-  PAYME,
-  ALIPAY,
-  WECHATPAY,
+  Cash,
+  VisaCard,
+  MasterCard,
+  Octopus,
+  Payme,
+  AliPay,
+  WechatPay,
   AE,
+  BankTransferOrCheque,
+  FPS,
 }
 
 enum SalesType{
