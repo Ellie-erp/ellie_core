@@ -90,3 +90,48 @@ DateTime updateDate;
 }
 
 
+
+enum CreditRecordType{
+  Payment,
+  Change,
+  CreditTransfer,
+  Refund,
+  CreditPayment,
+}
+
+
+class CreditRecord {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  num amount;
+  String? remark;
+  String staffId;
+  String staffName;
+  CreditRecordType creditRecordType;
+  String? orderId;
+
+
+  CreditRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.creditRecordType, this.orderId});
+  Map<String, dynamic> get toMap => {
+    'timestamp': timestamp,
+    'amount': amount,
+    'remark': remark,
+    'staffId' : staffId,
+    'staffName' : staffName,
+    'creditRecordType': CreditRecordType.values.indexOf(this.creditRecordType),
+    'orderId' : orderId,
+
+  };
+  factory CreditRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CreditRecord(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp']?.toDate(),
+      amount: doc.data()!['amount'],
+      remark: doc.data()!['remark'],
+      staffId: doc.data()!['staffId'],
+      staffName: doc.data()!['staffName'],
+      creditRecordType: CreditRecordType.values.elementAt(doc.data()?['creditRecordType'] ?? 0),
+      orderId: doc.data()!['orderId'],
+
+    );
+  }}
