@@ -7,7 +7,7 @@ enum PayMethod{
   Cash,
   VisaCard,
   MasterCard,
-  Octopus,
+  OctopusCard,
   Payme,
   AliPay,
   WechatPay,
