@@ -109,9 +109,11 @@ class CreditRecord {
   String staffName;
   CreditRecordType creditRecordType;
   String? orderId;
+  num creditBefore;
+  num creditAfter;
 
 
-  CreditRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.creditRecordType, this.orderId});
+  CreditRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.creditRecordType, this.orderId, required this.creditAfter, required this.creditBefore});
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
     'amount': amount,
@@ -120,6 +122,8 @@ class CreditRecord {
     'staffName' : staffName,
     'creditRecordType': CreditRecordType.values.indexOf(this.creditRecordType),
     'orderId' : orderId,
+    'creditBefore' : creditBefore,
+    'creditAfter' : creditAfter,
 
   };
   factory CreditRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -132,6 +136,8 @@ class CreditRecord {
       staffName: doc.data()!['staffName'],
       creditRecordType: CreditRecordType.values.elementAt(doc.data()?['creditRecordType'] ?? 0),
       orderId: doc.data()!['orderId'],
+      creditBefore: doc.data()!['creditBefore'],
+      creditAfter: doc.data()!['creditAfter'],
 
     );
   }}
