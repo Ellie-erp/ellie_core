@@ -3,10 +3,6 @@ import 'package:flutter/foundation.dart';
 
 enum StockRecordType{
   NEWSTOCK,   ///New buying from suppiler, can attach to PO potentially
-  RETAIL, /// sell to retail
-  WHOLESALE, /// sell to wholesale
-  ONLINE, /// sell to online
-  STOCKIN, /// stock in from shop
 TRANSFER, /// transfer to other facuilties , not include stock in
   DISMANTLE,
 ASSMBLE,
