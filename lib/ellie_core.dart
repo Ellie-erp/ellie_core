@@ -32,4 +32,4 @@ export 'Class/PriceRecord.dart';
 export 'Class/BusinessClient.dart';
 export 'Class/PromList.dart';
 export 'Class/Info.dart';
-
+export 'Class/StockRecordItem.dart';
