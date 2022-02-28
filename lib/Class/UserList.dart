@@ -12,16 +12,18 @@ class UserList {
   String? email;
   num? credit;
 List<DelAddress>? delAddress;
+  num? paymentPeriod;
 
 
-
-  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress, this.credit});
+  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress, this.credit, this.paymentPeriod});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
         'email': email,
     'delAddress': (delAddress ?? []).map((e) => e.toMap).toList(),
     'credit': credit,
+    'paymentPeriod': paymentPeriod,
+
 
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -32,6 +34,7 @@ List<DelAddress>? delAddress;
       email: doc.data()!['email']?? '',
       delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? []).map((e) => DelAddress.fromMap(e)).toList()),
       credit: doc.data()!['credit'],
+      paymentPeriod:  doc.data()!['paymentPeriod']?? 0,
     );
   }
 
