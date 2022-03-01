@@ -28,7 +28,7 @@ class StockRecord {
   StockRecordStatus stockRecordStatus;
   String? poId;   /// If this is New stock, it record PO
   String? poSeller;
-  String? poETA;
+  DateTime? poETA;
 
 
 
@@ -60,7 +60,7 @@ class StockRecord {
       stockRecordStatus: StockRecordStatus.values.elementAt(doc.data()?['stockRecordStatus'] ?? 0),
       poId: doc.data()?['poId'],
       poSeller: doc.data()?['poSeller'],
-      poETA: doc.data()?['poETA'],
+      poETA: doc.data()?['poETA']?.toDate(),
     );
   }
 
