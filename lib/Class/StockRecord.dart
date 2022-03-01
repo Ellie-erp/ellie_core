@@ -18,10 +18,11 @@ class StockRecord {
   String? location2Id;
   String? location2Name;
   StockRecordType stockRecordType;
+  String? refId;   /// If this is New stock, it record PO
 
 
 
-  StockRecord({this.docRef, required this.timestamp, required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stockRecordType});
+  StockRecord({this.docRef, required this.timestamp, required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stockRecordType, this.refId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
 
@@ -30,6 +31,7 @@ class StockRecord {
         'location2Id': location2Id,
         'location2Name': location2Name,
     'stockRecordType' : StockRecordType.values.indexOf(this.stockRecordType),
+    'refId' : refId,
 
 
       };
@@ -43,7 +45,7 @@ class StockRecord {
       location2Id: doc.data()?['location2Id'],
       location2Name: doc.data()?['location2Name'],
       stockRecordType: StockRecordType.values.elementAt(doc.data()?['stockRecordType'] ?? 0),
-
+      refId: doc.data()?['refId'],
     );
   }
 
