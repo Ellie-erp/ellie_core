@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 enum StockRecordStatus{
   AWAIT,
-  SENT,
+  SENT, /// if process the stock record to ther Stock Collection
 
 }
 

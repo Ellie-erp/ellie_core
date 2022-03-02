@@ -4,6 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// a user list mananging the current user who registered in the ERP system. For interApp uses such as order taking.
 /// NOT for managing the account detail/authentication/
 
+enum UserType{
+  Client,
+  Staff,
+}
+
+
 
 class UserList {
   DocumentReference? docRef;
@@ -13,9 +19,10 @@ class UserList {
   num? credit;
 List<DelAddress>? delAddress;
   num? paymentPeriod;
+  UserType userType;
 
 
-  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress, this.credit, this.paymentPeriod});
+  UserList({this.docRef,required this.createDate, this.displayName, this.email, this.delAddress, this.credit, this.paymentPeriod, this.userType = UserType.Client});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
@@ -23,8 +30,7 @@ List<DelAddress>? delAddress;
     'delAddress': (delAddress ?? []).map((e) => e.toMap).toList(),
     'credit': credit,
     'paymentPeriod': paymentPeriod,
-
-
+    'userType': userType.index,
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserList(
@@ -35,6 +41,7 @@ List<DelAddress>? delAddress;
       delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? []).map((e) => DelAddress.fromMap(e)).toList()),
       credit: doc.data()!['credit'],
       paymentPeriod:  doc.data()!['paymentPeriod']?? 0,
+      userType: UserType.values.elementAt(doc.data()!['userType'] ?? 0)
     );
   }
 

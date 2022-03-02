@@ -148,7 +148,7 @@ class OrderItem {
   String title;
   String? code;
   num unitPrice;
-  num? amount;
+  num? amount; /// so far has not used yet
   Unit unit;
   String get unitName => describeEnum(unit);
 
