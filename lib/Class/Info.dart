@@ -9,6 +9,7 @@ enum Department {
   PCM,
   ACCOUNTING,
   IT,
+  ESHOPQA,
 }
 
 enum InfoStatus {
