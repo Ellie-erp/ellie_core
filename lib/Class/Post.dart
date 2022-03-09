@@ -6,7 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 ///
 ///
 /// To do list : Adding a array for series of photos
-/// Adding a list for storing product SKU. Needed to retreved in the product section.
+/// To do list: add a list for storing product SKU. Needed to retreved in the product section.
+/// To do list: dd a tag function for categories.
 class Post {
   DocumentReference? docRef;
   DateTime createDate;
