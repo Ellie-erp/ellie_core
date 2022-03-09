@@ -33,3 +33,4 @@ export 'Class/BusinessClient.dart';
 export 'Class/PromList.dart';
 export 'Class/Info.dart';
 export 'Class/StockRecordItem.dart';
+export 'Class/Post.dart';
