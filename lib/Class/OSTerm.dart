@@ -36,7 +36,7 @@ class OSTerm {
     return OSTerm(
       docRef: doc.reference,
       infoStatus: InfoStatus.values.elementAt(doc.data()?['infoStatus'] ?? 0),
-      termType: TermType.values.elementAt(doc.data()?['postType'] ?? 0),
+      termType: TermType.values.elementAt(doc.data()?['termType'] ?? 0),
       createDate: doc.data()?['createDate']?.toDate(),
       updateDate: doc.data()?['updateDate']?.toDate(),
       title: doc.data()?['title'],
