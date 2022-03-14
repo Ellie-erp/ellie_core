@@ -1,11 +1,11 @@
-import 'dart:typed_data';
+import 'dart:typed_data' show Uint8List;
 
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
-final dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
+final _dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
 
 /// Create a delivery note template with data.
 ///
@@ -25,6 +25,7 @@ final dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
 /// ]
 Future<Uint8List> buildDeliveryNote(
   PdfPageFormat format, {
+  required String orderId,
   required String shopName,
   required DateTime createDate,
   required String shopAddress,
@@ -33,14 +34,17 @@ Future<Uint8List> buildDeliveryNote(
   required int totalOrderQuantity,
   required int totalShippedQuantity,
 }) async {
-  final pdf = Document();
+  const title = 'P&J Food Delivery Note';
 
   final themeData = ThemeData.withFont(
     base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
     bold: await PdfGoogleFonts.shipporiMinchoB1Bold(),
     italic: await PdfGoogleFonts.shipporiMinchoB1Regular(),
     boldItalic: await PdfGoogleFonts.shipporiMinchoB1Bold(),
-  ).copyWith(defaultTextStyle: const TextStyle(fontSize: 12));
+  ).copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
+
+  final pdf =
+      Document(title: title, theme: themeData, version: PdfVersion.pdf_1_4);
 
   final titleTextStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
 
@@ -50,16 +54,22 @@ Future<Uint8List> buildDeliveryNote(
         Text('${context.pageNumber}/${context.pagesCount}')
       ]);
 
+  Widget footer(Context context) => SizedBox(
+      width: 200,
+      height: 40,
+      child: BarcodeWidget(barcode: Barcode.code128(), data: orderId));
+
   pdf.addPage(MultiPage(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       pageFormat: format,
-      theme: themeData,
       header: header,
+      footer: footer,
       build: (Context context) {
         return [
           Row(children: [
-            Text('落單日期: ${dateFormatter.format(createDate)}'),
+            Text('落單日期: ${_dateFormatter.format(createDate)}'),
             Spacer(),
-            Text('送貨日期: ${dateFormatter.format(DateTime.now())}')
+            Text('送貨日期: ${_dateFormatter.format(DateTime.now())}')
           ]),
           Row(children: [Text('店鋪名稱: $shopName'), Spacer()]),
           Row(children: [Text('店鋪地址: $shopAddress')]),
@@ -80,12 +90,16 @@ Future<Uint8List> buildDeliveryNote(
             5: const FixedColumnWidth(30),
           }, cellAlignment: Alignment.center, data: data),
           Row(children: [
-            SizedBox(width: 350),
-            Text('總落單件數: $totalOrderQuantity', style: titleTextStyle)
+            SizedBox(width: 400),
+            Text('總落單件數:', style: titleTextStyle),
+            Spacer(),
+            Text('$totalOrderQuantity', style: titleTextStyle)
           ]),
           Row(children: [
-            SizedBox(width: 350),
-            Text('總送貨件數: $totalShippedQuantity', style: titleTextStyle)
+            SizedBox(width: 400),
+            Text('總送貨件數:', style: titleTextStyle),
+            Spacer(),
+            Text('$totalShippedQuantity', style: titleTextStyle)
           ]),
         ];
       }));
@@ -96,6 +110,7 @@ Future<Uint8List> buildDeliveryNote(
 Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
     buildDeliveryNote(
       format,
+      orderId: '2dGmWpEQMUX30OUwRFKW',
       shopName: 'P&J Food 新豐中心店鋪',
       createDate: DateTime(2022, 2, 12, 14, 54, 23),
       shopAddress: '葵涌,國瑞路88號,新豐中心5樓16室',
