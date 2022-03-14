@@ -23,15 +23,16 @@ final dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
 ///      '\$8055.7'
 ///   ]
 /// ]
-Future<Uint8List> buildDeliveryNote(PdfPageFormat format,
-    {required String shopName,
-    required DateTime createDate,
-    required String shopAddress,
-    String? remark,
-    required List<List<dynamic>> data,
-    required int totalOrderQuantity,
-    required int totalShippedQuantity,
-    required num totalPrice}) async {
+Future<Uint8List> buildDeliveryNote(
+  PdfPageFormat format, {
+  required String shopName,
+  required DateTime createDate,
+  required String shopAddress,
+  String? remark,
+  required List<List<dynamic>> data,
+  required int totalOrderQuantity,
+  required int totalShippedQuantity,
+}) async {
   final pdf = Document();
 
   final themeData = ThemeData.withFont(
@@ -70,28 +71,22 @@ Future<Uint8List> buildDeliveryNote(PdfPageFormat format,
             '落單數量',
             '送貨數量',
             '重量',
-            '分項總價'
           ], columnWidths: {
             0: const FixedColumnWidth(20),
-            1: const FixedColumnWidth(100),
+            1: const FixedColumnWidth(120),
             2: const FixedColumnWidth(20),
             3: const FixedColumnWidth(20),
             4: const FixedColumnWidth(20),
-            5: const FixedColumnWidth(20),
-            6: const FixedColumnWidth(20),
+            5: const FixedColumnWidth(30),
           }, cellAlignment: Alignment.center, data: data),
           Row(children: [
-            SizedBox(width: 300),
+            SizedBox(width: 350),
             Text('總落單件數: $totalOrderQuantity', style: titleTextStyle)
           ]),
           Row(children: [
-            SizedBox(width: 300),
+            SizedBox(width: 350),
             Text('總送貨件數: $totalShippedQuantity', style: titleTextStyle)
           ]),
-          Row(children: [
-            SizedBox(width: 300),
-            Text('總價: HKD\$$totalPrice', style: titleTextStyle)
-          ])
         ];
       }));
 
@@ -99,112 +94,62 @@ Future<Uint8List> buildDeliveryNote(PdfPageFormat format,
 }
 
 Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
-    buildDeliveryNote(format,
-        shopName: 'P&J Food 新豐中心店鋪',
-        createDate: DateTime(2022, 2, 12, 14, 54, 23),
-        shopAddress: '葵涌,國瑞路88號,新豐中心5樓16室',
-        remark: '請帶2卷收據紙',
-        data: [
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$212.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
-          [
-            '11010',
-            '西班牙Batalle豬排(500g)',
-            '\$250/KG',
-            '29',
-            '28',
-            '32.223KG',
-            '\$8055.7'
-          ],
+    buildDeliveryNote(
+      format,
+      shopName: 'P&J Food 新豐中心店鋪',
+      createDate: DateTime(2022, 2, 12, 14, 54, 23),
+      shopAddress: '葵涌,國瑞路88號,新豐中心5樓16室',
+      remark: '請帶2卷收據紙',
+      data: [
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/PC',
+          '29',
+          '28',
+          '32.223KG',
         ],
-        totalOrderQuantity: 230,
-        totalShippedQuantity: 220,
-        totalPrice: 12312);
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/KG',
+          '29',
+          '28',
+          '32PCS',
+        ],
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/KG',
+          '29',
+          '28',
+          '32.223KG',
+        ],
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/KG',
+          '29',
+          '28',
+          '32.223KG',
+        ],
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/KG',
+          '29',
+          '28',
+          '32.223KG',
+        ],
+        [
+          '11010',
+          '西班牙Batalle豬排(500g)',
+          '\$250/KG',
+          '29',
+          '28',
+          '32.223KG',
+        ],
+      ],
+      totalOrderQuantity: 230,
+      totalShippedQuantity: 220,
+    );
