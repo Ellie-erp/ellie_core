@@ -19,7 +19,8 @@ ASSMBLE,
 
 class StockRecord {
   DocumentReference? docRef;
-  DateTime timestamp;
+  DateTime createDate;
+  DateTime? sentDate;
   String locationId;
   String? locationName;
   String? location2Id;
@@ -32,9 +33,10 @@ class StockRecord {
 
 
 
-  StockRecord({this.docRef, required this.timestamp, required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stockRecordType, this.poId, this.poSeller, this.poETA, required this.stockRecordStatus});
+  StockRecord({this.docRef, required this.createDate,this.sentDate, required this.locationId,  this.locationName, this.location2Id, this.location2Name, required this.stockRecordType, this.poId, this.poSeller, this.poETA, required this.stockRecordStatus});
   Map<String, dynamic> get toMap => {
-        'timestamp': timestamp,
+        'createDate': createDate,
+    'sentDate': sentDate,
 
         'locationId': locationId,
         'locationName': locationName,
@@ -51,7 +53,8 @@ class StockRecord {
   factory StockRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return StockRecord(
       docRef: doc.reference,
-      timestamp: doc.data()?['timestamp']?.toDate(),
+      createDate: doc.data()?['createDate']?.toDate(),
+      sentDate: doc.data()?['sentDate']?.toDate(),
       locationId: doc.data()?['locationId'],
       locationName: doc.data()?['locationName'],
       location2Id: doc.data()?['location2Id'],
