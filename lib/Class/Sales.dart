@@ -1,9 +1,8 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
-enum PayMethod{
+enum PayMethod {
   Cash,
   VisaCard,
   MasterCard,
@@ -16,12 +15,11 @@ enum PayMethod{
   FPS,
 }
 
-enum SalesType{
+enum SalesType {
   RETAIL,
   WHOLESALE,
   ONLINE,
   STOCKIN,
-
 }
 
 enum SalesStatus {
@@ -30,10 +28,13 @@ enum SalesStatus {
   CANCEL,
   AWAIT,
   PREPARING,
-  RFD,  ///Ready for delivery
-  MANUAL /// For backend Colleague to create order for customer, same as await, but not will not show in client's order list before sending
-}
+  RFD,
 
+  ///Ready for delivery
+  MANUAL
+
+  /// For backend Colleague to create order for customer, same as await, but not will not show in client's order list before sending
+}
 
 class Sales {
   DocumentReference? docRef;
@@ -50,68 +51,90 @@ class Sales {
   String? locationName;
   num? deduction;
   num? discount;
-  num paidAmount; ///Show how much customer paid in reality
+  num paidAmount;
+
+  ///Show how much customer paid in reality
   PayMethod? payMethod;
 
-DateTime? deliveryDate;
+  DateTime? deliveryDate;
   String? deliveryAddress;
   String? staffId;
   String? staffName;
 
- String? businessClientId;   ///if wholesale, the business company name and ID will be record
+  String? businessClientId;
+
+  ///if wholesale, the business company name and ID will be record
   String? businessClientName;
-  String? bcBranchId;    /// if any branch exist, it will record the branch id and name.
+  String? bcBranchId;
+
+  /// if any branch exist, it will record the branch id and name.
   String? bcBranchName;
 
   String? remark;
 
-
-  Sales({this.docRef, required this.createDate, required this.amount,  required this.salesStatus, this.clientName, this.clientId, required this.salesType, required this.locationId, this.locationName, this.deduction, this.discount,required this.paidAmount, this.payMethod,required this.updateDate, this.deliveryAddress, this.staffId, this.staffName,this.deliveryDate , this.businessClientId, this.businessClientName, this.bcBranchId, this.bcBranchName, this.remark});
+  Sales(
+      {this.docRef,
+      required this.createDate,
+      required this.amount,
+      required this.salesStatus,
+      this.clientName,
+      this.clientId,
+      required this.salesType,
+      required this.locationId,
+      this.locationName,
+      this.deduction,
+      this.discount,
+      required this.paidAmount,
+      this.payMethod,
+      required this.updateDate,
+      this.deliveryAddress,
+      this.staffId,
+      this.staffName,
+      this.deliveryDate,
+      this.businessClientId,
+      this.businessClientName,
+      this.bcBranchId,
+      this.bcBranchName,
+      this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'updateDate' : updateDate,
+        'updateDate': updateDate,
         'amount': amount,
-
         'salesStatus': SalesStatus.values.indexOf(this.salesStatus),
-    'salesType': SalesType.values.indexOf(this.salesType),
-    'clientId' : clientId,
-    'clientName' : clientName,
-
-    'locationId' : locationId,
-    'locationName' : locationName,
-    'deduction' : deduction,
-    'discount' : discount,
-    'paidAmount' : paidAmount,
-    'payMethod' : PayMethod.values.indexOf(this.payMethod!),
-    'deliveryAddress' : deliveryAddress,
-    'staffId' : staffId,
-    'staffName' : staffName,
-
-    'deliveryDate': deliveryDate,
-    'businessClientId' : businessClientId,
-    'businessClientName' : businessClientName,
-    'bcBranchId': bcBranchId,
-    'bcBranchName' : bcBranchName,
-
-    'remark' : remark,
-
-
-      }..removeWhere((key, value) => value==null);
+        'salesType': SalesType.values.indexOf(this.salesType),
+        'clientId': clientId,
+        'clientName': clientName,
+        'locationId': locationId,
+        'locationName': locationName,
+        'deduction': deduction,
+        'discount': discount,
+        'paidAmount': paidAmount,
+        'payMethod': PayMethod.values.indexOf(this.payMethod!),
+        'deliveryAddress': deliveryAddress,
+        'staffId': staffId,
+        'staffName': staffName,
+        'deliveryDate': deliveryDate,
+        'businessClientId': businessClientId,
+        'businessClientName': businessClientName,
+        'bcBranchId': bcBranchId,
+        'bcBranchName': bcBranchName,
+        'remark': remark,
+      }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
       updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
       amount: doc.data()?['amount'],
-
-      salesStatus: SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
+      salesStatus:
+          SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
       salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
       clientName: doc.data()?['clientName'],
       clientId: doc.data()?['clientId'],
-     locationId: doc.data()?['locationId'],
+      locationId: doc.data()?['locationId'],
       locationName: doc.data()?['locationName'] ?? '',
       deduction: doc.data()?['deduction'] ?? 0,
-      discount: doc.data()?['discount']?? 1,
+      discount: doc.data()?['discount'] ?? 1,
       paidAmount: doc.data()?['paidAmount'],
       payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
       deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
@@ -122,7 +145,7 @@ DateTime? deliveryDate;
       businessClientName: doc.data()?['businessClientName'],
       bcBranchId: doc.data()?['bcBranchId'],
       bcBranchName: doc.data()?['bcBranchName'],
-      remark:  doc.data()?['remark'],
+      remark: doc.data()?['remark'],
     );
   }
 
@@ -131,16 +154,12 @@ DateTime? deliveryDate;
   }
 }
 
-
 //
 // enum Unit{
 //   PC,
 //   KG
 //
 // }
-
-
-
 
 class OrderItem {
   DocumentReference? docRef;
@@ -155,23 +174,28 @@ class OrderItem {
   num? preQTY;
   List? array;
   String? remark;
-  
 
-  OrderItem({this.docRef, required this.timestamp,  required this.title, this.code, required this.unitPrice, required this.unit, this.preQTY, this.array, this.remark});
+  OrderItem(
+      {this.docRef,
+      required this.timestamp,
+      required this.title,
+      this.code,
+      required this.unitPrice,
+      required this.unit,
+      this.preQTY,
+      this.array,
+      this.remark});
 
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'title': title,
-    'code' : code,
-    'unitPrice' : unitPrice,
-
-    'unit': Unit.values.indexOf(this.unit),
-
-    'preQTY' : preQTY,
-    'array': array,
-    'remark' : remark,
-  };
-
+        'timestamp': timestamp,
+        'title': title,
+        'code': code,
+        'unitPrice': unitPrice,
+        'unit': Unit.values.indexOf(this.unit),
+        'preQTY': preQTY,
+        'array': array,
+        'remark': remark,
+      };
 
   factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderItem(
@@ -180,7 +204,6 @@ class OrderItem {
       title: doc.data()?['title'],
       code: doc.data()?['code'],
       unitPrice: doc.data()?['unitPrice'],
-
       unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
       preQTY: doc.data()?['preQTY'],
       array: doc.data()?['array'] ?? [],
@@ -189,29 +212,27 @@ class OrderItem {
   }
 
   Future<void> update() async => await docRef!.update(toMap);
-
 }
-
-
 
 class OrderHistory {
   DocumentReference? docRef;
   DateTime timestamp;
   String text;
 
-
-  OrderHistory({this.docRef, required this.timestamp, required this.text, });
+  OrderHistory({
+    this.docRef,
+    required this.timestamp,
+    required this.text,
+  });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'text': text,
-
       };
   factory OrderHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderHistory(
       docRef: doc.reference,
       timestamp: doc.data()!['timestamp']?.toDate(),
-      text: doc.data()!['text']?? '',
-
+      text: doc.data()!['text'] ?? '',
     );
   }
 
@@ -220,16 +241,13 @@ class OrderHistory {
   }
 }
 
-
-
-enum PaymentRecordType{
+enum PaymentRecordType {
   Payment,
   Change,
   CreditTransfer,
   Refund,
   CreditPayment,
 }
-
 
 class PaymentRecord {
   DocumentReference? docRef;
@@ -238,20 +256,24 @@ class PaymentRecord {
   String? remark;
   String staffId;
   String staffName;
-PaymentRecordType paymentRecordType;
+  PaymentRecordType paymentRecordType;
 
-
-
-  PaymentRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.paymentRecordType});
+  PaymentRecord(
+      {this.docRef,
+      required this.timestamp,
+      required this.amount,
+      this.remark,
+      required this.staffId,
+      required this.staffName,
+      required this.paymentRecordType});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'amount': amount,
         'remark': remark,
-    'staffId' : staffId,
-    'staffName' : staffName,
-    'paymentRecordType': PaymentRecordType.values.indexOf(this.paymentRecordType),
-
-
+        'staffId': staffId,
+        'staffName': staffName,
+        'paymentRecordType':
+            PaymentRecordType.values.indexOf(this.paymentRecordType),
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(
@@ -261,8 +283,8 @@ PaymentRecordType paymentRecordType;
       remark: doc.data()!['remark'],
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
-      paymentRecordType: PaymentRecordType.values.elementAt(doc.data()?['paymentRecordType'] ?? 0),
-
+      paymentRecordType: PaymentRecordType.values
+          .elementAt(doc.data()?['paymentRecordType'] ?? 0),
     );
   }
 
