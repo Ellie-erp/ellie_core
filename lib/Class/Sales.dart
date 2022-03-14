@@ -72,6 +72,8 @@ class Sales {
 
   String? remark;
 
+  num freight;
+
   Sales(
       {this.docRef,
       required this.createDate,
@@ -95,7 +97,8 @@ class Sales {
       this.businessClientName,
       this.bcBranchId,
       this.bcBranchName,
-      this.remark});
+      this.remark,
+      this.freight = 0});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -119,34 +122,35 @@ class Sales {
         'bcBranchId': bcBranchId,
         'bcBranchName': bcBranchName,
         'remark': remark,
+        'freight': freight
       }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
-      docRef: doc.reference,
-      createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
-      updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
-      amount: doc.data()?['amount'],
-      salesStatus:
-          SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
-      salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
-      clientName: doc.data()?['clientName'],
-      clientId: doc.data()?['clientId'],
-      locationId: doc.data()?['locationId'],
-      locationName: doc.data()?['locationName'] ?? '',
-      deduction: doc.data()?['deduction'] ?? 0,
-      discount: doc.data()?['discount'] ?? 1,
-      paidAmount: doc.data()?['paidAmount'],
-      payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
-      deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
-      staffId: doc.data()?['staffId'],
-      staffName: doc.data()?['staffName'],
-      deliveryDate: doc.data()?['deliveryDate']?.toDate(),
-      businessClientId: doc.data()?['businessClientId'],
-      businessClientName: doc.data()?['businessClientName'],
-      bcBranchId: doc.data()?['bcBranchId'],
-      bcBranchName: doc.data()?['bcBranchName'],
-      remark: doc.data()?['remark'],
-    );
+        docRef: doc.reference,
+        createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
+        updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
+        amount: doc.data()?['amount'],
+        salesStatus:
+            SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
+        salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
+        clientName: doc.data()?['clientName'],
+        clientId: doc.data()?['clientId'],
+        locationId: doc.data()?['locationId'],
+        locationName: doc.data()?['locationName'] ?? '',
+        deduction: doc.data()?['deduction'] ?? 0,
+        discount: doc.data()?['discount'] ?? 1,
+        paidAmount: doc.data()?['paidAmount'],
+        payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
+        deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
+        staffId: doc.data()?['staffId'],
+        staffName: doc.data()?['staffName'],
+        deliveryDate: doc.data()?['deliveryDate']?.toDate(),
+        businessClientId: doc.data()?['businessClientId'],
+        businessClientName: doc.data()?['businessClientName'],
+        bcBranchId: doc.data()?['bcBranchId'],
+        bcBranchName: doc.data()?['bcBranchName'],
+        remark: doc.data()?['remark'],
+        freight: doc.data()!['freight'] ?? 0);
   }
 
   Future<void> update() async {
