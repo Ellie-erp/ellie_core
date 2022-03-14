@@ -179,6 +179,9 @@ class OrderItem {
   List? array;
   String? remark;
 
+  num get totalPrice =>
+      List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
+
   OrderItem(
       {this.docRef,
       required this.timestamp,
