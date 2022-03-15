@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Department {
@@ -9,7 +8,6 @@ enum Department {
   PCM,
   ACCOUNTING,
   IT,
-  ESHOPQA,
 }
 
 enum InfoStatus {
@@ -17,13 +15,7 @@ enum InfoStatus {
   DRAFT,
 }
 
-
-enum InfoType {
-  Announcement,
-  Guideline
-}
-
-
+enum InfoType { Announcement, Guideline }
 
 class Info {
   DocumentReference? docRef;
@@ -35,18 +27,23 @@ class Info {
   InfoStatus infoStatus;
   Department department;
 
-
-
-  Info({this.docRef,required this.createDate,required this.updateDate,required this.title ,this.content,required this.infoType, required this.infoStatus, required this.department});
+  Info(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.title,
+      this.content,
+      required this.infoType,
+      required this.infoStatus,
+      required this.department});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'title': title,
         'content': content,
         'infoType': InfoType.values.indexOf(this.infoType),
-    'infoStatus': InfoStatus.values.indexOf(this.infoStatus),
-    'department' : Department.values.indexOf(this.department),
-
+        'infoStatus': InfoStatus.values.indexOf(this.infoStatus),
+        'department': Department.values.indexOf(this.department),
       };
   factory Info.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Info(
