@@ -171,13 +171,13 @@ class OrderItem {
   String title;
   String? code;
   num unitPrice;
-
   Unit unit;
   String get unitName => describeEnum(unit);
-
   num? preQTY;
   List? array;
   String? remark;
+  String? locationId;
+
 
   num get totalPrice =>
       List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
@@ -191,7 +191,8 @@ class OrderItem {
       required this.unit,
       this.preQTY,
       this.array,
-      this.remark});
+      this.remark,
+      this.locationId});
 
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
@@ -202,6 +203,7 @@ class OrderItem {
         'preQTY': preQTY,
         'array': array,
         'remark': remark,
+    'locationId': locationId
       };
 
   factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -215,6 +217,7 @@ class OrderItem {
       preQTY: doc.data()?['preQTY'],
       array: doc.data()?['array'] ?? [],
       remark: doc.data()?['remark'] ?? '',
+      locationId: doc.data()?['locationId'],
     );
   }
 
