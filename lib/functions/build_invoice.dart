@@ -179,7 +179,7 @@ TO: $customerName
                                 Row(children: [
                                   Text('HKD'),
                                   Spacer(),
-                                  Text('-' + subTotalPrice.toStringAsFixed(1))
+                                  Text('-' + discount.toStringAsFixed(1))
                                 ]),
                                 Row(children: [
                                   Text('HKD'),
