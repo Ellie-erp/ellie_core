@@ -34,9 +34,10 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
     String? comment,
     required List<List<dynamic>> data,
     required num subTotalPrice,
+    required num discount,
     required num freight,
     required totalPrice}) async {
-  const title = 'P&J Food Invoice';
+  const title = 'P&J Food HK Limited Invoice';
 
   final themeData = ThemeData.withFont(
     base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
@@ -55,7 +56,7 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
   Widget header(Context context) => Stack(children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            'P&J Food Co.',
+            'P&J Food HK Limited',
             style: titleTextStyle,
           ),
           Text('Room 516, Sun Fung Centre, 88 Kwai Shui Road,'),
@@ -63,7 +64,6 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
             'Kwai Chung, Hong Kong',
           ),
           Text('Tel: 2418-0400'),
-          Text('Fax: 2418-0400')
         ]),
         Align(
             alignment: Alignment.centerRight,
@@ -103,7 +103,7 @@ TO: $customerName
                     headers: ['PAYMENT METHOD'],
                     cellAlignment: Alignment.center,
                     data: [
-                      ['Credit card']
+                      [paymentMethod]
                     ])),
             Container(height: 5),
             Table.fromTextArray(
@@ -158,6 +158,7 @@ TO: $customerName
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('SUB-TOTAL'),
+                                Text('DISCOUNT'),
                                 Text('FREIGHT'),
                                 Text('TOTAL')
                               ]))),
@@ -174,6 +175,11 @@ TO: $customerName
                                   Text('HKD'),
                                   Spacer(),
                                   Text(subTotalPrice.toStringAsFixed(1))
+                                ]),
+                                Row(children: [
+                                  Text('HKD'),
+                                  Spacer(),
+                                  Text('-' + subTotalPrice.toStringAsFixed(1))
                                 ]),
                                 Row(children: [
                                   Text('HKD'),
@@ -231,5 +237,6 @@ Future<Uint8List> buildInvoiceExample(PdfPageFormat format) async =>
           ['11021', '西班牙Batalle豬排500g', '22', '23', '150.0/KG', '1050.0'],
         ],
         subTotalPrice: 20493,
+        discount: 100,
         freight: 88,
         totalPrice: 20581);
