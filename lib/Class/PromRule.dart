@@ -28,12 +28,13 @@ bool allowOnline;
 bool allowStockIn;
 String promListId;
 bool isAllUser;
+List<PromRuleUserList>? promRuleUserList;
 
 
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -48,6 +49,7 @@ bool isAllUser;
     'allowStockIn' : allowStockIn,
     'promListId' : promListId,
     'isAllUser' : isAllUser,
+    'promRuleUserList': (promRuleUserList ?? []).map((e) => e.toMap).toList(),
       };
 
 
@@ -67,6 +69,7 @@ bool isAllUser;
       allowStockIn: doc.data()!['allowStockIn']?? false,
       promListId: doc.data()!['promListId'],
       isAllUser: doc.data()!['isAllUser']?? true,
+      promRuleUserList: List<PromRuleUserList>.from((doc.data()!['promRuleUserList'] ?? []).map((e) => PromRuleUserList.fromMap(e)).toList()),
     );
   }
 
@@ -74,6 +77,31 @@ bool isAllUser;
     await docRef!.update(toMap);
   }
 }
+
+
+
+
+
+class PromRuleUserList {
+  String userId;
+
+
+
+  PromRuleUserList({ required this.userId});
+
+  Map<String, dynamic> get toMap => {
+    'userId': userId,
+
+
+  };
+
+  factory PromRuleUserList.fromMap(Map<String, dynamic> map) {
+    return PromRuleUserList(
+      userId: map['userId'],
+
+    );
+  }}
+
 
 
 
