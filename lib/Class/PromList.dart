@@ -11,13 +11,13 @@ class PromList {
   DateTime updateDate;
   String title;
   String? content;
-  DateTime startDate;
-  DateTime endDate;
- bool allowDate;
+  DateTime? startDate;
+  DateTime? endDate;
+ bool isDateRequired;
 
 
 
-  PromList({this.docRef,required this.createDate,required this.updateDate,required this.title ,this.content, required this.startDate, required this.endDate ,required this.allowDate});
+  PromList({this.docRef,required this.createDate,required this.updateDate,required this.title ,this.content, this.startDate,this.endDate , this.isDateRequired=false});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -25,7 +25,7 @@ class PromList {
         'content': content,
     'startDate' : startDate,
     'endDate' : endDate,
-    'allowDate' : allowDate,
+    'isDateRequired' : isDateRequired,
 
 
       };
@@ -37,8 +37,8 @@ class PromList {
       title: doc.data()!['title'],
       content: doc.data()!['content'] ?? '',
       startDate: doc.data()!['startDate']?.toDate()  ?? DateTime.now(),
-      endDate: doc.data()!['endDate']?.toDate(),
-      allowDate: doc.data()!['allowDate']?.toDate(),
+      endDate: doc.data()!['endDate']?.toDate() ?? DateTime.now(),
+      isDateRequired: doc.data()!['isDateRequired']?? false,
     );
   }
 
