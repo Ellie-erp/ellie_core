@@ -52,12 +52,12 @@ String promListId;
   factory PromRule.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PromRule(
       docRef: doc.reference,
-      createDate: doc.data()!['createDate']?.date(),
-      updateDate: doc.data()!['updateDate']?.date(),
+      createDate: doc.data()!['createDate']?.toDate(),
+      updateDate: doc.data()!['updateDate']?.toDate(),
       ruleName: doc.data()!['ruleName'],
       isDateRequired: doc.data()!['isDateRequired']?? false,
-      startDate: doc.data()!['startDate']?.date() ?? DateTime.now(),
-      endDate: doc.data()!['endDate']?.date() ?? DateTime.now(),
+      startDate: doc.data()!['startDate']?.toDate() ?? DateTime.now(),
+      endDate: doc.data()!['endDate']?.toDate() ?? DateTime.now(),
       promRuleStatus: PromRuleStatus.values.elementAt(doc.data()?['promRuleStatus'] ?? 0),
       allowRetail: doc.data()!['allowRetail']?? false,
       allowWholesale: doc.data()!['allowWholesale']?? false,
