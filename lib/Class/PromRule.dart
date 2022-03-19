@@ -20,7 +20,7 @@ class PromRule {
   String ruleName;
   bool isDateRequired;
   DateTime? startDate;
-  DateTime? EndDate;
+  DateTime? endDate;
 PromRuleStatus promRuleStatus;
 bool allowRetail;
 bool allowWholsale;
@@ -32,14 +32,14 @@ String promListId;
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.EndDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholsale=false, this.allowOnline=false, this.allowStockIn=false, allowWholesale, required this.promListId});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholsale=false, this.allowOnline=false, this.allowStockIn=false, allowWholesale, required this.promListId});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
         'ruleName': ruleName,  
         'isDateRequired': isDateRequired,
         'startDate': startDate,
-        'EndDate': EndDate,
+        'endDate': endDate,
     'promRuleStatus' : PromRuleStatus.values.indexOf(this.promRuleStatus),
     'allowRetail' : allowRetail,
     'allowWholesale' : allowWholsale,
@@ -57,7 +57,7 @@ String promListId;
       ruleName: doc.data()!['ruleName'],
       isDateRequired: doc.data()!['isDateRequired']?? false,
       startDate: doc.data()!['startDate']?.date() ?? DateTime.now(),
-      EndDate: doc.data()!['EndDate']?.date() ?? DateTime.now(),
+      endDate: doc.data()!['endDate']?.date() ?? DateTime.now(),
       promRuleStatus: PromRuleStatus.values.elementAt(doc.data()?['promRuleStatus'] ?? 0),
       allowRetail: doc.data()!['allowRetail']?? false,
       allowWholesale: doc.data()!['allowWholesale']?? false,
