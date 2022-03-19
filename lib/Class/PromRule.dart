@@ -27,12 +27,13 @@ bool allowWholesale;
 bool allowOnline;
 bool allowStockIn;
 String promListId;
+bool isAllUser;
 
 
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -46,6 +47,7 @@ String promListId;
     'allowOnline' : allowOnline,
     'allowStockIn' : allowStockIn,
     'promListId' : promListId,
+    'isAllUser' : isAllUser,
       };
 
 
@@ -64,6 +66,7 @@ String promListId;
       allowOnline: doc.data()!['allowOnline']?? false,
       allowStockIn: doc.data()!['allowStockIn']?? false,
       promListId: doc.data()!['promListId'],
+      isAllUser: doc.data()!['isAllUser']?? true,
     );
   }
 
