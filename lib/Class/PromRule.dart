@@ -23,7 +23,7 @@ class PromRule {
   DateTime? endDate;
 PromRuleStatus promRuleStatus;
 bool allowRetail;
-bool allowWholsale;
+bool allowWholesale;
 bool allowOnline;
 bool allowStockIn;
 String promListId;
@@ -32,7 +32,7 @@ String promListId;
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholsale=false, this.allowOnline=false, this.allowStockIn=false, allowWholesale, required this.promListId});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -42,7 +42,7 @@ String promListId;
         'endDate': endDate,
     'promRuleStatus' : PromRuleStatus.values.indexOf(this.promRuleStatus),
     'allowRetail' : allowRetail,
-    'allowWholesale' : allowWholsale,
+    'allowWholesale' : allowWholesale,
     'allowOnline' : allowOnline,
     'allowStockIn' : allowStockIn,
     'promListId' : promListId,
