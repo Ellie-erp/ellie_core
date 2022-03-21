@@ -28,7 +28,7 @@ bool allowOnline;
 bool allowStockIn;
 String promListId;
 bool isAllUser;
-List<PromRuleUserList>? promRuleUserList;
+  List? promRuleUserList;
 
 
 
@@ -49,7 +49,7 @@ List<PromRuleUserList>? promRuleUserList;
     'allowStockIn' : allowStockIn,
     'promListId' : promListId,
     'isAllUser' : isAllUser,
-    'promRuleUserList': (promRuleUserList ?? []).map((e) => e.toMap).toList(),
+    'promRuleUserList': promRuleUserList,
       };
 
 
@@ -69,7 +69,7 @@ List<PromRuleUserList>? promRuleUserList;
       allowStockIn: doc.data()!['allowStockIn']?? false,
       promListId: doc.data()!['promListId'],
       isAllUser: doc.data()!['isAllUser']?? true,
-      promRuleUserList: List<PromRuleUserList>.from((doc.data()!['promRuleUserList'] ?? []).map((e) => PromRuleUserList.fromMap(e)).toList()),
+      promRuleUserList: doc.data()?['promRuleUserList'] ?? [],
     );
   }
 
