@@ -32,11 +32,15 @@ bool isAllUser;
   List? pluArray;   ///List of the product will store in this list
   bool isAllplu;  ///decide if the plu list is all selected.
 
+  bool isAllRetail;
+  bool isAllWholesale;
+  bool isAllOnline;
+  bool isAllStockIn;
 
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -54,6 +58,11 @@ bool isAllUser;
     'promRuleUserList': promRuleUserList,
     'pluArray' : pluArray,
     'isAllplu' : isAllplu,
+    'isAllRetail' : isAllRetail,
+    'isAllWholesale' : isAllWholesale,
+    'isAllOnline' : isAllOnline,
+    'isAllStockIn' : isAllStockIn,
+
       };
 
 
