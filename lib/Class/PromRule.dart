@@ -46,10 +46,11 @@ bool isAllUser;
   List? stockInArray;
   num ruleValue;   /// Discount value: 40%,
   DiscountType discountType;
+  RuleType ruleType;
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true, required this.retailArray, required this.wholesaleArray, required this.onlineArray, required this.stockInArray, required this.discountType, this.ruleValue =0});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true, required this.retailArray, required this.wholesaleArray, required this.onlineArray, required this.stockInArray, required this.discountType, this.ruleValue =0, required this.ruleType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -76,6 +77,7 @@ bool isAllUser;
     'onlineArray' : onlineArray,
     'stockInArray' : stockInArray,
     'discountType' : DiscountType.values.indexOf(this.discountType),
+    'ruleType' : RuleType.values.indexOf(this.ruleType),
     'ruleValue' : ruleValue,
       };
 
@@ -108,6 +110,7 @@ bool isAllUser;
       onlineArray: doc.data()?['onlineArray'] ?? [],
       stockInArray: doc.data()?['stockInArray'] ?? [],
      discountType: DiscountType.values.elementAt(doc.data()?['discountType'] ?? 0),
+      ruleType: RuleType.values.elementAt(doc.data()?['ruleType'] ?? 0),
       ruleValue: doc.data()?['ruleValue'] ?? [],
     );
   }
