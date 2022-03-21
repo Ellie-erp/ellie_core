@@ -10,7 +10,11 @@ enum RuleType{
   R2Staired    ///A階梯式貨品獲得折扣/減價/促銷價
 }
 
-
+enum DiscountType{
+  Discount,   ///15 = 15%OFF
+  Deduction,
+  SpecialPrice,
+}
 
 
 class PromRule {
@@ -40,10 +44,12 @@ bool isAllUser;
   List? wholesaleArray;
   List? onlineArray;
   List? stockInArray;
+  num ruleValue;   /// Discount value: 40%,
+  DiscountType discountType;
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true, required this.retailArray, required this.wholesaleArray, required this.onlineArray, required this.stockInArray});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true, required this.retailArray, required this.wholesaleArray, required this.onlineArray, required this.stockInArray, required this.discountType, this.ruleValue =0});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -69,6 +75,8 @@ bool isAllUser;
     'wholesaleArray' : wholesaleArray,
     'onlineArray' : onlineArray,
     'stockInArray' : stockInArray,
+    'discountType' : DiscountType.values.indexOf(this.discountType),
+    'ruleValue' : ruleValue,
       };
 
 
@@ -99,7 +107,8 @@ bool isAllUser;
       wholesaleArray: doc.data()?['wholesaleArray'] ?? [],
       onlineArray: doc.data()?['onlineArray'] ?? [],
       stockInArray: doc.data()?['stockInArray'] ?? [],
-
+     discountType: DiscountType.values.elementAt(doc.data()?['discountType'] ?? 0),
+      ruleValue: doc.data()?['ruleValue'] ?? [],
     );
   }
 
