@@ -32,15 +32,18 @@ bool isAllUser;
   List? pluArray;   ///List of the product will store in this list
   bool isAllplu;  ///decide if the plu list is all selected.
 
-  bool isAllRetail;
-  bool isAllWholesale;
-  bool isAllOnline;
-  bool isAllStockIn;
+  bool isAllRetail;   /// allow all shop on the list.
+  bool isAllWholesale;  /// allow sales user  on the list.
+  bool isAllOnline;  /// allow all online shop on the list.
+  bool isAllStockIn;  /// allow all shop on the list.
+  List? retailArray;
+  List? wholesaleArray;
+  List? onlineArray;
+  List? stockInArray;
 
 
 
-
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true, this.isAllRetail=true, this.isAllWholesale=true, this.isAllOnline=true, this.isAllStockIn=true, required this.retailArray, required this.wholesaleArray, required this.onlineArray, required this.stockInArray});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -62,7 +65,10 @@ bool isAllUser;
     'isAllWholesale' : isAllWholesale,
     'isAllOnline' : isAllOnline,
     'isAllStockIn' : isAllStockIn,
-
+    'retailArray' : retailArray,
+    'wholesaleArray' : wholesaleArray,
+    'onlineArray' : onlineArray,
+    'stockInArray' : stockInArray,
       };
 
 
@@ -85,6 +91,15 @@ bool isAllUser;
       promRuleUserList: doc.data()?['promRuleUserList'] ?? [],
       pluArray: doc.data()?['pluArray'] ?? [],
       isAllplu: doc.data()!['isAllplu']?? true,
+      isAllRetail: doc.data()!['isAllRetail']?? true,
+      isAllWholesale: doc.data()!['isAllWholesale']?? true,
+      isAllOnline: doc.data()!['isAllOnline']?? true,
+      isAllStockIn: doc.data()!['isAllStockIn']?? true,
+      retailArray: doc.data()?['retailArray'] ?? [],
+      wholesaleArray: doc.data()?['wholesaleArray'] ?? [],
+      onlineArray: doc.data()?['onlineArray'] ?? [],
+      stockInArray: doc.data()?['stockInArray'] ?? [],
+
     );
   }
 
