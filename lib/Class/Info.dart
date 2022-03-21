@@ -41,9 +41,9 @@ class Info {
         'updateDate': updateDate,
         'title': title,
         'content': content,
-        'infoType': InfoType.values.indexOf(this.infoType),
-        'infoStatus': InfoStatus.values.indexOf(this.infoStatus),
-        'department': Department.values.indexOf(this.department),
+        'infoType': InfoType.values.indexOf(infoType),
+        'infoStatus': InfoStatus.values.indexOf(infoStatus),
+        'department': Department.values.indexOf(department),
       };
   factory Info.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Info(
