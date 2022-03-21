@@ -30,12 +30,13 @@ String promListId;
 bool isAllUser;
   List? promRuleUserList;   ///List of members will store in this list
   List? pluArray;   ///List of the product will store in this list
+  bool isAllplu;  ///decide if the plu list is all selected.
 
 
 
 
 
-  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray});
+  PromRule({this.docRef, required this.createDate, required this.updateDate,required this.ruleName ,this.isDateRequired=false, this.startDate, this.endDate, required this.promRuleStatus, this.allowRetail=false,  this.allowWholesale=false, this.allowOnline=false, this.allowStockIn=false, required this.promListId, this.isAllUser=true, this.promRuleUserList, required this.pluArray, this.isAllplu=true});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,      
@@ -52,6 +53,7 @@ bool isAllUser;
     'isAllUser' : isAllUser,
     'promRuleUserList': promRuleUserList,
     'pluArray' : pluArray,
+    'isAllplu' : isAllplu,
       };
 
 
@@ -73,6 +75,7 @@ bool isAllUser;
       isAllUser: doc.data()!['isAllUser']?? true,
       promRuleUserList: doc.data()?['promRuleUserList'] ?? [],
       pluArray: doc.data()?['pluArray'] ?? [],
+      isAllplu: doc.data()!['isAllplu']?? true,
     );
   }
 
