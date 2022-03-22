@@ -19,31 +19,19 @@ enum DiscountType{
 
 class PromRule {
   DocumentReference? docRef;
-  DateTime createDate; 
-  DateTime updateDate;
+
   String ruleName;
-  bool isDateRequired;
-  DateTime? startDate;
-  DateTime? endDate;
-PromRuleStatus promRuleStatus;
-bool allowRetail;
-bool allowWholesale;
-bool allowOnline;
-bool allowStockIn;
-String promListId;
+
+
 bool isAllUser;
   List? promRuleUserList;   ///List of members will store in this list
   List? pluArray;   ///List of the product will store in this list
   bool isAllplu;  ///decide if the plu list is all selected.
 
   bool isAllRetail;   /// allow all shop on the list.
-  bool isAllWholesale;  /// allow sales user  on the list.
-  bool isAllOnline;  /// allow all online shop on the list.
-  bool isAllStockIn;  /// allow all shop on the list.
+
   List? retailArray;
-  List? wholesaleArray;
-  List? onlineArray;
-  List? stockInArray;
+
   num ruleValue;   /// Discount value: 40%,
   DiscountType discountType;
   RuleType ruleType;
