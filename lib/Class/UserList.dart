@@ -18,6 +18,7 @@ class UserList {
   num? paymentPeriod;
   UserType userType;
   Map<String, bool> permissions;
+  String role;
 
   UserList(
       {this.docRef,
@@ -28,7 +29,8 @@ class UserList {
       this.credit,
       this.paymentPeriod,
       this.userType = UserType.Client,
-      this.permissions = const {}});
+      this.permissions = const {},
+      this.role = ''});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
@@ -51,7 +53,8 @@ class UserList {
         paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
         userType: UserType.values.elementAt(doc.data()!['userType'] ?? 0),
         permissions:
-            (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {});
+            (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {},
+        role: doc.data()!['role'] ?? '');
   }
 
   Future<void> update() async {
