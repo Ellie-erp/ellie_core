@@ -173,6 +173,7 @@ class OrderItem {
   num unitPrice;
   Unit unit;
   String get unitName => describeEnum(unit);
+  num? preWeight;
   num? preQTY;
   List? array;
   String? remark;
@@ -189,6 +190,7 @@ class OrderItem {
       this.code,
       required this.unitPrice,
       required this.unit,
+        this.preWeight,
       this.preQTY,
       this.array,
       this.remark,
@@ -200,6 +202,7 @@ class OrderItem {
         'code': code,
         'unitPrice': unitPrice,
         'unit': Unit.values.indexOf(this.unit),
+    'preWeight' : preWeight,
         'preQTY': preQTY,
         'array': array,
         'remark': remark,
@@ -214,6 +217,7 @@ class OrderItem {
       code: doc.data()?['code'],
       unitPrice: doc.data()?['unitPrice'],
       unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
+      preWeight: doc.data()?['preWeight'],
       preQTY: doc.data()?['preQTY'],
       array: doc.data()?['array'] ?? [],
       remark: doc.data()?['remark'] ?? '',
