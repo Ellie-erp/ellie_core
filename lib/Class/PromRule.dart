@@ -140,6 +140,7 @@ class PromRule {
         'promRuleUserList': promRuleUserList,
         'pluArray': pluArray,
         'isAllplu': isAllplu,
+    'isAllBC': isAllBC,
         'isAllRetail': isAllRetail,
         'isAllWholesale': isAllWholesale,
         'isAllOnline': isAllOnline,
