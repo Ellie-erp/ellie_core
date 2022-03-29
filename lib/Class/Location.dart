@@ -20,11 +20,12 @@ class Location {
   String get locationTypeName => describeEnum(locationType);
   bool isActive;
   bool? allowWorkshop;
+  bool? allowRetail;
+  bool? allowStock;
 
 
 
-
-  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false});
+  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false, this.allowRetail=false, this.allowStock=false});
   Map<String, dynamic> get toMap => {
         'name': name,
         'type': type,
@@ -34,6 +35,8 @@ class Location {
     'locationType' : LocationType.values.indexOf(this.locationType),
     'isActive' : isActive,
     'allowWorkshop': allowWorkshop,
+    'allowRetail': allowRetail,
+    'allowStock': allowStock,
 
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -47,6 +50,8 @@ class Location {
       locationType: LocationType.values.elementAt(doc.data()!['locationType'] ?? 0),
       isActive: doc.data()!['isActive'],
       allowWorkshop: doc.data()!['allowWorkshop']?? false,
+      allowRetail: doc.data()!['allowRetail']?? false,
+      allowStock: doc.data()!['allowStock']?? false,
     );
   }
 
