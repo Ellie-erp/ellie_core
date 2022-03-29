@@ -10,31 +10,33 @@ enum RuleType {
   R1Discount,
 
   ///A階梯式貨品獲得折扣/減價/促銷價
-  R2Staired, ///暫不推出
+  R2Staired,
+
+  ///暫不推出
 
   ///組合式貨品獲得一個促銷價
-R3Package, ///暫不推出
+  R3Package,
+
+  ///暫不推出
 
 }
 
 extension RuleTypeExt on RuleType {
-  String?   longName()  {
+  String get longName {
     switch (this) {
-
       case RuleType.R1Discount:
-       return 'A款貨品獲得折扣/減價/促銷價';
+        return 'A款貨品獲得折扣/減價/促銷價';
       case RuleType.R2Staired:
         return '階梯式貨品獲得折扣/減價/促銷價';
       case RuleType.R3Package:
         return '組合式貨品獲得一個促銷價';
-  }
+    }
   }
 }
 
 enum DiscountType {
   ///15 = 15%OFF
   Discount,
-
 
   Deduction,
   SpecialPrice,
@@ -65,12 +67,12 @@ class PromRule {
   ///decide if the plu list is all selected.
   bool isAllplu;
 
-
   /// allow all shop on the list.
   bool isAllRetail;
 
   /// allow sales user  on the list.
   bool isAllWholesale;
+
   /// allow Business Client  on the list.
   bool isAllBC;
 
@@ -79,7 +81,6 @@ class PromRule {
 
   /// allow all shop on the list.
   bool isAllStockIn;
-
 
   List? retailArray;
   List? wholesaleArray;
@@ -112,12 +113,12 @@ class PromRule {
       this.isAllplu = true,
       this.isAllRetail = true,
       this.isAllWholesale = true,
-        this.isAllBC = true,
+      this.isAllBC = true,
       this.isAllOnline = true,
       this.isAllStockIn = true,
       required this.retailArray,
       required this.wholesaleArray,
-        required this.BCArray,
+      required this.BCArray,
       required this.onlineArray,
       required this.stockInArray,
       required this.discountType,
@@ -140,14 +141,14 @@ class PromRule {
         'promRuleUserList': promRuleUserList,
         'pluArray': pluArray,
         'isAllplu': isAllplu,
-    'isAllBC': isAllBC,
+        'isAllBC': isAllBC,
         'isAllRetail': isAllRetail,
         'isAllWholesale': isAllWholesale,
         'isAllOnline': isAllOnline,
         'isAllStockIn': isAllStockIn,
         'retailArray': retailArray,
         'wholesaleArray': wholesaleArray,
-    'BCArray': BCArray,
+        'BCArray': BCArray,
         'onlineArray': onlineArray,
         'stockInArray': stockInArray,
         'discountType': DiscountType.values.indexOf(this.discountType),
@@ -184,8 +185,7 @@ class PromRule {
       wholesaleArray: doc.data()?['wholesaleArray'] ?? [],
       onlineArray: doc.data()?['onlineArray'] ?? [],
       stockInArray: doc.data()?['stockInArray'] ?? [],
-      BCArray:  doc.data()?['BCArray'] ?? [],
-
+      BCArray: doc.data()?['BCArray'] ?? [],
       discountType:
           DiscountType.values.elementAt(doc.data()?['discountType'] ?? 0),
       ruleType: RuleType.values.elementAt(doc.data()?['ruleType'] ?? 0),
