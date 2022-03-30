@@ -28,12 +28,16 @@ enum SalesStatus {
   CANCEL,
   AWAIT,
   PREPARING,
-  RFD,
 
   ///Ready for delivery
-  MANUAL
+  RFD,
 
   /// For backend Colleague to create order for customer, same as await, but not will not show in client's order list before sending
+  MANUAL,
+  
+  /// Only for retail sales, that order can be reserved and can be retreived later, becuause in 'Open' status, the order cannot be opened the day after
+RESERVED,
+
 }
 
 class Sales {
