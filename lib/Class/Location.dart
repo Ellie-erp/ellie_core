@@ -24,10 +24,11 @@ class Location {
   bool? allowStock;
   bool? allowStockIn;
   List? webShopList;
+  num credit;
 
 
 
-  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false, this.allowRetail=false, this.allowStock=false, this.allowStockIn=false,  this.webShopList});
+  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false, this.allowRetail=false, this.allowStock=false, this.allowStockIn=false,  this.webShopList, this.credit=0});
   Map<String, dynamic> get toMap => {
         'name': name,
         'type': type,
@@ -41,6 +42,7 @@ class Location {
     'allowStock': allowStock,
     'allowStockIn': allowStockIn,
     'webShopList' : webShopList,
+    'credit' : credit,
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -57,6 +59,7 @@ class Location {
       allowStock: doc.data()!['allowStock']?? false,
       allowStockIn: doc.data()!['allowStockIn']?? false,
       webShopList: doc.data()?['webShopList'] ?? [],
+      credit:  doc.data()?['credit'] ?? 0,
     );
   }
 

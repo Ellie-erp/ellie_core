@@ -90,7 +90,7 @@ DateTime updateDate;
 }
 
 
-
+///Can be used in Business Client and Location(StockIn)
 enum CreditRecordType{
   Payment,
   Change,
