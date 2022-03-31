@@ -4,8 +4,7 @@ import 'package:liquidity_gallery/Class.dart';
 
 import 'PCMSuppiler.dart';
 
-
-enum ShipmentMethod{
+enum ShipmentMethod {
   SEA,
   AIR,
   LOCAL,
@@ -25,26 +24,36 @@ class PCMItem {
   String get originName => describeEnum(origin);
   String pcmSuppilerId;
   String? pcmSuppilerName;
- List<PriceRange>? priceRange;
- String? plu;
+  List<PriceRange>? priceRange;
+  String? plu;
 
-
-  PCMItem({this.docRef, required this.createDate, required this.name, this.spec ,this.brand,required this.pcmSuppilerId, this.pcmSuppilerName, required this.origin, this.priceRange, this.plu, required this.pcmType,required this.updateDate, this.nameZh});
+  PCMItem(
+      {this.docRef,
+      required this.createDate,
+      required this.name,
+      this.spec,
+      this.brand,
+      required this.pcmSuppilerId,
+      this.pcmSuppilerName,
+      required this.origin,
+      this.priceRange,
+      this.plu,
+      required this.pcmType,
+      required this.updateDate,
+      this.nameZh});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'updateDate' : updateDate,
-    'pcmType' : PCMType.values.indexOf(this.pcmType),
-    'nameZh' : nameZh,
+        'updateDate': updateDate,
+        'pcmType': PCMType.values.indexOf(pcmType),
+        'nameZh': nameZh,
         'name': name,
         'spec': spec,
         'brand': brand,
-    'origin' : Country.values.indexOf(this.origin!),
-    'pcmSuppilerId' : pcmSuppilerId,
-    'pcmSuppilerName' : pcmSuppilerName,
-
-    'priceRange': (priceRange ?? []).map((e) => e.toMap).toList(),
-    'plu' : plu,
-
+        'origin': Country.values.indexOf(origin),
+        'pcmSuppilerId': pcmSuppilerId,
+        'pcmSuppilerName': pcmSuppilerName,
+        'priceRange': (priceRange ?? []).map((e) => e.toMap).toList(),
+        'plu': plu,
       };
   factory PCMItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMItem(
@@ -60,8 +69,9 @@ class PCMItem {
       pcmSuppilerId: doc.data()!['pcmSuppilerId'] ?? '',
       pcmSuppilerName: doc.data()!['pcmSuppilerName'] ?? '',
       plu: doc.data()!['plu'] ?? '',
-
-      priceRange: List<PriceRange>.from((doc.data()!['priceRange'] ?? []).map((e) => PriceRange.fromMap(e)).toList()),
+      priceRange: List<PriceRange>.from((doc.data()!['priceRange'] ?? [])
+          .map((e) => PriceRange.fromMap(e))
+          .toList()),
     );
   }
 
@@ -70,34 +80,36 @@ class PCMItem {
   }
 }
 
-
-
-
 class PriceRange {
   DateTime timestamp;
   num price;
   String? remark;
   Currency currency;
   String get currencyName => describeEnum(currency);
- Unit unit;
+  Unit unit;
   String get unitName => describeEnum(unit);
   ShipmentMethod shipmentMethod;
   String get shipmentMethodName => describeEnum(shipmentMethod);
   num rate;
 
-
-  PriceRange({ required this.timestamp, required this.price, this.remark, required this.currency, required this.unit, required this.shipmentMethod,required this.rate});
+  PriceRange(
+      {required this.timestamp,
+      required this.price,
+      this.remark,
+      required this.currency,
+      required this.unit,
+      required this.shipmentMethod,
+      required this.rate});
 
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'price': price,
-    'remark' : remark,
-    'currency' : Currency.values.indexOf(this.currency),
-    'unit' : Unit.values.indexOf(this.unit),
-    'shipmentMethod' : ShipmentMethod.values.indexOf(this.shipmentMethod),
-    'rate' : rate,
-
-  };
+        'timestamp': timestamp,
+        'price': price,
+        'remark': remark,
+        'currency': Currency.values.indexOf(currency),
+        'unit': Unit.values.indexOf(unit),
+        'shipmentMethod': ShipmentMethod.values.indexOf(shipmentMethod),
+        'rate': rate,
+      };
 
   factory PriceRange.fromMap(Map<String, dynamic> map) {
     return PriceRange(
@@ -105,10 +117,10 @@ class PriceRange {
       price: map['price'],
       remark: map['remark'],
       rate: map['rate'],
-      currency: Currency.values.elementAt(map!['currency'] ?? 0),
-      unit: Unit.values.elementAt(map!['unit'] ?? 0),
-      shipmentMethod: ShipmentMethod.values.elementAt(map!['shipmentMethod'] ?? 0),
+      currency: Currency.values.elementAt(map['currency'] ?? 0),
+      unit: Unit.values.elementAt(map['unit'] ?? 0),
+      shipmentMethod:
+          ShipmentMethod.values.elementAt(map['shipmentMethod'] ?? 0),
     );
-  }}
-
-
+  }
+}

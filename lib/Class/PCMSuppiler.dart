@@ -8,7 +8,6 @@ enum PCMType {
   MARKET,
 }
 
-
 enum Term {
   NONE,
   CIF,
@@ -20,9 +19,7 @@ enum Term {
   EXW,
   FOB,
   FCA,
-
 }
-
 
 class PCMSuppiler {
   DocumentReference? docRef;
@@ -34,7 +31,7 @@ class PCMSuppiler {
   String? brand;
   String? website;
   Country origin;
-  String get originName => describeEnum(origin!);
+  String get originName => describeEnum(origin);
   Term term;
   String? address;
   List<Contact>? contact;
@@ -43,26 +40,33 @@ class PCMSuppiler {
   String get currencyName => describeEnum(currency);
   List<History>? history;
 
-
-
-
-
-  PCMSuppiler({ this.docRef, required this.createDate, required this.updateDate, required this.name, this.brand,required this.origin, required this.term, this.address, this.contact, required this.currency, this.website, required this.pcmType, this.history});
+  PCMSuppiler(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.name,
+      this.brand,
+      required this.origin,
+      required this.term,
+      this.address,
+      this.contact,
+      required this.currency,
+      this.website,
+      required this.pcmType,
+      this.history});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'updateDate': updateDate,
-    'pcmType' : PCMType.values.indexOf(this.pcmType),
+        'updateDate': updateDate,
+        'pcmType': PCMType.values.indexOf(this.pcmType),
         'name': name,
         'brand': brand,
-    'website' : website,
-    'origin' : Country.values.indexOf(this.origin),
-    'address' : address,
-    'term' : Term.values.indexOf(this.term),
-    'contact': (contact ?? []).map((e) => e.toMap).toList(),
-    'currency' : Currency.values.indexOf(this.currency),
-    'history': (history ?? []).map((e) => e.toMap).toList(),
-
-
+        'website': website,
+        'origin': Country.values.indexOf(this.origin),
+        'address': address,
+        'term': Term.values.indexOf(this.term),
+        'contact': (contact ?? []).map((e) => e.toMap).toList(),
+        'currency': Currency.values.indexOf(this.currency),
+        'history': (history ?? []).map((e) => e.toMap).toList(),
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
@@ -77,8 +81,12 @@ class PCMSuppiler {
       origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
       address: doc.data()!['address'] ?? '',
       term: Term.values.elementAt(doc.data()!['term'] ?? 0),
-      contact: List<Contact>.from((doc.data()!['contact'] ?? []).map((e) => Contact.fromMap(e)).toList()),
-      history: List<History>.from((doc.data()!['history'] ?? []).map((e) => History.fromMap(e)).toList()),
+      contact: List<Contact>.from((doc.data()!['contact'] ?? [])
+          .map((e) => Contact.fromMap(e))
+          .toList()),
+      history: List<History>.from((doc.data()!['history'] ?? [])
+          .map((e) => History.fromMap(e))
+          .toList()),
     );
   }
 
@@ -87,26 +95,20 @@ class PCMSuppiler {
   }
 }
 
-
-
 class Contact {
   DateTime createDate;
   String? name;
   String? email;
   String? tel;
 
-
-
-  Contact({ required this.createDate, this.name, this.email, this.tel});
+  Contact({required this.createDate, this.name, this.email, this.tel});
 
   Map<String, dynamic> get toMap => {
-    'createDate': createDate,
-    'name': name,
-    'email' : email,
-    'tel' : tel,
-
-
-  };
+        'createDate': createDate,
+        'name': name,
+        'email': email,
+        'tel': tel,
+      };
 
   factory Contact.fromMap(Map<String, dynamic> map) {
     return Contact(
@@ -114,28 +116,28 @@ class Contact {
       name: map['name'],
       email: map['email'],
       tel: map['tel'],
-
     );
-  }}
+  }
+}
 
 class History {
   DateTime timestamp;
   String? remark;
 
-
-
-  History({ required this.timestamp,  this.remark,});
+  History({
+    required this.timestamp,
+    this.remark,
+  });
 
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'remark' : remark,
-
-
-  };
+        'timestamp': timestamp,
+        'remark': remark,
+      };
 
   factory History.fromMap(Map<String, dynamic> map) {
     return History(
       timestamp: map['timestamp']?.toDate(),
       remark: map['remark'],
     );
-  }}
+  }
+}
