@@ -36,8 +36,7 @@ enum SalesStatus {
   MANUAL,
 
   /// Only for retail sales, that order can be reserved and can be retreived later, becuause in 'Open' status, the order cannot be opened the day after
-RESERVED,
-
+  RESERVED,
 }
 
 class Sales {
@@ -88,7 +87,7 @@ class Sales {
       required this.salesType,
       required this.locationId,
       this.locationName,
-       this.deduction = 0,
+      this.deduction = 0,
       this.discount = 1,
       required this.paidAmount,
       this.payMethod,
@@ -182,7 +181,7 @@ class OrderItem {
   List? array;
   String? remark;
   String? locationId;
-
+  String? barcode;
 
   num get totalPrice =>
       List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
@@ -194,39 +193,41 @@ class OrderItem {
       this.code,
       required this.unitPrice,
       required this.unit,
-        this.preWeight,
+      this.preWeight,
       this.preQTY,
       this.array,
       this.remark,
-      this.locationId});
+      this.locationId,
+      this.barcode});
 
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'title': title,
         'code': code,
         'unitPrice': unitPrice,
-        'unit': Unit.values.indexOf(this.unit),
-    'preWeight' : preWeight,
+        'unit': Unit.values.indexOf(unit),
+        'preWeight': preWeight,
         'preQTY': preQTY,
         'array': array,
         'remark': remark,
-    'locationId': locationId
-      };
+        'locationId': locationId,
+        'barcode': barcode
+      }..removeWhere((key, value) => value == null);
 
   factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderItem(
-      docRef: doc.reference,
-      timestamp: doc.data()?['timestamp']?.toDate(),
-      title: doc.data()?['title'],
-      code: doc.data()?['code'],
-      unitPrice: doc.data()?['unitPrice'],
-      unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
-      preWeight: doc.data()?['preWeight'],
-      preQTY: doc.data()?['preQTY'],
-      array: doc.data()?['array'] ?? [],
-      remark: doc.data()?['remark'] ?? '',
-      locationId: doc.data()?['locationId'],
-    );
+        docRef: doc.reference,
+        timestamp: doc.data()?['timestamp']?.toDate(),
+        title: doc.data()?['title'],
+        code: doc.data()?['code'],
+        unitPrice: doc.data()?['unitPrice'],
+        unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
+        preWeight: doc.data()?['preWeight'],
+        preQTY: doc.data()?['preQTY'],
+        array: doc.data()?['array'] ?? [],
+        remark: doc.data()?['remark'] ?? '',
+        locationId: doc.data()?['locationId'],
+        barcode: doc.data()?['barcode']);
   }
 
   Future<void> update() async => await docRef!.update(toMap);
