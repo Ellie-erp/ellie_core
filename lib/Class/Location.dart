@@ -11,6 +11,8 @@ enum LocationType{
 
 class Location {
   DocumentReference ?docRef;
+  DateTime createDate;
+
   String name;
   String ?type;
   String? address;
@@ -28,7 +30,7 @@ class Location {
 
 
 
-  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false, this.allowRetail=false, this.allowStock=false, this.allowStockIn=false,  this.webShopList, this.credit=0});
+  Location({  this.docRef, required this.name, this.type,this.address, this.addressZH, this.tel, required this.locationType, required this.isActive, this.allowWorkshop=false, this.allowRetail=false, this.allowStock=false, this.allowStockIn=false,  this.webShopList, this.credit=0, required this.createDate});
   Map<String, dynamic> get toMap => {
         'name': name,
         'type': type,
@@ -43,6 +45,8 @@ class Location {
     'allowStockIn': allowStockIn,
     'webShopList' : webShopList,
     'credit' : credit,
+    'createDate' : createDate,
+
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -60,6 +64,8 @@ class Location {
       allowStockIn: doc.data()!['allowStockIn']?? false,
       webShopList: doc.data()?['webShopList'] ?? [],
       credit:  doc.data()?['credit'] ?? 0,
+      createDate: doc.data()?['createDate']?.toDate(),
+
     );
   }
 
