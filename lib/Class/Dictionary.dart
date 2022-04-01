@@ -10,6 +10,7 @@ class Dictionary {
 
 
 
+
   Dictionary({this.docRef, required this.timestamp,required this.nameZh, required this.nameEng ,this.description,});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
@@ -44,15 +45,17 @@ class DictionaryItem {
   String nameZh;
   String nameEng;
   String? description;
+  String dictionaryId;
 
 
 
-  DictionaryItem({this.docRef, required this.timestamp, required this.nameZh, required this.nameEng ,this.description,});
+  DictionaryItem({this.docRef, required this.timestamp, required this.nameZh, required this.nameEng ,this.description, required this.dictionaryId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
-        'nameZh': nameZh,      
+        'nameZh': nameZh,
         'nameEng': nameEng,
         'description': description,
+    'dictionaryId' : dictionaryId,
 
 
       };
@@ -63,6 +66,7 @@ class DictionaryItem {
       nameZh: doc.data()!['nameZh'],
       nameEng: doc.data()!['nameEng'],
       description: doc.data()!['description']?? '',
+      dictionaryId: doc.data()!['dictionaryId'],
 
 
     );
