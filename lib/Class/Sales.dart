@@ -194,9 +194,9 @@ class OrderItem {
       return '';
     }
     if (preWeight! > 1) {
-      return num.parse(preWeight!.toStringAsFixed(3)).toString();
+      return num.parse(preWeight!.toStringAsFixed(3)).toString() + 'kg';
     }
-    return num.parse((preWeight! * 1000).toStringAsFixed(0)).toString();
+    return num.parse((preWeight! * 1000).toStringAsFixed(0)).toString() + 'g';
   }
 
   OrderItem(
