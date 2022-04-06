@@ -186,6 +186,19 @@ class OrderItem {
   num get totalPrice =>
       List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
 
+  String get preWeightString {
+    if (preWeight == null) {
+      return '';
+    }
+    if (preWeight == 1) {
+      return '';
+    }
+    if (preWeight! > 1) {
+      return num.parse(preWeight!.toStringAsFixed(3)).toString();
+    }
+    return num.parse((preWeight! * 1000).toStringAsFixed(3)).toString();
+  }
+
   OrderItem(
       {this.docRef,
       required this.timestamp,
