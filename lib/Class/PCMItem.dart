@@ -26,6 +26,7 @@ class PCMItem {
   String? pcmSuppilerName;
   List<PriceRange>? priceRange;
   String? plu;
+  String? refNo;
 
   PCMItem(
       {this.docRef,
@@ -40,7 +41,7 @@ class PCMItem {
       this.plu,
       required this.pcmType,
       required this.updateDate,
-      this.nameZh});
+      this.nameZh, this.refNo});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -54,6 +55,7 @@ class PCMItem {
         'pcmSuppilerName': pcmSuppilerName,
         'priceRange': (priceRange ?? []).map((e) => e.toMap).toList(),
         'plu': plu,
+    'refNo' : refNo,
       };
   factory PCMItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMItem(
@@ -69,6 +71,7 @@ class PCMItem {
       pcmSuppilerId: doc.data()!['pcmSuppilerId'] ?? '',
       pcmSuppilerName: doc.data()!['pcmSuppilerName'] ?? '',
       plu: doc.data()!['plu'] ?? '',
+      refNo: doc.data()!['refNo']?? '',
       priceRange: List<PriceRange>.from((doc.data()!['priceRange'] ?? [])
           .map((e) => PriceRange.fromMap(e))
           .toList()),
