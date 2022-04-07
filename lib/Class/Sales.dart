@@ -76,6 +76,7 @@ class Sales {
   String? remark;
 
   num freight;
+  bool isPaid;
 
   Sales(
       {this.docRef,
@@ -101,7 +102,7 @@ class Sales {
       this.bcBranchId,
       this.bcBranchName,
       this.remark,
-      this.freight = 0});
+      this.freight = 0, this.isPaid=false});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -125,7 +126,8 @@ class Sales {
         'bcBranchId': bcBranchId,
         'bcBranchName': bcBranchName,
         'remark': remark,
-        'freight': freight
+        'freight': freight,
+    'isPaid': isPaid,
       }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
@@ -153,7 +155,10 @@ class Sales {
         bcBranchId: doc.data()?['bcBranchId'],
         bcBranchName: doc.data()?['bcBranchName'],
         remark: doc.data()?['remark'],
-        freight: doc.data()!['freight'] ?? 0);
+        freight: doc.data()!['freight'] ?? 0,
+        isPaid: doc.data()!['isPaid']?? false,
+    );
+
   }
 
   Future<void> update() async {
