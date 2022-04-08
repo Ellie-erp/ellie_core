@@ -102,7 +102,8 @@ class Sales {
       this.bcBranchId,
       this.bcBranchName,
       this.remark,
-      this.freight = 0, this.isPaid=false});
+      this.freight = 0,
+      this.isPaid = false});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -127,38 +128,37 @@ class Sales {
         'bcBranchName': bcBranchName,
         'remark': remark,
         'freight': freight,
-    'isPaid': isPaid,
+        'isPaid': isPaid,
       }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
-        docRef: doc.reference,
-        createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
-        updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
-        amount: doc.data()?['amount'],
-        salesStatus:
-            SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
-        salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
-        clientName: doc.data()?['clientName'],
-        clientId: doc.data()?['clientId'],
-        locationId: doc.data()?['locationId'],
-        locationName: doc.data()?['locationName'] ?? '',
-        deduction: doc.data()?['deduction'] ?? 0,
-        discount: doc.data()?['discount'] ?? 1,
-        paidAmount: doc.data()?['paidAmount'],
-        payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
-        deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
-        staffId: doc.data()?['staffId'],
-        staffName: doc.data()?['staffName'],
-        deliveryDate: doc.data()?['deliveryDate']?.toDate(),
-        businessClientId: doc.data()?['businessClientId'],
-        businessClientName: doc.data()?['businessClientName'],
-        bcBranchId: doc.data()?['bcBranchId'],
-        bcBranchName: doc.data()?['bcBranchName'],
-        remark: doc.data()?['remark'],
-        freight: doc.data()!['freight'] ?? 0,
-        isPaid: doc.data()!['isPaid']?? false,
+      docRef: doc.reference,
+      createDate: doc.data()?['createDate']?.toDate() ?? DateTime(0),
+      updateDate: doc.data()?['updateDate']?.toDate() ?? DateTime(0),
+      amount: doc.data()?['amount'],
+      salesStatus:
+          SalesStatus.values.elementAt(doc.data()?['salesStatus'] ?? 0),
+      salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
+      clientName: doc.data()?['clientName'],
+      clientId: doc.data()?['clientId'],
+      locationId: doc.data()?['locationId'],
+      locationName: doc.data()?['locationName'] ?? '',
+      deduction: doc.data()?['deduction'] ?? 0,
+      discount: doc.data()?['discount'] ?? 1,
+      paidAmount: doc.data()?['paidAmount'],
+      payMethod: PayMethod.values.elementAt(doc.data()?['payMethod'] ?? 0),
+      deliveryAddress: doc.data()?['deliveryAddress'] ?? '',
+      staffId: doc.data()?['staffId'],
+      staffName: doc.data()?['staffName'],
+      deliveryDate: doc.data()?['deliveryDate']?.toDate(),
+      businessClientId: doc.data()?['businessClientId'],
+      businessClientName: doc.data()?['businessClientName'],
+      bcBranchId: doc.data()?['bcBranchId'],
+      bcBranchName: doc.data()?['bcBranchName'],
+      remark: doc.data()?['remark'],
+      freight: doc.data()!['freight'] ?? 0,
+      isPaid: doc.data()!['isPaid'] ?? false,
     );
-
   }
 
   Future<void> update() async {
@@ -181,7 +181,7 @@ class OrderItem {
   num unitPrice;
   Unit unit;
   String get unitName => describeEnum(unit);
-  num? preWeight;
+  num preWeight;
   num? preQTY;
   List? array;
   String? remark;
@@ -192,16 +192,13 @@ class OrderItem {
       List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
 
   String get preWeightString {
-    if (preWeight == null) {
+    if (preWeight == 1 && unit == Unit.PC) {
       return '';
     }
-    if (preWeight == 1) {
-      return '';
+    if (preWeight > 1) {
+      return num.parse(preWeight.toStringAsFixed(3)).toString() + 'kg';
     }
-    if (preWeight! > 1) {
-      return num.parse(preWeight!.toStringAsFixed(3)).toString() + 'kg';
-    }
-    return num.parse((preWeight! * 1000).toStringAsFixed(0)).toString() + 'g';
+    return num.parse((preWeight * 1000).toStringAsFixed(0)).toString() + 'g';
   }
 
   OrderItem(
@@ -211,7 +208,7 @@ class OrderItem {
       this.code,
       required this.unitPrice,
       required this.unit,
-      this.preWeight,
+      this.preWeight = 1,
       this.preQTY,
       this.array,
       this.remark,
@@ -240,7 +237,7 @@ class OrderItem {
         code: doc.data()?['code'],
         unitPrice: doc.data()?['unitPrice'],
         unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
-        preWeight: doc.data()?['preWeight'],
+        preWeight: doc.data()?['preWeight'] ?? 1,
         preQTY: doc.data()?['preQTY'],
         array: doc.data()?['array'] ?? [],
         remark: doc.data()?['remark'] ?? '',
