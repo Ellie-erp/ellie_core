@@ -78,6 +78,9 @@ class Sales {
   num freight;
   bool isPaid;
 
+  num get subTotal => (amount - freight) / discount + deduction;
+  num get deductedAmount => amount - freight - subTotal;
+
   Sales(
       {this.docRef,
       required this.createDate,
