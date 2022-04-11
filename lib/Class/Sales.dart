@@ -78,7 +78,7 @@ class Sales {
   num freight;
   bool isPaid;
 
-  num get subTotal => (amount - freight) / discount + deduction;
+  num get subTotal => (amount - freight + deduction) / discount;
   num get deductedAmount => amount - freight - subTotal;
 
   Sales(
