@@ -105,16 +105,14 @@ TO: $customerName
                       [paymentMethod]
                     ])),
             Container(height: 5),
-            Table.fromTextArray(
-                columnWidths: {
-                  0: const FixedColumnWidth(32.5),
-                  // 1: const FixedColumnWidth(500),
-                },
-                headers: ['SHIP DATE'],
-                cellAlignment: Alignment.center,
-                data: [
-                  [_dateFormatter.format(shipDate)]
-                ]),
+            SizedBox(
+                width: 150,
+                child: Table.fromTextArray(
+                    headers: ['SHIP DATE'],
+                    cellAlignment: Alignment.center,
+                    data: [
+                      [_dateFormatter.format(shipDate)]
+                    ])),
             Container(height: 10),
             Table.fromTextArray(
                 columnWidths: {
