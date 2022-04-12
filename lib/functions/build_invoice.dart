@@ -30,7 +30,6 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
     required String shipAddress,
     required String paymentMethod,
     required DateTime shipDate,
-    required String shipMethod,
     String? comment,
     required List<List<dynamic>> data,
     required num subTotalPrice,
@@ -111,10 +110,10 @@ TO: $customerName
                   0: const FixedColumnWidth(32.5),
                   // 1: const FixedColumnWidth(500),
                 },
-                headers: ['SHIP DATE', 'SHIP METHOD'],
+                headers: ['SHIP DATE'],
                 cellAlignment: Alignment.center,
                 data: [
-                  [_dateFormatter.format(shipDate), shipMethod]
+                  [_dateFormatter.format(shipDate)]
                 ]),
             Container(height: 10),
             Table.fromTextArray(

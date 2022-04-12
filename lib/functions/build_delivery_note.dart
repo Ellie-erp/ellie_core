@@ -5,7 +5,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
-final _dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
+final _dateFormatter = DateFormat('dd/MM/yyyy');
 
 /// Create a delivery note template with data.
 ///
@@ -26,9 +26,10 @@ final _dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss');
 Future<Uint8List> buildDeliveryNote(
   PdfPageFormat format, {
   required String orderId,
-  required String shopName,
+  required String name,
   required DateTime createDate,
-  required String shopAddress,
+  required DateTime deliveryDate,
+  required String address,
   String? remark,
   required List<List<dynamic>> data,
   required int totalOrderQuantity,
@@ -71,9 +72,15 @@ Future<Uint8List> buildDeliveryNote(
             Spacer(),
             Text('送貨日期: ${_dateFormatter.format(DateTime.now())}')
           ]),
-          Row(children: [Text('店鋪名稱: $shopName'), Spacer()]),
-          Row(children: [Text('店鋪地址: $shopAddress')]),
-          remark != null ? Row(children: [Text('備註: $remark')]) : Container(),
+          Row(children: [
+            Text('名稱: $name'),
+            Spacer(),
+            Text('預計送貨日期: ${_dateFormatter.format(deliveryDate)}')
+          ]),
+          Row(children: [Text('地址: $address')]),
+          remark != null && remark.isNotEmpty
+              ? Row(children: [Text('備註: $remark')])
+              : Container(),
           Table.fromTextArray(headers: [
             'PLU',
             '貨品名稱',
