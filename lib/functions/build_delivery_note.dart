@@ -28,9 +28,9 @@ Future<Uint8List> buildDeliveryNote(
   required String orderId,
   required String name,
   required DateTime createDate,
-  required DateTime deliveryDate,
+  required DateTime? deliveryDate,
   required String address,
-  String? remark,
+  required String? remark,
   required List<List<dynamic>> data,
   required int totalOrderQuantity,
   required int totalShippedQuantity,
@@ -75,7 +75,8 @@ Future<Uint8List> buildDeliveryNote(
           Row(children: [
             Text('名稱: $name'),
             Spacer(),
-            Text('預計送貨日期: ${_dateFormatter.format(deliveryDate)}')
+            if (deliveryDate != null)
+              Text('預計送貨日期: ${_dateFormatter.format(deliveryDate)}')
           ]),
           Row(children: [Text('地址: $address')]),
           remark != null && remark.isNotEmpty
@@ -118,9 +119,9 @@ Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
     buildDeliveryNote(
       format,
       orderId: '2dGmWpEQMUX30OUwRFKW',
-      shopName: 'P&J Food 新豐中心店鋪',
+      name: 'P&J Food 新豐中心店鋪',
       createDate: DateTime(2022, 2, 12, 14, 54, 23),
-      shopAddress: '葵涌,國瑞路88號,新豐中心5樓16室',
+      address: '葵涌,國瑞路88號,新豐中心5樓16室',
       remark: '請帶2卷收據紙',
       data: [
         [
@@ -174,4 +175,5 @@ Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
       ],
       totalOrderQuantity: 230,
       totalShippedQuantity: 220,
+      deliveryDate: null,
     );
