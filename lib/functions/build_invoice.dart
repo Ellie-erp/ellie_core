@@ -30,7 +30,7 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
     required String shipAddress,
     required String paymentMethod,
     required DateTime shipDate,
-    String? comment,
+    required String? comment,
     required List<List<dynamic>> data,
     required num subTotalPrice,
     required num discount,
@@ -204,7 +204,6 @@ Future<Uint8List> buildInvoiceExample(PdfPageFormat format) async =>
         shipAddress: 'Room 516, Sun Fung Centre, Kwai Chung',
         paymentMethod: 'Credit Card',
         shipDate: DateTime.now(),
-        shipMethod: 'Local',
         data: [
           ['11021', '西班牙Batalle豬排500g', '22', '23', '150.0/KG', '1050.0'],
           ['11021', '西班牙Batalle豬排500g', '22', '23', '150.0/KG', '1050.0'],
@@ -238,4 +237,5 @@ Future<Uint8List> buildInvoiceExample(PdfPageFormat format) async =>
         subTotalPrice: 20493,
         discount: 100,
         freight: 88,
-        totalPrice: 20581);
+        totalPrice: 20581,
+        comment: '');
