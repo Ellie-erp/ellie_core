@@ -78,6 +78,9 @@ class Sales {
   num freight;
   bool isPaid;
 
+  /// Additional information: Number of cartons that will be delivered
+  num? cartonQty;
+
   num get subTotal => (amount - freight + deduction) / discount;
   num get deductedAmount => amount - freight - subTotal;
 
@@ -106,7 +109,8 @@ class Sales {
       this.bcBranchName,
       this.remark,
       this.freight = 0,
-      this.isPaid = false});
+      this.isPaid = false,
+      this.cartonQty});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -132,6 +136,7 @@ class Sales {
         'remark': remark,
         'freight': freight,
         'isPaid': isPaid,
+    'cartonQty' : cartonQty,
       }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
@@ -161,6 +166,7 @@ class Sales {
       remark: doc.data()?['remark'],
       freight: doc.data()!['freight'] ?? 0,
       isPaid: doc.data()!['isPaid'] ?? false,
+      cartonQty: doc.data()!['cartonQty'] ?? 0,
     );
   }
 
