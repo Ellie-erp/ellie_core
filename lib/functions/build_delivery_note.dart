@@ -34,7 +34,7 @@ Future<Uint8List> buildDeliveryNote(
   required List<List<dynamic>> data,
   required int totalOrderQuantity,
   required int totalShippedQuantity,
-  required int cartonQty,
+  required int? cartonQty,
 }) async {
   const title = 'P&J Food Delivery Note';
 
@@ -101,7 +101,9 @@ Future<Uint8List> buildDeliveryNote(
           Row(children: [
             SizedBox(
                 width: 200,
-                child: Text('箱數: $cartonQty', style: titleTextStyle)),
+                child: cartonQty != null
+                    ? Text('箱數: $cartonQty', style: titleTextStyle)
+                    : Container()),
             SizedBox(width: 200),
             Text('總落單件數:', style: titleTextStyle),
             Spacer(),
