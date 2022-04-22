@@ -34,6 +34,7 @@ Future<Uint8List> buildDeliveryNote(
   required List<List<dynamic>> data,
   required int totalOrderQuantity,
   required int totalShippedQuantity,
+  required int cartonQty,
 }) async {
   const title = 'P&J Food Delivery Note';
 
@@ -98,7 +99,10 @@ Future<Uint8List> buildDeliveryNote(
             5: const FixedColumnWidth(30),
           }, cellAlignment: Alignment.center, data: data),
           Row(children: [
-            SizedBox(width: 400),
+            SizedBox(
+                width: 200,
+                child: Text('箱數: $cartonQty', style: titleTextStyle)),
+            SizedBox(width: 200),
             Text('總落單件數:', style: titleTextStyle),
             Spacer(),
             Text('$totalOrderQuantity', style: titleTextStyle)
@@ -116,64 +120,63 @@ Future<Uint8List> buildDeliveryNote(
 }
 
 Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
-    buildDeliveryNote(
-      format,
-      orderId: '2dGmWpEQMUX30OUwRFKW',
-      name: 'P&J Food 新豐中心店鋪',
-      createDate: DateTime(2022, 2, 12, 14, 54, 23),
-      address: '葵涌,國瑞路88號,新豐中心5樓16室',
-      remark: '請帶2卷收據紙',
-      data: [
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/PC',
-          '29',
-          '28',
-          '32.223KG',
+    buildDeliveryNote(format,
+        orderId: '2dGmWpEQMUX30OUwRFKW',
+        name: 'P&J Food 新豐中心店鋪',
+        createDate: DateTime(2022, 2, 12, 14, 54, 23),
+        address: '葵涌,國瑞路88號,新豐中心5樓16室',
+        remark: '請帶2卷收據紙',
+        data: [
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/PC',
+            '29',
+            '28',
+            '32.223KG',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32.223KG',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32.223KG',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32.223KG',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32.223KG',
+          ],
         ],
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/KG',
-          '29',
-          '28',
-          '32PCS',
-        ],
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/KG',
-          '29',
-          '28',
-          '32.223KG',
-        ],
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/KG',
-          '29',
-          '28',
-          '32.223KG',
-        ],
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/KG',
-          '29',
-          '28',
-          '32.223KG',
-        ],
-        [
-          '11010',
-          '西班牙Batalle豬排(500g)',
-          '\$250/KG',
-          '29',
-          '28',
-          '32.223KG',
-        ],
-      ],
-      totalOrderQuantity: 230,
-      totalShippedQuantity: 220,
-      deliveryDate: null,
-    );
+        totalOrderQuantity: 230,
+        totalShippedQuantity: 220,
+        deliveryDate: null,
+        cartonQty: 20);
