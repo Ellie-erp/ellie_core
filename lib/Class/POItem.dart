@@ -15,12 +15,12 @@ class POItem {
   String? pcmItemId;
   DateTime? expiryDate;
   bool? showExpiryDate;
+bool isExpiryHandled;
 
 
 
 
-
-  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.plu, this.pcmItemId, this.expiryDate, this.showExpiryDate});
+  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.plu, this.pcmItemId, this.expiryDate, this.showExpiryDate, this.isExpiryHandled=false});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'name': name,
@@ -34,6 +34,7 @@ class POItem {
     'pcmItemId' : pcmItemId,
     'expiryDate': expiryDate,
     'showExpiryDate' : showExpiryDate,
+    'isExpiryHandled': isExpiryHandled,
 
 
       };
@@ -52,6 +53,7 @@ class POItem {
       pcmItemId: doc.data()?['pcmItemId'],
       expiryDate: doc.data()?['expiryDate']?.toDate() ?? DateTime.now(),
       showExpiryDate: doc.data()?['showExpiryDate'] ??false,
+
     );
   }
 
