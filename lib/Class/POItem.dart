@@ -50,7 +50,7 @@ class POItem {
       poId: doc.data()?['poId'],
       plu: doc.data()?['plu'],
       pcmItemId: doc.data()?['pcmItemId'],
-      expiryDate: doc.data()?['expiryDate']?.toDate(),
+      expiryDate: doc.data()?['expiryDate']?.toDate() ?? DateTime.now(),
       showExpiryDate: doc.data()?['showExpiryDate'] ??false,
     );
   }
