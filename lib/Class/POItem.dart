@@ -53,6 +53,7 @@ bool isExpiryHandled;
       pcmItemId: doc.data()?['pcmItemId'],
       expiryDate: doc.data()?['expiryDate']?.toDate() ?? DateTime.now(),
       showExpiryDate: doc.data()?['showExpiryDate'] ??false,
+      isExpiryHandled: doc.data()?['isExpiryHandled'] ?? false,
 
     );
   }
