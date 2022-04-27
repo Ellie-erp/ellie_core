@@ -218,10 +218,10 @@ class OrderItem {
 
       for (final value in _array) {
         if (value > 1) {
-          output += num.parse(value.toStringAsFixed(3)).toString() + 'KG';
+          output += num.parse(value.toStringAsFixed(3)).toString() + 'kg';
         } else {
           output +=
-              num.parse((value * 1000).toStringAsFixed(0)).toString() + 'G';
+              num.parse((value * 1000).toStringAsFixed(0)).toString() + 'g';
         }
         if (value != _array.last) {
           output += ', ';
