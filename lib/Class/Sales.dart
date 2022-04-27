@@ -136,7 +136,7 @@ class Sales {
         'remark': remark,
         'freight': freight,
         'isPaid': isPaid,
-    'cartonQty' : cartonQty,
+        'cartonQty': cartonQty,
       }..removeWhere((key, value) => value == null);
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
@@ -208,6 +208,29 @@ class OrderItem {
       return num.parse(preWeight.toStringAsFixed(3)).toString() + 'kg';
     }
     return num.parse((preWeight * 1000).toStringAsFixed(0)).toString() + 'g';
+  }
+
+  String get weightString {
+    if (unit == Unit.KG) {
+      final _array = (array ?? []).cast<num>();
+
+      String output = '\n[';
+
+      for (final value in _array) {
+        if (value > 1) {
+          output += num.parse(value.toStringAsFixed(3)).toString() + 'KG';
+        } else {
+          output +=
+              num.parse((value * 1000).toStringAsFixed(0)).toString() + 'G';
+        }
+        if (value != _array.last) {
+          output += ', ';
+        }
+      }
+      return output;
+    } else {
+      return '';
+    }
   }
 
   OrderItem(
