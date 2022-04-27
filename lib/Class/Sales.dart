@@ -227,7 +227,7 @@ class OrderItem {
           output += ', ';
         }
       }
-      return output;
+      return output + ']';
     } else {
       return '';
     }
