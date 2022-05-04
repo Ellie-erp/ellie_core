@@ -11,16 +11,19 @@ class PriceRecord {
   String get unitName => describeEnum(Unit);
   SalesType salesType;
   String get salesTypeName => describeEnum(SalesType);
+  String? staffId;
+  String? staffName;
 
 
 
-
-  PriceRecord({this.docRef,required this.timestamp,required this.price,required this.unit,required this.salesType});
+  PriceRecord({this.docRef,required this.timestamp,required this.price,required this.unit,required this.salesType, this.staffName,this.staffId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'price': price,
         'unit': Unit.values.indexOf(this.unit),
     'salesType': SalesType.values.indexOf(this.salesType),
+    'staffId': staffId,
+    'staffName': staffName,
 
       };
   factory PriceRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -30,7 +33,8 @@ class PriceRecord {
       price: doc.data()?['price'],
       unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
       salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
-
+      staffId: doc.data()?['staffId']?? '',
+      staffName: doc.data()?['staffName']?? '',
     );
   }
 
