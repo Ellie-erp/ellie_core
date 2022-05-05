@@ -192,13 +192,13 @@ class OrderItem {
   String get unitName => describeEnum(unit);
   num preWeight;
   num? preQTY;
-  List? array;
+  List<num> array;
   String? remark;
   String? locationId;
   String? barcode;
 
   num get totalPrice =>
-      List<num>.from(array ?? []).fold<num>(0, (p, e) => p + e) * unitPrice;
+      List<num>.from(array).fold<num>(0, (p, e) => p + e) * unitPrice;
 
   String get preWeightString {
     if (preWeight == 1 && unit == Unit.PC) {
@@ -212,7 +212,7 @@ class OrderItem {
 
   String get weightString {
     if (unit == Unit.KG) {
-      final _array = (array ?? []).cast<num>();
+      final _array = (array).cast<num>();
 
       String output = '\n[';
 
@@ -242,7 +242,7 @@ class OrderItem {
       required this.unit,
       this.preWeight = 1,
       this.preQTY,
-      this.array,
+      required this.array,
       this.remark,
       this.locationId,
       this.barcode});
@@ -271,7 +271,7 @@ class OrderItem {
         unit: Unit.values.elementAt(doc.data()?['unit'] ?? 0),
         preWeight: doc.data()?['preWeight'] ?? 1,
         preQTY: doc.data()?['preQTY'],
-        array: doc.data()?['array'] ?? [],
+        array: ((doc.data()?['array'] as List?) ?? []).cast<num>(),
         remark: doc.data()?['remark'] ?? '',
         locationId: doc.data()?['locationId'],
         barcode: doc.data()?['barcode']);
