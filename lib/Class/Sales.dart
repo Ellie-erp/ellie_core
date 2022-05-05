@@ -15,6 +15,33 @@ enum PayMethod {
   FPS,
 }
 
+extension PayMethodExt on PayMethod {
+  String get displayName {
+    switch (this) {
+      case PayMethod.Cash:
+        return 'Cash';
+      case PayMethod.VisaCard:
+        return 'Visa Card';
+      case PayMethod.MasterCard:
+        return 'Master Card';
+      case PayMethod.OctopusCard:
+        return 'Octopus Card';
+      case PayMethod.Payme:
+        return 'PayMe';
+      case PayMethod.AliPay:
+        return 'Alipay';
+      case PayMethod.WechatPay:
+        return 'WeChat Pay';
+      case PayMethod.AE:
+        return 'American Express Card';
+      case PayMethod.BankTransferOrCheque:
+        return 'Back Transfer / Cheque';
+      case PayMethod.FPS:
+        return 'FPS';
+    }
+  }
+}
+
 enum SalesType {
   RETAIL,
   WHOLESALE,
