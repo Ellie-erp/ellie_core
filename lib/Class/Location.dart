@@ -27,6 +27,7 @@ class Location {
   bool allowStockIn;
   List? webShopList;
   num credit;
+  String? orgBrandId;
 
   Location(
       {this.docRef,
@@ -43,7 +44,8 @@ class Location {
       this.allowStockIn = false,
       this.webShopList,
       this.credit = 0,
-      required this.createDate});
+      required this.createDate,
+      this.orgBrandId});
   Map<String, dynamic> get toMap => {
         'name': name,
         'type': type,
@@ -59,6 +61,7 @@ class Location {
         'webShopList': webShopList,
         'credit': credit,
         'createDate': createDate,
+    'orgBrandId': orgBrandId,
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -78,6 +81,7 @@ class Location {
       webShopList: doc.data()?['webShopList'] ?? [],
       credit: doc.data()?['credit'] ?? 0,
       createDate: doc.data()?['createDate']?.toDate(),
+      orgBrandId: doc.data()?['orgBrandId'],
     );
   }
 
