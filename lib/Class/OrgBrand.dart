@@ -22,7 +22,7 @@ class OrgBrand {
     return OrgBrand(
       docRef: doc.reference,
       brandName: doc.data()!['brandName'],
-      createDate: doc.data()!['createDate'],
+      createDate: doc.data()!['createDate']?.toDate(),
 
 
     );
