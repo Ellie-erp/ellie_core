@@ -8,18 +8,20 @@ class DeliveryJob {
   String jobTitle;
   String address;
   String? remark;
+  DateTime deliveryDate;
   DateTime? arrivedDate;
 
 
 
 
-  DeliveryJob({this.docRef,required this.createDate,required this.jobTitle,required this.address ,this.remark, this.arrivedDate,});
+  DeliveryJob({this.docRef,required this.createDate,required this.jobTitle,required this.address ,this.remark, this.arrivedDate,required this.deliveryDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'jobTitle': jobTitle,
         'Address': address,
         'remark': remark,
         'arrivedDate': arrivedDate,
+    'deliveryDate': deliveryDate,
 
 
       };
@@ -27,6 +29,7 @@ class DeliveryJob {
     return DeliveryJob(
       docRef: doc.reference,
       createDate: doc.data()!['createDate']?.toDate(),
+      deliveryDate: doc.data()!['deliveryDate']?.toDate(),
       jobTitle: doc.data()!['jobTitle'],
       address: doc.data()!['address'],
       remark: doc.data()!['remark']?? '',
