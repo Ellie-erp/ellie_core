@@ -29,3 +29,4 @@ export 'StockRecord.dart';
 export 'StockRecordItem.dart';
 export 'UserList.dart';
 export 'OrgBrand.dart';
+export 'DeliveryJob.dart';
