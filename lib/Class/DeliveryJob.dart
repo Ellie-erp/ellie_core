@@ -18,7 +18,7 @@ class DeliveryJob {
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'jobTitle': jobTitle,
-        'Address': address,
+        'address': address,
         'remark': remark,
         'arrivedDate': arrivedDate,
     'deliveryDate': deliveryDate,
