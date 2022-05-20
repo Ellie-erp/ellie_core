@@ -7,16 +7,16 @@ class Series {
   String description;
  List<SeriesItem> seriesItem;
 
+  List<SeriesGroup> seriesGroup;
 
 
-
-  Series({this.docRef,required this.createDate,required this.title, this.description='', required this.seriesItem});
+  Series({this.docRef,required this.createDate,required this.title, this.description='', required this.seriesItem, required this.seriesGroup});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'title': title,
         'description': description,
     'seriesItem': (seriesItem ?? []).map((e) => e.toMap).toList(),
-
+    'seriesGroup': (seriesGroup ?? []).map((e) => e.toMap).toList(),
       };
   factory Series.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Series(
@@ -25,7 +25,7 @@ class Series {
       title: doc.data()!['title'],
       description: doc.data()!['description']?? '',
       seriesItem: List<SeriesItem>.from((doc.data()!['seriesItem'] ?? []).map((e) => SeriesItem.fromMap(e)).toList()),
-
+      seriesGroup: List<SeriesGroup>.from((doc.data()!['seriesGroup'] ?? []).map((e) => SeriesGroup.fromMap(e)).toList()),
     );
   }
 
@@ -42,14 +42,15 @@ class Series {
 class SeriesItem {
   String id;
   int position;
+int group;
 
 
-
-  SeriesItem({ required this.id,required this.position, });
+  SeriesItem({ required this.id,required this.position,  this.group=0});
 
   Map<String, dynamic> get toMap => {
     'id': id,
     'position': position,
+    'group' : group,
 
 
   };
@@ -58,6 +59,30 @@ class SeriesItem {
     return SeriesItem(
       id: map['id'],
       position: map['position'],
+      group: map['group']?? 0,
+
+    );
+  }}
+
+class SeriesGroup {
+  String name;
+  String description;
+
+
+
+  SeriesGroup({ required this.name,required this.description, });
+
+  Map<String, dynamic> get toMap => {
+    'name': name,
+    'description': description,
+
+
+  };
+
+  factory SeriesGroup.fromMap(Map<String, dynamic> map) {
+    return SeriesGroup(
+      name: map['name'],
+      description: map['description'],
 
     );
   }}
