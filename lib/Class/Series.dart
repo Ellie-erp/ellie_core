@@ -67,14 +67,15 @@ int group;
 class SeriesGroup {
   String name;
   String description;
+bool showTitle;
 
 
-
-  SeriesGroup({ required this.name,required this.description, });
+  SeriesGroup({ required this.name,required this.description, this.showTitle=true});
 
   Map<String, dynamic> get toMap => {
     'name': name,
     'description': description,
+    'showTitle': showTitle,
 
 
   };
@@ -83,6 +84,6 @@ class SeriesGroup {
     return SeriesGroup(
       name: map['name'],
       description: map['description'],
-
+      showTitle: map['showTitle']?? true,
     );
   }}
