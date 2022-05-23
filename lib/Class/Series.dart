@@ -47,19 +47,19 @@ class SeriesItem {
   String id;
   int position;
   int group;
-  int? primaryPhoto;
+  int? primaryImage;
 
   SeriesItem(
       {required this.id,
       required this.position,
       this.group = 0,
-      this.primaryPhoto});
+      this.primaryImage});
 
   Map<String, dynamic> get toMap => {
         'id': id,
         'position': position,
         'group': group,
-        'primaryPhoto': primaryPhoto
+        'primaryPhoto': primaryImage
       };
 
   factory SeriesItem.fromMap(Map<String, dynamic> map) {
@@ -67,7 +67,7 @@ class SeriesItem {
         id: map['id'],
         position: map['position'],
         group: map['group'] ?? 0,
-        primaryPhoto: map['primaryPhoto']);
+        primaryImage: map['primaryPhoto']);
   }
 }
 
