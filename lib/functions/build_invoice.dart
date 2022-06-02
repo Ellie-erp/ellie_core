@@ -64,10 +64,11 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
           ),
           Text('Tel: 2418-0400'),
         ]),
+
         Align(
             alignment: Alignment.centerRight,
             child: SizedBox(
-                width: 300,
+                width: 200,
                 child: Table.fromTextArray(
                     columnWidths: {
                       0: const FixedColumnWidth(50),
@@ -82,7 +83,12 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
                         _dateFormatter.format(createDate),
                         '${context.pageNumber} of ${context.pagesCount}'
                       ]
-                    ])))
+                    ]))),
+    BarcodeWidget(
+      color: PdfColor.fromHex("#000000"),
+      barcode: Barcode.qrCode(),
+      data: orderID,
+    ),
       ]);
 
   pdf.addPage(MultiPage(
