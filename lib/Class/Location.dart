@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 enum LocationType {
   SHOP,
@@ -28,7 +29,7 @@ class Location {
   List? webShopList;
   num credit;
   String? orgBrandId;
-  List<OpenHour>? openHour;
+  List<OpenHour> openHours;
 
   Location({
     this.docRef,
@@ -47,7 +48,7 @@ class Location {
     this.credit = 0,
     required this.createDate,
     this.orgBrandId,
-    this.openHour,
+    required this.openHours,
   });
   Map<String, dynamic> get toMap => {
         'name': name,
@@ -65,31 +66,38 @@ class Location {
         'credit': credit,
         'createDate': createDate,
         'orgBrandId': orgBrandId,
-        'openHour': (openHour ?? []).map((e) => e.toMap).toList(),
+        'openHours': (openHours).map((e) => e.toMap).toList(),
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
-      docRef: doc.reference,
-      name: doc.data()!['name'],
-      type: doc.data()!['type'],
-      address: doc.data()!['address'] ?? '',
-      addressZH: doc.data()!['addressZH'] ?? '',
-      tel: doc.data()!['tel'] ?? '',
-      locationType:
-          LocationType.values.elementAt(doc.data()!['locationType'] ?? 0),
-      isActive: doc.data()!['isActive'],
-      allowWorkshop: doc.data()!['allowWorkshop'] ?? false,
-      allowRetail: doc.data()!['allowRetail'] ?? false,
-      allowStock: doc.data()!['allowStock'] ?? false,
-      allowStockIn: doc.data()!['allowStockIn'] ?? false,
-      webShopList: doc.data()?['webShopList'] ?? [],
-      credit: doc.data()?['credit'] ?? 0,
-      createDate: doc.data()?['createDate']?.toDate(),
-      orgBrandId: doc.data()?['orgBrandId'],
-      openHour: List<OpenHour>.from((doc.data()!['openHour'] ?? [])
-          .map((e) => OpenHour.fromMap(e))
-          .toList()),
-    );
+        docRef: doc.reference,
+        name: doc.data()!['name'],
+        type: doc.data()!['type'],
+        address: doc.data()!['address'] ?? '',
+        addressZH: doc.data()!['addressZH'] ?? '',
+        tel: doc.data()!['tel'] ?? '',
+        locationType:
+            LocationType.values.elementAt(doc.data()!['locationType'] ?? 0),
+        isActive: doc.data()!['isActive'],
+        allowWorkshop: doc.data()!['allowWorkshop'] ?? false,
+        allowRetail: doc.data()!['allowRetail'] ?? false,
+        allowStock: doc.data()!['allowStock'] ?? false,
+        allowStockIn: doc.data()!['allowStockIn'] ?? false,
+        webShopList: doc.data()?['webShopList'] ?? [],
+        credit: doc.data()?['credit'] ?? 0,
+        createDate: doc.data()?['createDate']?.toDate(),
+        orgBrandId: doc.data()?['orgBrandId'],
+        openHours: doc.data()!['openHours'] == null
+            ? List.generate(
+                7,
+                (index) => OpenHour(
+                    dayOfWeek: index,
+                    enable: false,
+                    startHour: const TimeOfDay(hour: 8, minute: 0),
+                    endHour: const TimeOfDay(hour: 18, minute: 0)))
+            : (doc.data()!['openHours'] as List)
+                .map((e) => OpenHour.fromMap(e))
+                .toList());
   }
 
   Future<void> update() async {
@@ -100,8 +108,8 @@ class Location {
 class OpenHour {
   int dayOfWeek;
   bool enable;
-  DateTime startHour;
-  DateTime endHour;
+  TimeOfDay startHour;
+  TimeOfDay endHour;
 
   OpenHour(
       {required this.dayOfWeek,
@@ -120,7 +128,9 @@ class OpenHour {
     return OpenHour(
         dayOfWeek: data['dayOfWeek'],
         enable: data['enable'],
-        startHour: data['startHour'],
-        endHour: data['endHour']);
+        startHour:
+            TimeOfDay.fromDateTime((data['startHour'] as Timestamp).toDate()),
+        endHour:
+            TimeOfDay.fromDateTime((data['endHour'] as Timestamp).toDate()));
   }
 }
