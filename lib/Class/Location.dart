@@ -30,25 +30,25 @@ class Location {
   String? orgBrandId;
   List<OpenHour>? openHour;
 
-  Location(
-      {this.docRef,
-      required this.name,
-      this.type,
-      this.address,
-      this.addressZH,
-      this.tel,
-      required this.locationType,
-      required this.isActive,
-      this.allowWorkshop = false,
-      this.allowRetail = false,
-      this.allowStock = false,
-      this.allowStockIn = false,
-      this.webShopList,
-      this.credit = 0,
-      required this.createDate,
-      this.orgBrandId,
-      this.openHour,
-      });
+  Location({
+    this.docRef,
+    required this.name,
+    this.type,
+    this.address,
+    this.addressZH,
+    this.tel,
+    required this.locationType,
+    required this.isActive,
+    this.allowWorkshop = false,
+    this.allowRetail = false,
+    this.allowStock = false,
+    this.allowStockIn = false,
+    this.webShopList,
+    this.credit = 0,
+    required this.createDate,
+    this.orgBrandId,
+    this.openHour,
+  });
   Map<String, dynamic> get toMap => {
         'name': name,
         'type': type,
@@ -64,8 +64,8 @@ class Location {
         'webShopList': webShopList,
         'credit': credit,
         'createDate': createDate,
-    'orgBrandId': orgBrandId,
-    'openHour': (openHour ?? []).map((e) => e.toMap).toList(),
+        'orgBrandId': orgBrandId,
+        'openHour': (openHour ?? []).map((e) => e.toMap).toList(),
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -86,7 +86,9 @@ class Location {
       credit: doc.data()?['credit'] ?? 0,
       createDate: doc.data()?['createDate']?.toDate(),
       orgBrandId: doc.data()?['orgBrandId'],
-        openHour: List<OpenHour>.from((doc.data()!['openHour'] ?? []).map((e) => OpenHour.fromMap(e)).toList()),
+      openHour: List<OpenHour>.from((doc.data()!['openHour'] ?? [])
+          .map((e) => OpenHour.fromMap(e))
+          .toList()),
     );
   }
 
@@ -95,41 +97,30 @@ class Location {
   }
 }
 
-
-
-
-
-
 class OpenHour {
-  bool isMon;
-  bool isTue;
-  bool isWed;
-  bool isThu;
-  bool isFri;
-  bool isSat;
-  bool isSun;
+  int dayOfWeek;
+  bool enable;
+  DateTime startHour;
+  DateTime endHour;
 
-
-  OpenHour({this.isMon=true, this.isTue=true, this.isWed=true, this.isThu=true, this.isFri=true, this.isSat=true, this.isSun=true});
+  OpenHour(
+      {required this.dayOfWeek,
+      required this.enable,
+      required this.startHour,
+      required this.endHour});
 
   Map<String, dynamic> get toMap => {
-    'isMon': isMon,
-    'isTue': isTue,
-    'isWed' : isWed,
-    'isThu' : isThu,
-    'isFri' : isFri,
-    'isSat' : isSat,
-    'isSun' : isSun,
-  };
+        'dayOfWeek': dayOfWeek,
+        'enable': enable,
+        'startHour': startHour,
+        'endHour': endHour
+      };
 
-  factory OpenHour.fromMap(Map<String, dynamic> map) {
+  factory OpenHour.fromMap(Map<String, dynamic> data) {
     return OpenHour(
-      isMon: map['isMon']?? true,
-      isTue: map['isTue']?? true,
-      isWed: map['isWed']?? true,
-      isThu: map['isThu']?? true,
-      isFri: map['isFri']?? true,
-      isSat: map['isSat']?? true,
-      isSun: map['isSun']?? true,
-    );
-  }}
+        dayOfWeek: data['dayOfWeek'],
+        enable: data['enable'],
+        startHour: data['startHour'],
+        endHour: data['endHour']);
+  }
+}
