@@ -31,3 +31,4 @@ export 'UserList.dart';
 export 'OrgBrand.dart';
 export 'DeliveryJob.dart';
 export 'Series.dart';
+export 'Letter.dart';
