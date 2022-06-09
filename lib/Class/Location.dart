@@ -120,17 +120,23 @@ class OpenHour {
   Map<String, dynamic> get toMap => {
         'dayOfWeek': dayOfWeek,
         'enable': enable,
-        'startHour': startHour,
-        'endHour': endHour
+        'startHour': timeOfDayToJson(startHour),
+        'endHour': timeOfDayToJson(endHour)
       };
 
   factory OpenHour.fromMap(Map<String, dynamic> data) {
     return OpenHour(
         dayOfWeek: data['dayOfWeek'],
         enable: data['enable'],
-        startHour:
-            TimeOfDay.fromDateTime((data['startHour'] as Timestamp).toDate()),
-        endHour:
-            TimeOfDay.fromDateTime((data['endHour'] as Timestamp).toDate()));
+        startHour: timeOfDayFromJson(data['startHour']),
+        endHour: timeOfDayFromJson(data['endHour']));
   }
+}
+
+Map<String, dynamic> timeOfDayToJson(TimeOfDay timeOfDay) {
+  return {'hour': timeOfDay.hour, 'minute': timeOfDay.minute};
+}
+
+TimeOfDay timeOfDayFromJson(Map<String, dynamic> json) {
+  return TimeOfDay(hour: json['hour'], minute: json['minute']);
 }
