@@ -111,6 +111,19 @@ class Sales {
   num get subTotal => (amount - freight + deduction) / discount;
   num get deductedAmount => amount - freight - subTotal;
 
+  String get name {
+    switch (salesType) {
+      case SalesType.RETAIL:
+        return clientName ?? '';
+      case SalesType.WHOLESALE:
+        return businessClientName ?? '';
+      case SalesType.ONLINE:
+        return clientName ?? '';
+      case SalesType.STOCKIN:
+        return locationName ?? '';
+    }
+  }
+
   Sales(
       {this.docRef,
       required this.createDate,
