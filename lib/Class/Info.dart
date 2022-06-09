@@ -8,6 +8,7 @@ enum Department {
   PCM,
   ACCOUNTING,
   IT,
+  LOGISTICS,
 }
 
 enum InfoStatus {
