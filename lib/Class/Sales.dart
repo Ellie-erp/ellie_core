@@ -114,13 +114,13 @@ class Sales {
   String get name {
     switch (salesType) {
       case SalesType.RETAIL:
-        return clientName ?? '';
+        return clientName ?? 'Retail';
       case SalesType.WHOLESALE:
-        return businessClientName ?? '';
+        return businessClientName ?? 'Unnamed';
       case SalesType.ONLINE:
-        return clientName ?? '';
+        return clientName ?? 'Unnamed';
       case SalesType.STOCKIN:
-        return locationName ?? '';
+        return locationName ?? 'Unnamed';
     }
   }
 
