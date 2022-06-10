@@ -41,8 +41,6 @@ Future<Uint8List> buildDeliveryNote(
   final themeData = ThemeData.withFont(
     base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
     bold: await PdfGoogleFonts.shipporiMinchoB1Bold(),
-    italic: await PdfGoogleFonts.shipporiMinchoB1Regular(),
-    boldItalic: await PdfGoogleFonts.shipporiMinchoB1Bold(),
   ).copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
 
   final pdf =
@@ -57,9 +55,9 @@ Future<Uint8List> buildDeliveryNote(
       ]);
 
   Widget footer(Context context) => SizedBox(
-      width: 200,
-      height: 40,
-      child: BarcodeWidget(barcode: Barcode.code128(), data: orderId));
+      width: 60,
+      height: 60,
+      child: BarcodeWidget(barcode: Barcode.qrCode(), data: orderId));
 
   pdf.addPage(MultiPage(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -176,6 +174,70 @@ Future<Uint8List> buildDeliveryNoteExample(PdfPageFormat format) =>
             '29',
             '28',
             '32.223KG',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
+          ],
+          [
+            '11010',
+            '西班牙Batalle豬排(500g)',
+            '\$250/KG',
+            '29',
+            '28',
+            '32PCS',
           ],
         ],
         totalOrderQuantity: 230,

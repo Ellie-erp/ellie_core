@@ -18,13 +18,14 @@ dependencies:
   pdf: any
   printing: any
   intl: any
+  package_info_plus: any #https://pub.dev/packages/package_info_plus
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: any
 
-  # Debug
-  package_info_plus: any #https://pub.dev/packages/package_info_plus
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
