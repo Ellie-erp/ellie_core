@@ -177,7 +177,7 @@ class Sales {
         'freight': freight,
         'isPaid': isPaid,
         'cartonQty': cartonQty,
-      }..removeWhere((key, value) => value == null);
+      };
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
       docRef: doc.reference,
