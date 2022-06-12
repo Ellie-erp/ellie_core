@@ -324,21 +324,25 @@ class OrderHistory {
   DocumentReference? docRef;
   DateTime timestamp;
   String text;
+  String? uid;
 
   OrderHistory({
     this.docRef,
     required this.timestamp,
     required this.text,
+    this.uid='',
   });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'text': text,
+        'uid': uid,
       };
   factory OrderHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrderHistory(
       docRef: doc.reference,
       timestamp: doc.data()!['timestamp']?.toDate(),
       text: doc.data()!['text'] ?? '',
+      uid: doc.data()!['uid'] ?? '',
     );
   }
 
