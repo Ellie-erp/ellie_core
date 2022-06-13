@@ -22,21 +22,20 @@ class UserList {
   String mode;
   List<String> locations;
 
-
-  UserList(
-      {this.docRef,
-      required this.createDate,
-      this.displayName,
-      this.email,
-      this.delAddress,
-      this.credit,
-      this.paymentPeriod,
-      this.userType = UserType.Client,
-      this.permissions = const {},
-      this.role = '',
-      this.mode='erp',
-        this.locations = const [],
-      });
+  UserList({
+    this.docRef,
+    required this.createDate,
+    this.displayName,
+    this.email,
+    this.delAddress,
+    this.credit,
+    this.paymentPeriod,
+    this.userType = UserType.Client,
+    this.permissions = const {},
+    this.role = '',
+    this.mode = 'erp',
+    this.locations = const [],
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'displayName': displayName,
@@ -45,8 +44,8 @@ class UserList {
         'credit': credit,
         'paymentPeriod': paymentPeriod,
         'userType': userType.index,
-    'mode': mode,
-    'locations' : locations,
+        'mode': mode,
+        'locations': locations,
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserList(
@@ -63,9 +62,8 @@ class UserList {
         permissions:
             (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {},
         role: doc.data()!['role'] ?? '',
-    mode: doc.data()!['mode'] ?? 'erp',
-      locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>()
-    );
+        mode: doc.data()!['mode'] ?? 'erp',
+        locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>());
   }
 
   Future<void> update() async {

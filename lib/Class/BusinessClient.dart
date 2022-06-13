@@ -11,23 +11,31 @@ class BusinessClient {
   String? staffId;
   String? staffName;
   num credit;
- num paymentPeriod;
+  num paymentPeriod;
 
-
-
-  BusinessClient({this.docRef, required this.createDate,required this.orgName,required this.orgNameEn ,required this.tel,required this.address, required this.updateDate, this.staffName, this.staffId, required this.credit, required this.paymentPeriod});
+  BusinessClient(
+      {this.docRef,
+      required this.createDate,
+      required this.orgName,
+      required this.orgNameEn,
+      required this.tel,
+      required this.address,
+      required this.updateDate,
+      this.staffName,
+      this.staffId,
+      required this.credit,
+      required this.paymentPeriod});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
         'orgNameEn': orgNameEn,
         'tel': tel,
         'address': address,
-    'updateDate' : updateDate,
-    'staffId': staffId,
-    'staffName' : staffName,
-    'credit': credit,
-    'paymentPeriod': paymentPeriod,
-
+        'updateDate': updateDate,
+        'staffId': staffId,
+        'staffName': staffName,
+        'credit': credit,
+        'paymentPeriod': paymentPeriod,
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -37,11 +45,11 @@ class BusinessClient {
       orgNameEn: doc.data()!['orgNameEn'],
       tel: doc.data()!['tel'],
       address: doc.data()!['address'],
-     updateDate: doc.data()!['updateDate']?.toDate(),
+      updateDate: doc.data()!['updateDate']?.toDate(),
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
       credit: doc.data()!['credit'],
-      paymentPeriod:  doc.data()!['paymentPeriod']?? 0,
+      paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
     );
   }
 
@@ -50,35 +58,38 @@ class BusinessClient {
   }
 }
 
-
-
 class BCBranch {
   DocumentReference? docRef;
   String branchName;
   String? tel;
   String? address;
   String? contactName;
-DateTime createDate;
-DateTime updateDate;
+  DateTime createDate;
+  DateTime updateDate;
 
-
-
-  BCBranch({this.docRef,required  this.branchName, this.tel, this.address ,this.contactName, required this.createDate, required this.updateDate});
+  BCBranch(
+      {this.docRef,
+      required this.branchName,
+      this.tel,
+      this.address,
+      this.contactName,
+      required this.createDate,
+      required this.updateDate});
   Map<String, dynamic> get toMap => {
         'branchName': branchName,
         'tel': tel,
         'address': address,
         'contactName': contactName,
-    'createDate': createDate,
-    'updateDate' : updateDate,
+        'createDate': createDate,
+        'updateDate': updateDate,
       };
   factory BCBranch.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BCBranch(
       docRef: doc.reference,
       branchName: doc.data()!['branchName'],
-      tel: doc.data()!['tel']?? '',
-      address: doc.data()!['address']?? '',
-      contactName: doc.data()!['contactName']?? '',
+      tel: doc.data()!['tel'] ?? '',
+      address: doc.data()!['address'] ?? '',
+      contactName: doc.data()!['contactName'] ?? '',
       createDate: doc.data()!['createDate']?.toDate(),
       updateDate: doc.data()!['updateDate']?.toDate(),
     );
@@ -89,16 +100,14 @@ DateTime updateDate;
   }
 }
 
-
 ///Can be used in Business Client and Location(StockIn)
-enum CreditRecordType{
+enum CreditRecordType {
   Payment,
   Change,
   CreditTransfer,
   Refund,
   CreditPayment,
 }
-
 
 class CreditRecord {
   DocumentReference? docRef;
@@ -112,20 +121,28 @@ class CreditRecord {
   num creditBefore;
   num creditAfter;
 
-
-  CreditRecord({this.docRef,required this.timestamp,required this.amount, this.remark, required this.staffId, required this.staffName, required this.creditRecordType, this.orderId, required this.creditAfter, required this.creditBefore});
+  CreditRecord(
+      {this.docRef,
+      required this.timestamp,
+      required this.amount,
+      this.remark,
+      required this.staffId,
+      required this.staffName,
+      required this.creditRecordType,
+      this.orderId,
+      required this.creditAfter,
+      required this.creditBefore});
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'amount': amount,
-    'remark': remark,
-    'staffId' : staffId,
-    'staffName' : staffName,
-    'creditRecordType': CreditRecordType.values.indexOf(this.creditRecordType),
-    'orderId' : orderId,
-    'creditBefore' : creditBefore,
-    'creditAfter' : creditAfter,
-
-  };
+        'timestamp': timestamp,
+        'amount': amount,
+        'remark': remark,
+        'staffId': staffId,
+        'staffName': staffName,
+        'creditRecordType': CreditRecordType.values.indexOf(creditRecordType),
+        'orderId': orderId,
+        'creditBefore': creditBefore,
+        'creditAfter': creditAfter,
+      };
   factory CreditRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return CreditRecord(
       docRef: doc.reference,
@@ -134,10 +151,11 @@ class CreditRecord {
       remark: doc.data()!['remark'],
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
-      creditRecordType: CreditRecordType.values.elementAt(doc.data()?['creditRecordType'] ?? 0),
+      creditRecordType: CreditRecordType.values
+          .elementAt(doc.data()?['creditRecordType'] ?? 0),
       orderId: doc.data()!['orderId'],
       creditBefore: doc.data()!['creditBefore'],
       creditAfter: doc.data()!['creditAfter'],
-
     );
-  }}
+  }
+}

@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-enum ClientType{
+enum ClientType {
   PERSONAL,
   BUSINESS,
   STAFF,
 }
-
 
 class Client {
   DocumentReference? docRef;
@@ -17,26 +16,34 @@ class Client {
   String? tel;
   String? companyName;
   String? note;
- String? salesId;
- String? salesName;
- ClientType clientType;
- String get clientTypeName => describeEnum(clientType);
+  String? salesId;
+  String? salesName;
+  ClientType clientType;
+  String get clientTypeName => describeEnum(clientType);
 
-
-  Client({this.docRef, required this.createDate,required this.updateDate, required this.name ,this.address, this.tel, this.companyName, this.note, this.salesId, this.salesName, required this.clientType});
+  Client(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.name,
+      this.address,
+      this.tel,
+      this.companyName,
+      this.note,
+      this.salesId,
+      this.salesName,
+      required this.clientType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-        'updateDate': updateDate,      
-        'name': name,  
-        'address': address,  
-        'tel': tel,  
+        'updateDate': updateDate,
+        'name': name,
+        'address': address,
+        'tel': tel,
         'companyName': companyName,
-    'note' : note,
-    'salesId' : salesId,
-    'salesName' : salesName,
-    'clientType' : ClientType.values.indexOf(this.clientType),
-
-
+        'note': note,
+        'salesId': salesId,
+        'salesName': salesName,
+        'clientType': ClientType.values.indexOf(clientType),
       };
   factory Client.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Client(
@@ -46,10 +53,10 @@ class Client {
       name: doc.data()!['name'],
       address: doc.data()!['address'],
       tel: doc.data()!['tel'],
-        companyName: doc.data()!['companyName'],
+      companyName: doc.data()!['companyName'],
       salesId: doc.data()!['salesId'],
       salesName: doc.data()!['salesName'],
-        clientType: ClientType.values.elementAt(doc.data()!['clientType'] ?? 0),
+      clientType: ClientType.values.elementAt(doc.data()!['clientType'] ?? 0),
     );
   }
 

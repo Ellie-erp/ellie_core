@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutEllieERPView extends StatefulWidget {
+  const AboutEllieERPView({Key? key}) : super(key: key);
+
   @override
   _AboutEllieERPViewState createState() => _AboutEllieERPViewState();
 }
@@ -11,7 +13,8 @@ class _AboutEllieERPViewState extends State<AboutEllieERPView> {
     appName: 'Unknown',
     packageName: 'Unknown',
     version: 'Unknown',
-    buildNumber: 'Unknown', buildSignature: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
   );
 
   @override
@@ -38,7 +41,7 @@ class _AboutEllieERPViewState extends State<AboutEllieERPView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About package'),
+        title: const Text('About package'),
       ),
       body: ListView(
         children: [

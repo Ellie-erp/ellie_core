@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VoucherOut {
-  DocumentReference ?docRef;
+  DocumentReference? docRef;
   DateTime? createDate;
   num voucher;
   DateTime? completeDate;
 
-  VoucherOut({this.docRef, this.createDate,required this.voucher, this.completeDate});
+  VoucherOut(
+      {this.docRef, this.createDate, required this.voucher, this.completeDate});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'voucher': voucher,

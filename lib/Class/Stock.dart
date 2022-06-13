@@ -2,18 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Stock {
   DocumentReference? docRef;
-  DateTime updateDate; 
+  DateTime updateDate;
   String plu;
   Map<String, num>? stockMap;
 
-
-
-  Stock({this.docRef,required this.updateDate,required this.plu,  this.stockMap});
+  Stock(
+      {this.docRef,
+      required this.updateDate,
+      required this.plu,
+      this.stockMap});
   Map<String, dynamic> get toMap => {
         'updateDate': updateDate,
         'plu': plu,
-    'stockMap': stockMap,
-
+        'stockMap': stockMap,
       };
   factory Stock.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Stock(
@@ -28,7 +29,3 @@ class Stock {
     await docRef!.update(toMap);
   }
 }
-
-
-
-

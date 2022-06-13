@@ -131,7 +131,7 @@ class PromRule {
         'isDateRequired': isDateRequired,
         'startDate': startDate,
         'endDate': endDate,
-        'promRuleStatus': PromRuleStatus.values.indexOf(this.promRuleStatus),
+        'promRuleStatus': PromRuleStatus.values.indexOf(promRuleStatus),
         'allowRetail': allowRetail,
         'allowWholesale': allowWholesale,
         'allowOnline': allowOnline,
@@ -151,8 +151,8 @@ class PromRule {
         'BCArray': BCArray,
         'onlineArray': onlineArray,
         'stockInArray': stockInArray,
-        'discountType': DiscountType.values.indexOf(this.discountType),
-        'ruleType': RuleType.values.indexOf(this.ruleType),
+        'discountType': DiscountType.values.indexOf(discountType),
+        'ruleType': RuleType.values.indexOf(ruleType),
         'ruleValue': ruleValue,
       };
 

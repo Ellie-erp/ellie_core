@@ -7,17 +7,18 @@ class BankAcc {
   String accName;
   String accNo;
 
-
-
-
-  BankAcc({this.docRef, required this.createDate, required this.bankName, required this.accName ,required this.accNo,});
+  BankAcc({
+    this.docRef,
+    required this.createDate,
+    required this.bankName,
+    required this.accName,
+    required this.accNo,
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'bankName': bankName,
         'accName': accName,
         'accNo': accNo,
-
-
       };
   factory BankAcc.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BankAcc(
@@ -26,7 +27,6 @@ class BankAcc {
       bankName: doc.data()!['bankName'],
       accName: doc.data()!['accName'],
       accNo: doc.data()!['accNo'],
-
     );
   }
 

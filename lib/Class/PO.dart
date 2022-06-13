@@ -4,12 +4,12 @@ import 'package:liquidity_gallery/Class.dart';
 
 import 'PCMItem.dart';
 import 'PCMSuppiler.dart';
+
 enum POStatus {
   DRAFT,
   ACTIVE,
   DISABLE,
 }
-
 
 class PO {
   DocumentReference? docRef;
@@ -22,36 +22,52 @@ class PO {
   POStatus poStatus;
   String get poStatusName => describeEnum(poStatus);
   Currency currency;
-num rate;
-ShipmentMethod shipmentMethod;
-String get shipmentMethodName => describeEnum(shipmentMethod);
-DateTime? ETD;
-DateTime? ETA;
-String? pcmSuppilerId;
-String ? pcmSuppilerName;
-num? adjAmount;
-String? refNo;
-String? remark;
+  num rate;
+  ShipmentMethod shipmentMethod;
+  String get shipmentMethodName => describeEnum(shipmentMethod);
+  DateTime? ETD;
+  DateTime? ETA;
+  String? pcmSuppilerId;
+  String? pcmSuppilerName;
+  num? adjAmount;
+  String? refNo;
+  String? remark;
 
-
-  PO({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost,required this.term, required this.poStatus,this.currency=Currency.HKD ,this.rate=1, this.shipmentMethod=ShipmentMethod.LOCAL, this.ETA, this.ETD, this.pcmSuppilerId, this.pcmSuppilerName, this.adjAmount, this.refNo, this.remark});
+  PO(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.seller,
+      this.transportCost,
+      required this.term,
+      required this.poStatus,
+      this.currency = Currency.HKD,
+      this.rate = 1,
+      this.shipmentMethod = ShipmentMethod.LOCAL,
+      this.ETA,
+      this.ETD,
+      this.pcmSuppilerId,
+      this.pcmSuppilerName,
+      this.adjAmount,
+      this.refNo,
+      this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'seller': seller,
         'transportCost': transportCost,
-    'term' : Term.values.indexOf(this.term),
-    'poStatus' : POStatus.values.indexOf(this.poStatus),
-    'currency': Currency.values.indexOf(this.currency),
-    'shipmentMethod': ShipmentMethod.values.indexOf(this.shipmentMethod),
-    'rate' : rate,
-'ETD' : ETD,
-    'ETA' : ETA,
-    'pcmSuppilerId' : pcmSuppilerId,
-    'pcmSuppilerName' : pcmSuppilerName,
-    'adjAmount' : adjAmount,
-    'refNo' : refNo,
-    'remark' : remark,
+        'term': Term.values.indexOf(term),
+        'poStatus': POStatus.values.indexOf(poStatus),
+        'currency': Currency.values.indexOf(currency),
+        'shipmentMethod': ShipmentMethod.values.indexOf(shipmentMethod),
+        'rate': rate,
+        'ETD': ETD,
+        'ETA': ETA,
+        'pcmSuppilerId': pcmSuppilerId,
+        'pcmSuppilerName': pcmSuppilerName,
+        'adjAmount': adjAmount,
+        'refNo': refNo,
+        'remark': remark,
       };
 
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -63,9 +79,10 @@ String? remark;
       transportCost: doc.data()?['transportCost'] ?? 0,
       term: Term.values.elementAt(doc.data()!['term'] ?? 0),
       poStatus: POStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
-      currency:  Currency.values.elementAt(doc.data()!['currency'] ?? 0),
+      currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
       rate: doc.data()?['rate'] ?? 1,
-      shipmentMethod:  ShipmentMethod.values.elementAt(doc.data()!['shipmentMethod'] ?? 0),
+      shipmentMethod:
+          ShipmentMethod.values.elementAt(doc.data()!['shipmentMethod'] ?? 0),
       ETD: doc.data()?['ETD']?.toDate(),
       ETA: doc.data()?['ETA']?.toDate(),
       pcmSuppilerId: doc.data()?['pcmSuppilerId'],
@@ -80,9 +97,3 @@ String? remark;
     await docRef!.update(toMap);
   }
 }
-
-
-
-
-
-

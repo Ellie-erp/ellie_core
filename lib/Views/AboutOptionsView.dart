@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'AboutEllieERPView.dart';
-import 'AboutPlatformView.dart';
 
 class AboutOptionsView extends StatelessWidget {
   const AboutOptionsView({Key? key}) : super(key: key);
@@ -10,15 +9,17 @@ class AboutOptionsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About'),
+        title: const Text('About'),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('About this app'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AboutEllieERPView())),
+            title: const Text('About this app'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AboutEllieERPView())),
           ),
           // ListTile(
           //   title: Text('About this platform'),
