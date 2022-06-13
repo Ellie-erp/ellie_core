@@ -58,7 +58,7 @@ class Expense {
       updateDate: doc.data()?['updateDate']?.toDate(),
       seller: doc.data()?['seller'],
       transportCost: doc.data()?['transportCost'] ?? 0,
-      expStatus: EXPStatus.values.elementAt(doc.data()!['poStatus'] ?? 0),
+      expStatus: EXPStatus.values.elementAt(doc.data()!['expStatus'] ?? 0),
       total: doc.data()?['total'] ?? 0,
       refNo: doc.data()?['refNo'] ?? '',
       staffId: doc.data()?['staffId'],
