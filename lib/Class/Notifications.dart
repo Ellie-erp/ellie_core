@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
@@ -8,7 +7,6 @@ enum NoticeType {
   WHOLESALE,
 }
 
-
 class Notifications {
   DocumentReference? docRef;
   DateTime createDate;
@@ -17,15 +15,17 @@ class Notifications {
   NoticeType noticeType;
   String get noticeTypeName => describeEnum(noticeType);
 
-
-
-  Notifications({this.docRef, required this.createDate,required this.title, this.subtitle,required this.noticeType});
+  Notifications(
+      {this.docRef,
+      required this.createDate,
+      required this.title,
+      this.subtitle,
+      required this.noticeType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'title': title,
         'subtitle': subtitle,
-    'noticeType' : NoticeType.values.indexOf(this.noticeType),
-
+        'noticeType': NoticeType.values.indexOf(noticeType),
       };
   factory Notifications.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Notifications(
@@ -34,7 +34,6 @@ class Notifications {
       title: doc.data()?['title'],
       subtitle: doc.data()?['subtitle'],
       noticeType: NoticeType.values.elementAt(doc.data()?['noticeType'] ?? 0),
-
     );
   }
 

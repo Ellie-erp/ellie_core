@@ -15,30 +15,40 @@ class POItem {
   String? pcmItemId;
   DateTime? expiryDate;
   bool? showExpiryDate;
-bool isExpiryHandled;
-String nameEng;
+  bool isExpiryHandled;
+  String nameEng;
 
-
-
-
-  POItem({this.docRef,required this.timestamp,required this.name, this.ctn ,required this.qty, required this.unit,required this.unitPrice, this.remark,required this.poId, this.plu, this.pcmItemId, this.expiryDate, this.showExpiryDate, this.isExpiryHandled=false, this.nameEng=''});
+  POItem(
+      {this.docRef,
+      required this.timestamp,
+      required this.name,
+      this.ctn,
+      required this.qty,
+      required this.unit,
+      required this.unitPrice,
+      this.remark,
+      required this.poId,
+      this.plu,
+      this.pcmItemId,
+      this.expiryDate,
+      this.showExpiryDate,
+      this.isExpiryHandled = false,
+      this.nameEng = ''});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'name': name,
         'ctn': ctn,
         'qty': qty,
-    'unit' : Unit.values.indexOf(this.unit),
+        'unit': Unit.values.indexOf(unit),
         'unitPrice': unitPrice,
         'remark': remark,
         'poId': poId,
-    'plu' : plu,
-    'pcmItemId' : pcmItemId,
-    'expiryDate': expiryDate,
-    'showExpiryDate' : showExpiryDate,
-    'isExpiryHandled': isExpiryHandled,
-    'nameEng': nameEng,
-
-
+        'plu': plu,
+        'pcmItemId': pcmItemId,
+        'expiryDate': expiryDate,
+        'showExpiryDate': showExpiryDate,
+        'isExpiryHandled': isExpiryHandled,
+        'nameEng': nameEng,
       };
   factory POItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return POItem(
@@ -54,10 +64,9 @@ String nameEng;
       plu: doc.data()?['plu'],
       pcmItemId: doc.data()?['pcmItemId'],
       expiryDate: doc.data()?['expiryDate']?.toDate() ?? DateTime.now(),
-      showExpiryDate: doc.data()?['showExpiryDate'] ??false,
+      showExpiryDate: doc.data()?['showExpiryDate'] ?? false,
       isExpiryHandled: doc.data()?['isExpiryHandled'] ?? false,
-      nameEng:  doc.data()?['nameEng']?? '',
-
+      nameEng: doc.data()?['nameEng'] ?? '',
     );
   }
 

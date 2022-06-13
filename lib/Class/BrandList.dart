@@ -7,17 +7,18 @@ class BrandList {
   String name;
   String? detail;
 
-
-
-
-  BrandList({this.docRef, required this.createDate, required this.updateDate, required this.name ,this.detail,});
+  BrandList({
+    this.docRef,
+    required this.createDate,
+    required this.updateDate,
+    required this.name,
+    this.detail,
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'name': name,
         'detail': detail,
-
-
       };
   factory BrandList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BrandList(
@@ -26,8 +27,6 @@ class BrandList {
       updateDate: doc.data()!['updateDate']?.toDate(),
       name: doc.data()!['name'],
       detail: doc.data()!['detail'] ?? '',
-
-
     );
   }
 

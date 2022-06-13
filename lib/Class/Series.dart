@@ -20,8 +20,8 @@ class Series {
         'createDate': createDate,
         'title': title,
         'description': description,
-        'seriesItem': (seriesItem ?? []).map((e) => e.toMap).toList(),
-        'seriesGroup': (seriesGroup ?? []).map((e) => e.toMap).toList(),
+        'seriesItem': (seriesItem).map((e) => e.toMap).toList(),
+        'seriesGroup': (seriesGroup).map((e) => e.toMap).toList(),
       };
   factory Series.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Series(

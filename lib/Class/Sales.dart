@@ -164,7 +164,7 @@ class Sales {
         'deduction': deduction,
         'discount': discount,
         'paidAmount': paidAmount,
-        'payMethod': PayMethod.values.indexOf(this.payMethod!),
+        'payMethod': PayMethod.values.indexOf(payMethod!),
         'deliveryAddress': deliveryAddress,
         'staffId': staffId,
         'staffName': staffName,
@@ -330,7 +330,7 @@ class OrderHistory {
     this.docRef,
     required this.timestamp,
     required this.text,
-    this.uid='',
+    this.uid = '',
   });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
@@ -383,7 +383,7 @@ class PaymentRecord {
         'staffId': staffId,
         'staffName': staffName,
         'paymentRecordType':
-            PaymentRecordType.values.indexOf(this.paymentRecordType),
+            PaymentRecordType.values.indexOf(paymentRecordType),
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(

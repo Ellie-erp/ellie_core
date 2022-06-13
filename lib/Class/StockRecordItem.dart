@@ -1,23 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-
-
 
 class StockRecordItem {
   DocumentReference? docRef;
   String plu;
   String? productName;
- num qty;
+  num qty;
 
-
-
-  StockRecordItem({this.docRef,  required this.plu, this.productName ,required this.qty});
+  StockRecordItem(
+      {this.docRef, required this.plu, this.productName, required this.qty});
   Map<String, dynamic> get toMap => {
         'plu': plu,
         'productName': productName,
-    'qty' : qty,
-
-
+        'qty': qty,
       };
   factory StockRecordItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return StockRecordItem(

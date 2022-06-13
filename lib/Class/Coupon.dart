@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-enum Discount{
+enum Discount {
   MULTIPLY,
 }
-
 
 class Coupon {
   DocumentReference? docRef;
@@ -15,12 +14,19 @@ class Coupon {
   num? slot2;
   num? slot3;
   Discount discount;
- String get discountName => describeEnum(discount);
- bool isActive;
+  String get discountName => describeEnum(discount);
+  bool isActive;
 
-
-
-  Coupon({this.docRef, required this.createDate, required this.title, this.description ,this.slot1, this.slot2, this.slot3, required this.discount, required this.isActive});
+  Coupon(
+      {this.docRef,
+      required this.createDate,
+      required this.title,
+      this.description,
+      this.slot1,
+      this.slot2,
+      this.slot3,
+      required this.discount,
+      required this.isActive});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'title': title,
@@ -28,9 +34,8 @@ class Coupon {
         'slot1': slot1,
         'slot2': slot2,
         'slot3': slot3,
-    'discount': Discount.values.indexOf(this.discount),
-    'isActive' : isActive,
-
+        'discount': Discount.values.indexOf(discount),
+        'isActive': isActive,
       };
   factory Coupon.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Coupon(
@@ -43,7 +48,6 @@ class Coupon {
       slot3: doc.data()?['slot3'],
       discount: Discount.values.elementAt(doc.data()?['discount'] ?? 0),
       isActive: doc.data()?['isActive'],
-
     );
   }
 

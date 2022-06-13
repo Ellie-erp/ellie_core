@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:liquidity_gallery/Class.dart';
 
 enum PCMType {
@@ -57,15 +56,15 @@ class PCMSuppiler {
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
-        'pcmType': PCMType.values.indexOf(this.pcmType),
+        'pcmType': PCMType.values.indexOf(pcmType),
         'name': name,
         'brand': brand,
         'website': website,
-        'origin': Country.values.indexOf(this.origin),
+        'origin': Country.values.indexOf(origin),
         'address': address,
-        'term': Term.values.indexOf(this.term),
+        'term': Term.values.indexOf(term),
         'contact': (contact ?? []).map((e) => e.toMap).toList(),
-        'currency': Currency.values.indexOf(this.currency),
+        'currency': Currency.values.indexOf(currency),
         'history': (history ?? []).map((e) => e.toMap).toList(),
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {

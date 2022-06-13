@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:liquidity_gallery/liquidity_gallery.dart';
 
 import 'AboutOptionsView.dart';
@@ -46,10 +45,10 @@ class SettingView extends StatelessWidget {
                 ),
                 title: Text(
                   name,
-                  style: TextStyle(fontSize: 19),
+                  style: const TextStyle(fontSize: 19),
                 ),
                 subtitle: Text(title),
-                trailing: Text(
+                trailing: const Text(
                   "Account",
                   style: TextStyle(fontSize: 15),
                 ),
@@ -64,20 +63,20 @@ class SettingView extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10, left: 10),
             child: MailboxContainer(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => AboutOptionsView()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const AboutOptionsView()));
                 },
                 Radius: 8,
                 padding: 0,
-                child: ListTile(
+                child: const ListTile(
                   title: Text("About"),
                 )),
           ),
-          Divider(),
+          const Divider(),
           Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),
             child: ListTile(
-              title: Text("Logout"),
+              title: const Text("Logout"),
               onTap: () async {
                 await showYesNoModal(context, () async {
                   await onLogOut();

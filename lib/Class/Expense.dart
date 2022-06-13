@@ -1,17 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'package:liquidity_gallery/Class.dart';
 
-import 'PCMItem.dart';
-import 'PCMSuppiler.dart';
 enum EXPStatus {
   DRAFT,
   ACTIVE,
   DISABLE,
 }
-
-
-
 
 class Expense {
   DocumentReference? docRef;
@@ -20,25 +13,35 @@ class Expense {
   String seller;
   num? transportCost;
   EXPStatus expStatus;
-num? total;
-String? refNo;
-String staffId;
-String staffName;
-String remark;
+  num? total;
+  String? refNo;
+  String staffId;
+  String staffName;
+  String remark;
 
-
-  Expense({this.docRef, required this.createDate, required this.updateDate, required this.seller ,this.transportCost, required this.expStatus , this.total, this.refNo,required this.staffId,required this.staffName, required this.remark});
+  Expense(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.seller,
+      this.transportCost,
+      required this.expStatus,
+      this.total,
+      this.refNo,
+      required this.staffId,
+      required this.staffName,
+      required this.remark});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'seller': seller,
         'transportCost': transportCost,
-    'expStatus' : EXPStatus.values.indexOf(this.expStatus),
-    'total' : total,
-    'refNo' : refNo,
-    'staffId' : staffId,
-    'staffName' : staffName,
-    'remark' : remark,
+        'expStatus': EXPStatus.values.indexOf(expStatus),
+        'total': total,
+        'refNo': refNo,
+        'staffId': staffId,
+        'staffName': staffName,
+        'remark': remark,
       };
 
   factory Expense.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -61,9 +64,3 @@ String remark;
     await docRef!.update(toMap);
   }
 }
-
-
-
-
-
-

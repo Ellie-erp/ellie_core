@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Info.dart';
 
-enum PostType{
+enum PostType {
   Post,
   Announcement,
 }
@@ -23,18 +23,21 @@ class Post {
   InfoStatus infoStatus;
   PostType postType;
 
-
-
-
-  Post({this.docRef, required this.createDate,required this.updateDate,required this.title , required this.content, required this.infoStatus, required this.postType});
+  Post(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.title,
+      required this.content,
+      required this.infoStatus,
+      required this.postType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'title': title,
         'content': content,
-    'infoStatus' : InfoStatus.values.indexOf(this.infoStatus),
-    'postType' : PostType.values.indexOf(this.postType),
-
+        'infoStatus': InfoStatus.values.indexOf(infoStatus),
+        'postType': PostType.values.indexOf(postType),
       };
   factory Post.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Post(
@@ -45,8 +48,6 @@ class Post {
       updateDate: doc.data()?['updateDate']?.toDate(),
       title: doc.data()?['title'],
       content: doc.data()?['content'],
-
-
     );
   }
 

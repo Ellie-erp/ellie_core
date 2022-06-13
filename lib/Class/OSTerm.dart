@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Info.dart';
 
-enum TermType{
+enum TermType {
   Term,
   QA,
 }
@@ -19,18 +19,21 @@ class OSTerm {
   InfoStatus infoStatus;
   TermType termType;
 
-
-
-
-  OSTerm({this.docRef, required this.createDate,required this.updateDate,required this.title , required this.content, required this.infoStatus, required this.termType});
+  OSTerm(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.title,
+      required this.content,
+      required this.infoStatus,
+      required this.termType});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
         'title': title,
         'content': content,
-    'infoStatus' : InfoStatus.values.indexOf(this.infoStatus),
-    'termType' : TermType.values.indexOf(this.termType),
-
+        'infoStatus': InfoStatus.values.indexOf(infoStatus),
+        'termType': TermType.values.indexOf(termType),
       };
   factory OSTerm.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OSTerm(
@@ -41,8 +44,6 @@ class OSTerm {
       updateDate: doc.data()?['updateDate']?.toDate(),
       title: doc.data()?['title'],
       content: doc.data()?['content'],
-
-
     );
   }
 

@@ -7,18 +7,18 @@ class Dictionary {
   String nameEng;
   String? description;
 
-
-
-
-
-  Dictionary({this.docRef, required this.timestamp,required this.nameZh, required this.nameEng ,this.description,});
+  Dictionary({
+    this.docRef,
+    required this.timestamp,
+    required this.nameZh,
+    required this.nameEng,
+    this.description,
+  });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'nameZh': nameZh,
         'nameEng': nameEng,
         'description': description,
-
-
       };
   factory Dictionary.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Dictionary(
@@ -26,9 +26,7 @@ class Dictionary {
       timestamp: doc.data()!['timestamp']?.toDate(),
       nameZh: doc.data()!['nameZh'],
       nameEng: doc.data()!['nameEng'],
-      description: doc.data()!['description']?? '',
-
-
+      description: doc.data()!['description'] ?? '',
     );
   }
 
@@ -36,8 +34,6 @@ class Dictionary {
     await docRef!.update(toMap);
   }
 }
-
-
 
 class DictionaryItem {
   DocumentReference? docRef;
@@ -47,17 +43,19 @@ class DictionaryItem {
   String? description;
   String dictionaryId;
 
-
-
-  DictionaryItem({this.docRef, required this.timestamp, required this.nameZh, required this.nameEng ,this.description, required this.dictionaryId});
+  DictionaryItem(
+      {this.docRef,
+      required this.timestamp,
+      required this.nameZh,
+      required this.nameEng,
+      this.description,
+      required this.dictionaryId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'nameZh': nameZh,
         'nameEng': nameEng,
         'description': description,
-    'dictionaryId' : dictionaryId,
-
-
+        'dictionaryId': dictionaryId,
       };
   factory DictionaryItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return DictionaryItem(
@@ -65,10 +63,8 @@ class DictionaryItem {
       timestamp: doc.data()!['timestamp']?.toDate(),
       nameZh: doc.data()!['nameZh'],
       nameEng: doc.data()!['nameEng'],
-      description: doc.data()!['description']?? '',
+      description: doc.data()!['description'] ?? '',
       dictionaryId: doc.data()!['dictionaryId'],
-
-
     );
   }
 

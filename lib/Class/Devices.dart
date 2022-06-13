@@ -6,23 +6,22 @@ class Devices {
   String? locationId;
   String? locationName;
 
-
-
-  Devices({this.docRef,required this.createDate, this.locationId, this.locationName});
+  Devices(
+      {this.docRef,
+      required this.createDate,
+      this.locationId,
+      this.locationName});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'locationId': locationId,
         'locationName': locationName,
-
       };
   factory Devices.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Devices(
       docRef: doc.reference,
       createDate: doc.data()?['createDate']?.toDate(),
-      locationId: doc.data()?['locationId']?? "",
-      locationName: doc.data()?['locationName']?? '',
-
-
+      locationId: doc.data()?['locationId'] ?? "",
+      locationName: doc.data()?['locationName'] ?? '',
     );
   }
 

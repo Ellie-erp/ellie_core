@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ellie_core/Class/Sales.dart';
-import 'package:flutter/foundation.dart';
-import 'package:liquidity_gallery/Class.dart';
 
 class BasicRate {
   DocumentReference? docRef;
@@ -9,16 +7,15 @@ class BasicRate {
   num rate;
   SalesType salesType;
 
-
-
-
-
-  BasicRate({this.docRef,required this.timestamp,required this.rate,required this.salesType});
+  BasicRate(
+      {this.docRef,
+      required this.timestamp,
+      required this.rate,
+      required this.salesType});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'rate': rate,
-    'salesType': SalesType.values.indexOf(this.salesType),
-
+        'salesType': SalesType.values.indexOf(salesType),
       };
   factory BasicRate.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BasicRate(
@@ -26,7 +23,6 @@ class BasicRate {
       timestamp: doc.data()?['timestamp']?.toDate(),
       rate: doc.data()?['rate'],
       salesType: SalesType.values.elementAt(doc.data()?['salesType'] ?? 0),
-
     );
   }
 
