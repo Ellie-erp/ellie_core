@@ -41,10 +41,11 @@ Future<Uint8List> buildDeliveryNote(
   final themeData = ThemeData.withFont(
     base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
     bold: await PdfGoogleFonts.shipporiMinchoB1Bold(),
+    italic: await PdfGoogleFonts.shipporiMinchoB1Regular(),
+    boldItalic: await PdfGoogleFonts.shipporiMinchoB1Bold(),
   ).copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
 
-  final pdf =
-      Document(title: title, theme: themeData, version: PdfVersion.pdf_1_4);
+  final pdf = Document(title: title, theme: themeData);
 
   final titleTextStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
 

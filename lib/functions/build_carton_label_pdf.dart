@@ -10,15 +10,15 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
-const cartonCount = 2;
+const _cartonCount = 2;
 
-const name = 'Audrey Lee 大埔店';
-const address = '北角堡壘街31號';
-const orderId = 'this is order id';
-String? remark = 'Here is some remark';
+const _name = 'Audrey Lee 大埔店';
+const _address = '北角堡壘街31號';
+const _orderId = 'this is order id';
+String? _remark = 'Here is some remark';
 
-final orderDate = DateTime(2022, 5, 31);
-final deliveryDate = DateTime(2022, 6, 7);
+final _orderDate = DateTime(2022, 5, 31);
+final _deliveryDate = DateTime(2022, 6, 7);
 
 final dateFormatter = DateFormat('dd/MM/yyyy');
 
@@ -29,6 +29,7 @@ Future<Uint8List> buildCartonLabelPdf({
   required String? remark,
   required DateTime orderDate,
   required DateTime deliveryDate,
+  required int cartonCount,
 }) async {
   final pdf = Document();
 
@@ -43,11 +44,12 @@ Future<Uint8List> buildCartonLabelPdf({
       .asUint8List());
 
   // final font = Font.ttf(await rootBundle.load('assets/fonts/noto_sans_hk.ttf'));
-  final theme = ThemeData(
-      defaultTextStyle: TextStyle(
-          font: await PdfGoogleFonts.shipporiMinchoRegular(),
-          fontBold: await PdfGoogleFonts.shipporiMinchoBold(),
-          fontSize: 5));
+  final theme = ThemeData.withFont(
+    base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
+    bold: await PdfGoogleFonts.shipporiMinchoB1Bold(),
+    italic: await PdfGoogleFonts.shipporiMinchoB1Regular(),
+    boldItalic: await PdfGoogleFonts.shipporiMinchoB1Bold(),
+  ).copyWith(defaultTextStyle: const TextStyle(fontSize: 5));
 
   Widget body() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -99,4 +101,15 @@ Future<Uint8List> buildCartonLabelPdf({
       build: build));
 
   return pdf.save();
+}
+
+Future<Uint8List> buildCartonLabelPdfExample(PdfPageFormat format) {
+  return buildCartonLabelPdf(
+      name: _name,
+      address: _address,
+      orderId: _orderId,
+      remark: _remark,
+      orderDate: _orderDate,
+      deliveryDate: _deliveryDate,
+      cartonCount: _cartonCount);
 }

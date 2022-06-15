@@ -47,8 +47,7 @@ Future<Uint8List> buildInvoice(PdfPageFormat format,
       defaultTextStyle: const TextStyle(fontSize: 10),
       textAlign: TextAlign.left);
 
-  final pdf =
-      Document(theme: themeData, title: title, version: PdfVersion.pdf_1_4);
+  final pdf = Document(theme: themeData, title: title);
 
   final titleTextStyle = TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
 

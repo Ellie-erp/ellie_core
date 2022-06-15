@@ -22,15 +22,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PdfPreview(
-          build: (format) => buildCartonLabelPdf(
-              name: name,
-              address: address,
-              orderId: orderId,
-              remark: remark,
-              orderDate: orderDate,
-              deliveryDate: deliveryDate)),
+    return const Scaffold(
+      body: PdfPreview(build: buildCartonLabelPdfExample),
     );
   }
 }
