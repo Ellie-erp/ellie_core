@@ -1,53 +1,65 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-enum Discount {
-  MULTIPLY,
-}
-
+///20220615 更新,用於配合promRule, 管理用家 優惠券數量
 class Coupon {
   DocumentReference? docRef;
-  DateTime createDate;
-  String title;
-  String? description;
-  num? slot1;
-  num? slot2;
-  num? slot3;
-  Discount discount;
-  String get discountName => describeEnum(discount);
-  bool isActive;
+  DateTime updateDate;
+  num? qty;
 
-  Coupon(
-      {this.docRef,
-      required this.createDate,
-      required this.title,
-      this.description,
-      this.slot1,
-      this.slot2,
-      this.slot3,
-      required this.discount,
-      required this.isActive});
+  Coupon({
+    this.docRef,
+    required this.updateDate,
+    this.qty,
+  });
   Map<String, dynamic> get toMap => {
-        'createDate': createDate,
-        'title': title,
-        'description': description,
-        'slot1': slot1,
-        'slot2': slot2,
-        'slot3': slot3,
-        'discount': Discount.values.indexOf(discount),
-        'isActive': isActive,
+        'updateDate': updateDate,
+        'qty': qty,
       };
   factory Coupon.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Coupon(
       docRef: doc.reference,
-      createDate: doc.data()?['createDate']?.toDate(),
-      title: doc.data()?['title'],
-      description: doc.data()?['description'],
-      slot1: doc.data()?['slot1'],
-      slot2: doc.data()?['slot2'],
-      slot3: doc.data()?['slot3'],
-      discount: Discount.values.elementAt(doc.data()?['discount'] ?? 0),
-      isActive: doc.data()?['isActive'],
+      updateDate: doc.data()?['updateDate']?.toDate(),
+      qty: doc.data()?['qty'],
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
+
+class CouponHistory {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  String promRuleid;
+  String promRuleName;
+  num? qty;
+  String remark;
+
+  ///紀錄每個用家的coupon動向
+  CouponHistory(
+      {this.docRef,
+      required this.timestamp,
+      required this.promRuleid,
+      required this.promRuleName,
+      this.qty,
+      this.remark = ''});
+  Map<String, dynamic> get toMap => {
+        'timestamp': timestamp,
+        'promRuleid': promRuleid,
+        'promRuleName': promRuleName,
+        'qty': qty,
+        'remark': remark,
+      };
+  factory CouponHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CouponHistory(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp'],
+      promRuleid: doc.data()!['promRuleid'],
+      promRuleName: doc.data()!['promRuleName'],
+      qty: doc.data()?['qty'],
+      remark: doc.data()!['remark'],
     );
   }
 
