@@ -8,16 +8,20 @@ class DelReportLog {
   String orderId;
   String remark;
   DateTime? fixDate;
+  String staffId;
+  String staffName;
 
 
 
 
-  DelReportLog({this.docRef,required this.timestamp,required this.orderId, this.remark='' ,this.fixDate,});
+  DelReportLog({this.docRef,required this.timestamp,required this.orderId, this.remark='' ,this.fixDate, required this.staffName, required this.staffId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'orderId': orderId,
         'remark': remark,
         'fixDate': fixDate,
+    'staffId' : staffId,
+    'staffName' : staffName,
 
 
       };
@@ -28,7 +32,8 @@ class DelReportLog {
       orderId: doc.data()!['orderId'],
       remark: doc.data()!['remark'],
       fixDate: doc.data()?['fixDate']?.toDate(),
-
+staffId: doc.data()!['staffId'],
+staffName: doc.data()!['staffName'],
 
     );
   }
