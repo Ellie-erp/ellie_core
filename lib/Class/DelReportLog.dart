@@ -27,7 +27,7 @@ class DelReportLog {
       timestamp: doc.data()!['timestamp']?.toDate(),
       orderId: doc.data()!['orderId'],
       remark: doc.data()!['remark'],
-      fixDate: doc.data()?['fixDate'],
+      fixDate: doc.data()?['fixDate']?.toDate(),
 
 
     );
