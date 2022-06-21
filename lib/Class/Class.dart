@@ -34,3 +34,4 @@ export 'StockRecord.dart';
 export 'StockRecordItem.dart';
 export 'UserList.dart';
 export 'DelReportLog.dart';
+export 'Contract.dart';
