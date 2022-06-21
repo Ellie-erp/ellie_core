@@ -57,10 +57,12 @@ class Contract {
   String locationName;
   String remark;
   List<ContractItem>? contractItem;
+  String contractor; ///合約制作人
+  String refNo;
 
 
 
-  Contract({this.docRef,required this.createDate,required  this.updateDate,required  this.startDate ,required this.endDate,required  this.locationId,required  this.locationName, this.remark='', this.contractItem });
+  Contract({this.docRef,required this.createDate,required  this.updateDate,required  this.startDate ,required this.endDate,required  this.locationId,required  this.locationName, this.remark='', this.contractItem , this.contractor='', this.refNo=''});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -70,6 +72,8 @@ class Contract {
         'locationName': locationName,
         'remark': remark,
     'contractItem': (contractItem ?? []).map((e) => e.toMap).toList(),
+    'contractor': contractor,
+    'refNo': refNo,
 
       };
   factory Contract.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -83,6 +87,8 @@ class Contract {
       locationName: doc.data()!['locationName'],
       remark: doc.data()!['remark'],
       contractItem: List<ContractItem>.from((doc.data()!['contractItem'] ?? []).map((e) => ContractItem.fromMap(e)).toList()),
+      contractor: doc.data()!['contractor'],
+      refNo: doc.data()!['refNo'],
 
     );
   }
