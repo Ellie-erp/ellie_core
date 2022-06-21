@@ -106,7 +106,7 @@ class ContractItem {
 
 
 
-  ContractItem({ required this.timestamp,required  this.startDate,required  this.endDate,required  this.amount, required this.contractItemType, this.isAdjust=false});
+  ContractItem({ required this.timestamp, this.startDate, this.endDate,required  this.amount, required this.contractItemType, this.isAdjust=false});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
