@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ellie_core/ellie_core.dart';
 
-enum Symbol {
+enum ItemSymbol {
   OPEN,
   CLOSE,
   UNDEFINED,
@@ -18,12 +18,12 @@ enum Status {
   online,
 }
 
-extension SymbolColor on Symbol {
+extension SymbolColor on ItemSymbol {
   Color? get color {
     switch (this) {
-      case Symbol.OPEN:
+      case ItemSymbol.OPEN:
         return Colors.green;
-      case Symbol.CLOSE:
+      case ItemSymbol.CLOSE:
         return Colors.red;
       default:
         return null;
@@ -58,7 +58,7 @@ class Item {
 
   String? get barcode => additional['barcode'];
 
-  final Symbol symbol;
+  final ItemSymbol symbol;
 
   final String plu;
 
@@ -121,13 +121,13 @@ class Item {
   bool statusFromType(SalesType type) {
     switch (type) {
       case SalesType.RETAIL:
-        return saleUp && symbol == Symbol.OPEN;
+        return saleUp && symbol == ItemSymbol.OPEN;
       case SalesType.WHOLESALE:
-        return wholesaleUp && symbol == Symbol.OPEN;
+        return wholesaleUp && symbol == ItemSymbol.OPEN;
       case SalesType.ONLINE:
-        return onlineUp && symbol == Symbol.OPEN;
+        return onlineUp && symbol == ItemSymbol.OPEN;
       case SalesType.STOCKIN:
-        return shopUp && symbol == Symbol.OPEN;
+        return shopUp && symbol == ItemSymbol.OPEN;
     }
   }
 
@@ -237,7 +237,7 @@ class Item {
     return Item(
         images: [],
         plu: '',
-        symbol: Symbol.OPEN,
+        symbol: ItemSymbol.OPEN,
         displayName: displayName,
         originalName: originalName,
         country: country,
@@ -261,7 +261,7 @@ class Item {
         docSnap: snapshot,
         docRef: snapshot.reference,
         plu: _data['plu'] ?? 'PLU Error',
-        symbol: Symbol.values.elementAt(_data['symbol'] ?? 0),
+        symbol: ItemSymbol.values.elementAt(_data['symbol'] ?? 0),
         displayName: _data['displayName'] ?? '',
         originalName: _data['originName'] ?? '',
         country: _data['country'] ?? '',
