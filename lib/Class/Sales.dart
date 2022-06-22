@@ -237,6 +237,8 @@ class OrderItem {
   String? locationId;
   String? barcode;
 
+  String get plu => code ?? '';
+
   num get totalPrice =>
       List<num>.from(array).fold<num>(0, (p, e) => p + e) * unitPrice;
 

@@ -11,7 +11,9 @@ dependencies:
   cloud_firestore: ^3.1.17
   flutter:
     sdk: flutter
+  honeywell_scanner: ^4.0.0+14
   intl: ^0.17.0
+  just_audio: ^0.9.25
   liquidity_gallery:
     git:
       url: https://github.com/LiquidityGallery/liquidity_gallery.git
