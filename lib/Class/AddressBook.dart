@@ -24,7 +24,7 @@ String address;
   AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address=''});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'updateDatea': updateDate,
+    'updateDate': updateDate,
         'contactName': contactName,
         'tel': tel,
         'remark': remark,
