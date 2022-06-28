@@ -30,6 +30,7 @@ class Location {
   num credit;
   String? orgBrandId;
   List<OpenHour> openHours;
+  num? pettyCash;
 
   Location({
     this.docRef,
@@ -49,6 +50,7 @@ class Location {
     required this.createDate,
     this.orgBrandId,
     required this.openHours,
+    this.pettyCash=0,
   });
   Map<String, dynamic> get toMap => {
         'name': name,
@@ -67,6 +69,7 @@ class Location {
         'createDate': createDate,
         'orgBrandId': orgBrandId,
         'openHours': (openHours).map((e) => e.toMap).toList(),
+    'pettyCash': pettyCash,
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -97,7 +100,9 @@ class Location {
                     endHour: const TimeOfDay(hour: 18, minute: 0)))
             : (doc.data()!['openHours'] as List)
                 .map((e) => OpenHour.fromMap(e))
-                .toList());
+                .toList(),
+        pettyCash: doc.data()!['pettyCash']?? 0);
+
   }
 
   Future<void> update() async {
