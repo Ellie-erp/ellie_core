@@ -110,6 +110,8 @@ class Sales {
 
   num get subTotal => (amount - freight + deduction) / discount;
   num get deductedAmount => amount - freight - subTotal;
+  String? tel;
+
 
   String get name {
     switch (salesType) {
@@ -150,7 +152,8 @@ class Sales {
       this.remark,
       this.freight = 0,
       this.isPaid = false,
-      this.cartonQty});
+      this.cartonQty,
+      this.tel});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -177,6 +180,7 @@ class Sales {
         'freight': freight,
         'isPaid': isPaid,
         'cartonQty': cartonQty,
+    'tel': tel,
       };
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
@@ -207,6 +211,7 @@ class Sales {
       freight: doc.data()!['freight'] ?? 0,
       isPaid: doc.data()!['isPaid'] ?? false,
       cartonQty: doc.data()!['cartonQty'] ?? 0,
+      tel: doc.data()!['tel']?? '',
     );
   }
 
