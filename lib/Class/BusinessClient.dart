@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum BusinessClientStatus {
+enum BusinessClientType {
   Lead,
   Client,
-  Disabled,
 }
 
 
@@ -21,7 +20,7 @@ class BusinessClient {
   num paymentPeriod;
   String email;
   String contactName;
-  BusinessClientStatus businessClientStatus;
+  BusinessClientType businessClientType;
 
   BusinessClient(
       {this.docRef,
@@ -37,7 +36,7 @@ class BusinessClient {
       required this.paymentPeriod,
       this.email='',
       this.contactName='',
-      required this.businessClientStatus,
+      required this.businessClientType,
       });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -52,7 +51,7 @@ class BusinessClient {
         'paymentPeriod': paymentPeriod,
     'email': email,
     'contactName' : contactName,
-    'businessClientStatus' : BusinessClientStatus.values.indexOf(businessClientStatus),
+    'businessClientType' : BusinessClientType.values.indexOf(businessClientType),
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -69,7 +68,7 @@ class BusinessClient {
       paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
       email: doc.data()!['email']?? '',
       contactName:  doc.data()!['contactName']?? '',
-      businessClientStatus: BusinessClientStatus.values.elementAt(doc.data()!['businessClientStatus']?? 0),
+      businessClientType: BusinessClientType.values.elementAt(doc.data()!['businessClientType']?? 0),
     );
   }
 
