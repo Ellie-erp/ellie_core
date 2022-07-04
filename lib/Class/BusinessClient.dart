@@ -5,7 +5,6 @@ enum BusinessClientType {
   Client,
 }
 
-
 class BusinessClient {
   DocumentReference? docRef;
   DateTime createDate;
@@ -21,23 +20,25 @@ class BusinessClient {
   String email;
   String contactName;
   BusinessClientType businessClientType;
+  String remark;
 
-  BusinessClient(
-      {this.docRef,
-      required this.createDate,
-      required this.orgName,
-      required this.orgNameEn,
-      required this.tel,
-      required this.address,
-      required this.updateDate,
-      this.staffName,
-      this.staffId,
-      required this.credit,
-      required this.paymentPeriod,
-      this.email='',
-      this.contactName='',
-      required this.businessClientType,
-      });
+  BusinessClient({
+    this.docRef,
+    required this.createDate,
+    required this.orgName,
+    required this.orgNameEn,
+    required this.tel,
+    required this.address,
+    required this.updateDate,
+    this.staffName,
+    this.staffId,
+    required this.credit,
+    required this.paymentPeriod,
+    this.email = '',
+    this.contactName = '',
+    required this.businessClientType,
+    this.remark = '',
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'orgName': orgName,
@@ -49,9 +50,11 @@ class BusinessClient {
         'staffName': staffName,
         'credit': credit,
         'paymentPeriod': paymentPeriod,
-    'email': email,
-    'contactName' : contactName,
-    'businessClientType' : BusinessClientType.values.indexOf(businessClientType),
+        'email': email,
+        'contactName': contactName,
+        'businessClientType':
+            BusinessClientType.values.indexOf(businessClientType),
+        'remark': remark,
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -66,9 +69,11 @@ class BusinessClient {
       staffName: doc.data()!['staffName'],
       credit: doc.data()!['credit'],
       paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
-      email: doc.data()!['email']?? '',
-      contactName:  doc.data()!['contactName']?? '',
-      businessClientType: BusinessClientType.values.elementAt(doc.data()!['businessClientType']?? 0),
+      email: doc.data()!['email'] ?? '',
+      contactName: doc.data()!['contactName'] ?? '',
+      businessClientType: BusinessClientType.values
+          .elementAt(doc.data()!['businessClientType'] ?? 0),
+      remark: doc.data()!['remark'] ?? '',
     );
   }
 
