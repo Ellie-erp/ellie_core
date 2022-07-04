@@ -9,6 +9,8 @@ class Letter {
   String recipient;
   String content;
   String complimentaryClose;
+  String staffId;
+  String staffName;
 
   Letter({
     this.docRef,
@@ -18,6 +20,8 @@ class Letter {
     this.recipient = '',
     required this.content,
     required this.complimentaryClose,
+    required this.staffId,
+    required this.staffName,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -26,6 +30,8 @@ class Letter {
         'recipient': recipient,
         'content': content,
         'complimentaryClose': complimentaryClose,
+    'staffId': staffId,
+   'staffName':  staffName,
       };
   factory Letter.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Letter(
@@ -36,6 +42,8 @@ class Letter {
       recipient: doc.data()!['recipient'] ?? '',
       content: doc.data()!['content'] ?? '',
       complimentaryClose: doc.data()!['complimentaryClose'] ?? '',
+    staffId: doc.data()!['staffId'],
+      staffName: doc.data()!['staffName'],
     );
   }
 

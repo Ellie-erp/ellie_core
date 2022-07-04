@@ -6,21 +6,26 @@ class Coupon {
   DocumentReference? docRef;
   DateTime updateDate;
   num? qty;
+  bool isInfinite;
+
 
   Coupon({
     this.docRef,
     required this.updateDate,
     this.qty,
+    this.isInfinite=false,
   });
   Map<String, dynamic> get toMap => {
         'updateDate': updateDate,
         'qty': qty,
+    'isInfinite' : isInfinite,
       };
   factory Coupon.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Coupon(
       docRef: doc.reference,
       updateDate: doc.data()?['updateDate']?.toDate(),
       qty: doc.data()?['qty'],
+      isInfinite: doc.data()?['isInfinite'],
     );
   }
 

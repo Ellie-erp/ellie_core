@@ -36,3 +36,6 @@ export 'Stock.dart';
 export 'StockRecord.dart';
 export 'StockRecordItem.dart';
 export 'UserList.dart';
+export 'AddressBook.dart';
+export 'Identity.dart';
+export 'HRCalendar.dart';

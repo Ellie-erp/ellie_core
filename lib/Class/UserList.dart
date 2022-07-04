@@ -21,6 +21,7 @@ class UserList {
   String role;
   String mode;
   List<String> locations;
+  String? tel;
 
   UserList({
     this.docRef,
@@ -35,6 +36,7 @@ class UserList {
     this.role = '',
     this.mode = 'erp',
     this.locations = const [],
+    this.tel,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -46,6 +48,7 @@ class UserList {
         'userType': userType.index,
         'mode': mode,
         'locations': locations,
+    'tel': tel,
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserList(
@@ -63,7 +66,10 @@ class UserList {
             (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {},
         role: doc.data()!['role'] ?? '',
         mode: doc.data()!['mode'] ?? 'erp',
-        locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>());
+        locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>(),
+        tel: doc.data()!['tel'] ?? '',
+    );
+
   }
 
   Future<void> update() async {
