@@ -233,6 +233,7 @@ class OrderItem {
   num preWeight;
   num? preQTY;
   List<num> array;
+  int get qty => array.length;
   String? remark;
   String? locationId;
   String? barcode;
