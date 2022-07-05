@@ -70,7 +70,7 @@ Future<Uint8List> buildDeliveryNote(
           Row(children: [
             Text('落單日期: ${_dateFormatter.format(createDate)}'),
             Spacer(),
-            Text('送貨日期: ${_dateFormatter.format(DateTime.now())}')
+            Text('印單日期: ${_dateFormatter.format(DateTime.now())}')
           ]),
           Row(children: [
             Text('名稱: $name'),
