@@ -17,11 +17,12 @@ class AddressBook {
   Department department;
 String website;
 String address;
+  String tel2;
+  String tel3;
 
 
 
-
-  AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address=''});
+  AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address='',this.tel2='' ,this.tel3='' ,});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate': updateDate,
@@ -34,6 +35,8 @@ String address;
     'department': Department.values.indexOf(department),
     'website' : website,
     'address' : address,
+    'tel2': tel2,
+    'tel3': tel3,
       };
   factory AddressBook.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return AddressBook(
@@ -49,6 +52,8 @@ String address;
       department: Department.values.elementAt(doc.data()?['department'] ?? 0),
       website: doc.data()!['website'],
       address: doc.data()!['address'],
+      tel2: doc.data()!['tel2'],
+      tel3: doc.data()!['tel3'],
     );
   }
 
