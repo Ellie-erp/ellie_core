@@ -21,6 +21,8 @@ class BusinessClient {
   String contactName;
   BusinessClientType businessClientType;
   String remark;
+  String whatsapp;
+  String refNo;
 
   BusinessClient({
     this.docRef,
@@ -38,6 +40,8 @@ class BusinessClient {
     this.contactName = '',
     required this.businessClientType,
     this.remark = '',
+    this.whatsapp='',
+    this.refNo='',
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -55,6 +59,8 @@ class BusinessClient {
         'businessClientType':
             BusinessClientType.values.indexOf(businessClientType),
         'remark': remark,
+    'whatsapp': whatsapp,
+    'refNo': refNo,
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -74,6 +80,8 @@ class BusinessClient {
       businessClientType: BusinessClientType.values
           .elementAt(doc.data()!['businessClientType'] ?? 0),
       remark: doc.data()!['remark'] ?? '',
+      whatsapp: doc.data()!['whatsapp'] ?? '',
+      refNo: doc.data()!['refNo'] ?? '',
     );
   }
 
