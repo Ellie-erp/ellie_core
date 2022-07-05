@@ -5,6 +5,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
+import 'default_pdf_theme.dart';
+
 final _dateFormatter = DateFormat('dd/MM/yyyy');
 
 /// Create a delivery note template with data.
@@ -38,12 +40,10 @@ Future<Uint8List> buildDeliveryNote(
 }) async {
   const title = 'P&J Food Delivery Note';
 
-  final themeData = ThemeData.withFont(
-    base: await PdfGoogleFonts.shipporiMinchoB1Regular(),
-    bold: await PdfGoogleFonts.shipporiMinchoB1Bold(),
-    italic: await PdfGoogleFonts.shipporiMinchoB1Regular(),
-    boldItalic: await PdfGoogleFonts.shipporiMinchoB1Bold(),
-  ).copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
+  final themeData = (await defaultPdfTheme).copyWith(
+      defaultTextStyle: const TextStyle(fontSize: 10),
+      textAlign: TextAlign.left)
+  .copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
 
   final pdf = Document(title: title, theme: themeData);
 
