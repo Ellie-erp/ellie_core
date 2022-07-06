@@ -19,10 +19,11 @@ String website;
 String address;
   String tel2;
   String tel3;
+  String connectId;
 
 
 
-  AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address='',this.tel2='' ,this.tel3='' ,});
+  AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address='',this.tel2='' ,this.tel3='' ,this.connectId=''});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
     'updateDate': updateDate,
@@ -37,6 +38,7 @@ String address;
     'address' : address,
     'tel2': tel2,
     'tel3': tel3,
+    'connectId' : connectId,
       };
   factory AddressBook.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return AddressBook(
@@ -54,6 +56,7 @@ String address;
       address: doc.data()!['address'],
       tel2: doc.data()!['tel2'],
       tel3: doc.data()!['tel3'],
+      connectId: doc.data()!['connectId']?? '',
     );
   }
 
