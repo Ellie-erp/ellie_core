@@ -133,3 +133,35 @@ class ContractItem {
       isAdjust: map['isAdjust']?? false,
     );
   }}
+
+
+class ContractHistory {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  String text;
+  String? uid;
+
+  ContractHistory({
+    this.docRef,
+    required this.timestamp,
+    required this.text,
+    this.uid = '',
+  });
+  Map<String, dynamic> get toMap => {
+    'timestamp': timestamp,
+    'text': text,
+    'uid': uid,
+  };
+  factory ContractHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return ContractHistory(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp']?.toDate(),
+      text: doc.data()!['text'] ?? '',
+      uid: doc.data()!['uid'] ?? '',
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
+  }
+}
