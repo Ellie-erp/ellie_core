@@ -48,7 +48,7 @@ class ScannerDecoder {
   List<Item> items;
   List<OrderItem> orderItems;
   Function(OrderItem orderItem, num? weight) onItemFound;
-  Function(Item item, num? weight) onAddItem;
+  Function(Item item, num? weight, num? price) onAddItem;
 
   ScannerDecoder({
     required this.items,
@@ -66,7 +66,7 @@ class ScannerDecoder {
         await onItemFound(orderItem, null);
       } else if (items.any((item) => matchItem(item, code))) {
         final item = items.firstWhere((item) => matchItem(item, code));
-        await onAddItem(item, null);
+        await onAddItem(item, null, null);
       } else {
         throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
@@ -79,18 +79,23 @@ class ScannerDecoder {
     final code = scannedData.code?.trim();
     if (code != null) {
       final plu = code.substring(2, 7);
-      // final price =
-      //     num.parse('${code.substring(7, 10)}.${code.substring(10, 12)}');
+      final amount =
+          num.parse('${code.substring(7, 10)}.${code.substring(10, 12)}');
       final weight =
           num.parse('${code.substring(12, 14)}.${code.substring(14, 17)}');
 
-      if (orderItems.any((orderItem) => orderItem.plu == plu)) {
-        final orderItem =
-            orderItems.firstWhere((orderItem) => orderItem.plu == plu);
+      final price = amount / weight;
+
+      if (orderItems.any((orderItem) =>
+          orderItem.plu == plu &&
+          orderItem.unitPrice.toStringAsFixed(1) == price.toStringAsFixed(1))) {
+        final orderItem = orderItems.firstWhere((orderItem) =>
+            orderItem.plu == plu &&
+            orderItem.unitPrice.toStringAsFixed(1) == price.toStringAsFixed(1));
         await onItemFound(orderItem, weight);
       } else if (items.any((item) => item.plu == plu)) {
         final item = items.firstWhere((item) => item.plu == plu);
-        await onAddItem(item, weight);
+        await onAddItem(item, weight, price);
       } else {
         throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
@@ -108,7 +113,7 @@ class ScannerDecoder {
         await onItemFound(orderItem, null);
       } else if (items.any((item) => matchItem(item, code))) {
         final item = items.firstWhere((item) => matchItem(item, code));
-        await onAddItem(item, null);
+        await onAddItem(item, null, null);
       } else {
         throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
