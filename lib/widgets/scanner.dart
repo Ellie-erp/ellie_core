@@ -68,10 +68,10 @@ class ScannerDecoder {
         final item = items.firstWhere((item) => matchItem(item, code));
         await onAddItem(item, null);
       } else {
-        throw 'error';
+        throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
     } else {
-      throw 'error';
+      throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
     }
   }
 
@@ -92,10 +92,10 @@ class ScannerDecoder {
         final item = items.firstWhere((item) => item.plu == plu);
         await onAddItem(item, weight);
       } else {
-        throw 'error';
+        throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
     } else {
-      throw 'error';
+      throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
     }
   }
 
@@ -110,10 +110,10 @@ class ScannerDecoder {
         final item = items.firstWhere((item) => matchItem(item, code));
         await onAddItem(item, null);
       } else {
-        throw 'error';
+        throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
     } else {
-      throw 'error';
+      throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
     }
   }
 
@@ -134,13 +134,20 @@ class ScannerDecoder {
 }
 
 class Scanner extends StatefulWidget {
-  const Scanner(
-      {Key? key, required this.onDecoded, required this.child, this.debug})
-      : super(key: key);
+  const Scanner({
+    Key? key,
+    required this.onDecoded,
+    required this.child,
+    this.debug,
+    this.onScannerError,
+    this.onError,
+  }) : super(key: key);
 
   final Function(ScannedData scannedData) onDecoded;
   final Widget child;
   final ScannedData? debug;
+  final Function(Exception error)? onScannerError;
+  final Function(String error)? onError;
 
   @override
   State<Scanner> createState() => _ScannerState();
@@ -200,6 +207,8 @@ class _ScannerState extends State<Scanner>
       playCorrectSound();
     } catch (e) {
       playErrorSound();
+      if (widget.onError != null) widget.onError!(e.toString());
+      rethrow;
     }
   }
 
@@ -211,7 +220,11 @@ class _ScannerState extends State<Scanner>
   }
 
   @override
-  void onError(Exception error) {}
+  void onError(Exception error) {
+    if (widget.onScannerError != null) {
+      widget.onScannerError!(error);
+    }
+  }
 
   Widget get debugWidget {
     return Material(
