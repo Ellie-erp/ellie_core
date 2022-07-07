@@ -95,7 +95,7 @@ class ScannerDecoder {
         await onItemFound(orderItem, weight);
       } else if (items.any((item) => item.plu == plu)) {
         final item = items.firstWhere((item) => item.plu == plu);
-        await onAddItem(item, weight, price);
+        await onAddItem(item, weight, num.parse(price.toStringAsFixed(1)));
       } else {
         throw 'Product not found. Code type: ${scannedData.codeType}. Code: $code';
       }
