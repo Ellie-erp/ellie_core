@@ -112,7 +112,6 @@ class Sales {
   num get deductedAmount => amount - freight - subTotal;
   String? tel;
 
-
   String get name {
     switch (salesType) {
       case SalesType.RETAIL:
@@ -180,7 +179,7 @@ class Sales {
         'freight': freight,
         'isPaid': isPaid,
         'cartonQty': cartonQty,
-    'tel': tel,
+        'tel': tel,
       };
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
@@ -211,8 +210,39 @@ class Sales {
       freight: doc.data()!['freight'] ?? 0,
       isPaid: doc.data()!['isPaid'] ?? false,
       cartonQty: doc.data()!['cartonQty'] ?? 0,
-      tel: doc.data()!['tel']?? '',
+      tel: doc.data()!['tel'] ?? '',
     );
+  }
+
+  Sales copy() {
+    return Sales(
+        docRef: docRef,
+        createDate: createDate,
+        updateDate: updateDate,
+        amount: amount,
+        salesStatus: salesStatus,
+        salesType: salesType,
+        clientName: clientName,
+        clientId: clientId,
+        locationId: locationId,
+        locationName: locationName,
+        deduction: deduction,
+        discount: discount,
+        payMethod: payMethod,
+        deliveryAddress: deliveryAddress,
+        staffId: staffId,
+        staffName: staffName,
+        deliveryDate: deliveryDate,
+        businessClientId: businessClientId,
+        businessClientName: businessClientName,
+        bcBranchId: bcBranchId,
+        bcBranchName: bcBranchName,
+        remark: remark,
+        freight: freight,
+        isPaid: isPaid,
+        cartonQty: cartonQty,
+        tel: tel,
+        paidAmount: paidAmount);
   }
 
   Future<void> update() async {
