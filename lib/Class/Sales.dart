@@ -355,6 +355,34 @@ class OrderItem {
         barcode: doc.data()?['barcode']);
   }
 
+  OrderItem copyWith({  DocumentReference? docRef,
+  DateTime? timestamp,
+  String? title,
+  String? code,
+  num? unitPrice,
+  Unit? unit,
+  num? preWeight,
+  num? preQTY,
+  List<num>? array,
+  String? remark,
+  String? locationId,
+  String? barcode,}) {
+    return OrderItem(
+      docRef: docRef,
+      timestamp: timestamp ?? this.timestamp,
+      title: title ?? this.title,
+      code: code ?? this.code,
+      unitPrice: unitPrice ?? this.unitPrice,
+      unit: unit ?? this.unit,
+      preWeight: preWeight ?? this.preWeight,
+      preQTY: preQTY ?? this.preQTY,
+      array: array ?? this.array,
+      remark: remark ?? this.remark,
+      locationId: locationId ?? this.locationId,
+      barcode: barcode ?? this.barcode
+    );
+  }
+
   Future<void> update() async => await docRef!.update(toMap);
 }
 
