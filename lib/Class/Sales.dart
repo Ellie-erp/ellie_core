@@ -13,6 +13,7 @@ enum PayMethod {
   AE,
   BankTransferOrCheque,
   FPS,
+  UnionPay,
 }
 
 extension PayMethodExt on PayMethod {
@@ -38,6 +39,9 @@ extension PayMethodExt on PayMethod {
         return 'Back Transfer / Cheque';
       case PayMethod.FPS:
         return 'FPS';
+      case PayMethod.UnionPay:
+        return 'UnionPay';
+
     }
   }
 }
