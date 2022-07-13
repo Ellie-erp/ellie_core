@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 
 ///物流用車輛管理
@@ -58,6 +59,19 @@ extension VehicleStatusExtension on VehicleStatus {
         return '保養中';
       case VehicleStatus.Cancelled:
         return '已中止';
+
+    }
+  }
+  Color get color {
+    switch (this) {
+      case VehicleStatus.Normal:
+        return Colors.teal;
+      case VehicleStatus.Repairing:
+        return Colors.redAccent;
+      case VehicleStatus.Maintainance:
+        return Colors.orange;
+      case VehicleStatus.Cancelled:
+        return Colors.grey;
 
     }
   }
