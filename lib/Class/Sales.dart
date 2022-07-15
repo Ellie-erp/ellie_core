@@ -41,7 +41,6 @@ extension PayMethodExt on PayMethod {
         return 'FPS';
       case PayMethod.UnionPay:
         return 'UnionPay';
-
     }
   }
 }
@@ -160,7 +159,7 @@ class Sales {
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
-        'amount': amount,
+        'amount': num.parse(amount.toStringAsFixed(1)),
         'salesStatus': SalesStatus.values.indexOf(salesStatus),
         'salesType': SalesType.values.indexOf(salesType),
         'clientId': clientId,
@@ -169,7 +168,7 @@ class Sales {
         'locationName': locationName,
         'deduction': deduction,
         'discount': discount,
-        'paidAmount': paidAmount,
+        'paidAmount': num.parse(paidAmount.toStringAsFixed(1)),
         'payMethod': PayMethod.values.indexOf(payMethod!),
         'deliveryAddress': deliveryAddress,
         'staffId': staffId,
@@ -359,32 +358,33 @@ class OrderItem {
         barcode: doc.data()?['barcode']);
   }
 
-  OrderItem copyWith({  DocumentReference? docRef,
-  DateTime? timestamp,
-  String? title,
-  String? code,
-  num? unitPrice,
-  Unit? unit,
-  num? preWeight,
-  num? preQTY,
-  List<num>? array,
-  String? remark,
-  String? locationId,
-  String? barcode,}) {
+  OrderItem copyWith({
+    DocumentReference? docRef,
+    DateTime? timestamp,
+    String? title,
+    String? code,
+    num? unitPrice,
+    Unit? unit,
+    num? preWeight,
+    num? preQTY,
+    List<num>? array,
+    String? remark,
+    String? locationId,
+    String? barcode,
+  }) {
     return OrderItem(
-      docRef: docRef,
-      timestamp: timestamp ?? this.timestamp,
-      title: title ?? this.title,
-      code: code ?? this.code,
-      unitPrice: unitPrice ?? this.unitPrice,
-      unit: unit ?? this.unit,
-      preWeight: preWeight ?? this.preWeight,
-      preQTY: preQTY ?? this.preQTY,
-      array: array ?? this.array,
-      remark: remark ?? this.remark,
-      locationId: locationId ?? this.locationId,
-      barcode: barcode ?? this.barcode
-    );
+        docRef: docRef,
+        timestamp: timestamp ?? this.timestamp,
+        title: title ?? this.title,
+        code: code ?? this.code,
+        unitPrice: unitPrice ?? this.unitPrice,
+        unit: unit ?? this.unit,
+        preWeight: preWeight ?? this.preWeight,
+        preQTY: preQTY ?? this.preQTY,
+        array: array ?? this.array,
+        remark: remark ?? this.remark,
+        locationId: locationId ?? this.locationId,
+        barcode: barcode ?? this.barcode);
   }
 
   Future<void> update() async => await docRef!.update(toMap);
