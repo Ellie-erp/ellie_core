@@ -90,14 +90,16 @@ class ScannerDecoder {
 
       if (orderItems.any((orderItem) =>
           orderItem.plu == plu &&
-          (checkPrice &&
-              orderItem.unitPrice.toStringAsFixed(1) ==
-                  price.toStringAsFixed(1)))) {
+          (checkPrice
+              ? orderItem.unitPrice.toStringAsFixed(1) ==
+                  price.toStringAsFixed(1)
+              : true))) {
         final orderItem = orderItems.firstWhere((orderItem) =>
             orderItem.plu == plu &&
-            (checkPrice &&
-                orderItem.unitPrice.toStringAsFixed(1) ==
-                    price.toStringAsFixed(1)));
+            (checkPrice
+                ? orderItem.unitPrice.toStringAsFixed(1) ==
+                    price.toStringAsFixed(1)
+                : true));
         await onItemFound(orderItem, weight);
       } else if (items.any((item) => item.plu == plu)) {
         final item = items.firstWhere((item) => item.plu == plu);
