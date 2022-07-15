@@ -47,6 +47,7 @@ bool matchItem(Item item, String code) {
 class ScannerDecoder {
   List<Item> items;
   List<OrderItem> orderItems;
+  bool checkPrice;
   Function(OrderItem orderItem, num? weight) onItemFound;
   Function(Item item, num? weight, num? price) onAddItem;
 
@@ -55,6 +56,7 @@ class ScannerDecoder {
     required this.orderItems,
     required this.onItemFound,
     required this.onAddItem,
+    this.checkPrice = false,
   });
 
   _handleUpcEan(ScannedData scannedData) async {
@@ -88,10 +90,14 @@ class ScannerDecoder {
 
       if (orderItems.any((orderItem) =>
           orderItem.plu == plu &&
-          orderItem.unitPrice.toStringAsFixed(1) == price.toStringAsFixed(1))) {
+          (checkPrice &&
+              orderItem.unitPrice.toStringAsFixed(1) ==
+                  price.toStringAsFixed(1)))) {
         final orderItem = orderItems.firstWhere((orderItem) =>
             orderItem.plu == plu &&
-            orderItem.unitPrice.toStringAsFixed(1) == price.toStringAsFixed(1));
+            (checkPrice &&
+                orderItem.unitPrice.toStringAsFixed(1) ==
+                    price.toStringAsFixed(1)));
         await onItemFound(orderItem, weight);
       } else if (items.any((item) => item.plu == plu)) {
         final item = items.firstWhere((item) => item.plu == plu);
