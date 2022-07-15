@@ -156,34 +156,40 @@ class Sales {
       this.isPaid = false,
       this.cartonQty,
       this.tel});
-  Map<String, dynamic> get toMap => {
-        'createDate': createDate,
-        'updateDate': updateDate,
-        'amount': num.parse(amount.toStringAsFixed(1)),
-        'salesStatus': SalesStatus.values.indexOf(salesStatus),
-        'salesType': SalesType.values.indexOf(salesType),
-        'clientId': clientId,
-        'clientName': clientName,
-        'locationId': locationId,
-        'locationName': locationName,
-        'deduction': deduction,
-        'discount': discount,
-        'paidAmount': num.parse(paidAmount.toStringAsFixed(1)),
-        'payMethod': PayMethod.values.indexOf(payMethod!),
-        'deliveryAddress': deliveryAddress,
-        'staffId': staffId,
-        'staffName': staffName,
-        'deliveryDate': deliveryDate,
-        'businessClientId': businessClientId,
-        'businessClientName': businessClientName,
-        'bcBranchId': bcBranchId,
-        'bcBranchName': bcBranchName,
-        'remark': remark,
-        'freight': freight,
-        'isPaid': isPaid,
-        'cartonQty': cartonQty,
-        'tel': tel,
-      };
+  Map<String, dynamic> get toMap {
+    final _amount = num.parse(amount.toStringAsFixed(1));
+    final _paidAmount = num.parse(paidAmount.toStringAsFixed(1));
+    final _isPaid = _paidAmount >= _amount;
+    return {
+      'createDate': createDate,
+      'updateDate': updateDate,
+      'amount': _amount,
+      'salesStatus': SalesStatus.values.indexOf(salesStatus),
+      'salesType': SalesType.values.indexOf(salesType),
+      'clientId': clientId,
+      'clientName': clientName,
+      'locationId': locationId,
+      'locationName': locationName,
+      'deduction': deduction,
+      'discount': discount,
+      'paidAmount': _paidAmount,
+      'payMethod': PayMethod.values.indexOf(payMethod!),
+      'deliveryAddress': deliveryAddress,
+      'staffId': staffId,
+      'staffName': staffName,
+      'deliveryDate': deliveryDate,
+      'businessClientId': businessClientId,
+      'businessClientName': businessClientName,
+      'bcBranchId': bcBranchId,
+      'bcBranchName': bcBranchName,
+      'remark': remark,
+      'freight': freight,
+      'isPaid': _isPaid,
+      'cartonQty': cartonQty,
+      'tel': tel,
+    };
+  }
+
   factory Sales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Sales(
       docRef: doc.reference,
