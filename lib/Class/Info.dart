@@ -9,6 +9,7 @@ enum Department {
   ACCOUNTING,
   IT,
   LOGISTICS,
+  MARKETING,
 }
 
 enum InfoStatus {
