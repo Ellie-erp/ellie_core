@@ -40,6 +40,7 @@ class PCMSuppiler {
   List<History>? history;
   String? staffAddressbookId;
   String? defaultRecipientAddressbookId;
+  num defaultDepositRate;
 
 
   PCMSuppiler(
@@ -57,7 +58,8 @@ class PCMSuppiler {
       required this.pcmType,
       this.history,
         this.defaultRecipientAddressbookId='',
-        this.staffAddressbookId=''});
+        this.staffAddressbookId='',
+      this.defaultDepositRate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -73,6 +75,7 @@ class PCMSuppiler {
         'history': (history ?? []).map((e) => e.toMap).toList(),
     'staffAddressbookId': staffAddressbookId,
     'defaultRecipientAddressbookId':defaultRecipientAddressbookId,
+    'defaultDepositRate': defaultDepositRate,
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
@@ -95,6 +98,7 @@ class PCMSuppiler {
           .toList()),
       staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
       defaultRecipientAddressbookId: doc.data()?['defaultRecipientAddressbookId'] ?? '',
+      defaultDepositRate:  doc.data()?['defaultDepositRate'?? 1],
     );
   }
 

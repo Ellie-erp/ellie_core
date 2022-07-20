@@ -35,6 +35,8 @@ class PO {
   bool showChineseonReport;
   String? staffAddressbookId;
   String? recipientAddressbookId;
+  num depositRate;
+
 
   PO(
       {this.docRef,
@@ -56,7 +58,8 @@ class PO {
       this.remark,
       this.showChineseonReport=true,
       this.recipientAddressbookId='',
-      this.staffAddressbookId=''});
+      this.staffAddressbookId='',
+        this.depositRate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -77,6 +80,7 @@ class PO {
     'showChineseonReport': showChineseonReport,
     'staffAddressbookId': staffAddressbookId,
     'recipientAddressbookId':recipientAddressbookId,
+    'depositRate': depositRate,
       };
 
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -102,6 +106,7 @@ class PO {
       showChineseonReport: doc.data()?['showChineseonReport'] ?? true,
       staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
       recipientAddressbookId: doc.data()?['recipientAddressbookId'] ?? '',
+      depositRate:  doc.data()?['depositRate'?? 1],
     );
   }
 
