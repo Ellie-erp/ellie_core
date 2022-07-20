@@ -40,7 +40,7 @@ class PCMSuppiler {
   List<History>? history;
   String? staffAddressbookId;
   String? defaultRecipientAddressbookId;
-  num? defaultDepositRate;
+  num defaultDepositRate;
 
 
   PCMSuppiler(
@@ -98,7 +98,7 @@ class PCMSuppiler {
           .toList()),
       staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
       defaultRecipientAddressbookId: doc.data()?['defaultRecipientAddressbookId'] ?? '',
-      defaultDepositRate:  doc.data()?['defaultDepositRate'?? 1],
+      defaultDepositRate:  doc.data()?['defaultDepositRate']?? 0,
     );
   }
 

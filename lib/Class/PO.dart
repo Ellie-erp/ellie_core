@@ -35,7 +35,7 @@ class PO {
   bool showChineseonReport;
   String? staffAddressbookId;
   String? recipientAddressbookId;
-  num? depositRate;
+  num depositRate;
 
 
   PO(
@@ -106,7 +106,7 @@ class PO {
       showChineseonReport: doc.data()?['showChineseonReport'] ?? true,
       staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
       recipientAddressbookId: doc.data()?['recipientAddressbookId'] ?? '',
-      depositRate:  doc.data()?['depositRate'?? 1],
+      depositRate:  doc.data()?['depositRate'] ?? 1,
     );
   }
 
