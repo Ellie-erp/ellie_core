@@ -98,7 +98,7 @@ class PCMSuppiler {
           .toList()),
       staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
       defaultRecipientAddressbookId: doc.data()?['defaultRecipientAddressbookId'] ?? '',
-      defaultDepositRate:  doc.data()?['defaultDepositRate']?? 0,
+      defaultDepositRate:  doc.data()?['defaultDepositRate']?? 1,
     );
   }
 
