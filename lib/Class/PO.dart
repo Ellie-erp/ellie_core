@@ -35,7 +35,7 @@ class PO {
   bool showChineseonReport;
   String? staffAddressbookId;
   String? recipientAddressbookId;
-  num depositRate;
+  num? depositRate;
 
 
   PO(

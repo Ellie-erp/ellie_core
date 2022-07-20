@@ -40,7 +40,7 @@ class PCMSuppiler {
   List<History>? history;
   String? staffAddressbookId;
   String? defaultRecipientAddressbookId;
-  num defaultDepositRate;
+  num? defaultDepositRate;
 
 
   PCMSuppiler(
