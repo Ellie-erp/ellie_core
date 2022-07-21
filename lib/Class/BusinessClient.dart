@@ -5,6 +5,12 @@ enum BusinessClientType {
   Client,
 }
 
+enum BusinessClientStatus{
+  Active,
+  Inactive,
+}
+
+
 class BusinessClient {
   DocumentReference? docRef;
   DateTime createDate;
@@ -23,6 +29,7 @@ class BusinessClient {
   String remark;
   String whatsapp;
   String refNo;
+  BusinessClientStatus businessClientStatus;
 
   BusinessClient({
     this.docRef,
@@ -42,6 +49,7 @@ class BusinessClient {
     this.remark = '',
     this.whatsapp='',
     this.refNo='',
+    this.businessClientStatus=BusinessClientStatus.Active,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -61,6 +69,7 @@ class BusinessClient {
         'remark': remark,
     'whatsapp': whatsapp,
     'refNo': refNo,
+    'businessClientStatus': BusinessClientStatus.values.indexOf(businessClientStatus),
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -82,6 +91,8 @@ class BusinessClient {
       remark: doc.data()!['remark'] ?? '',
       whatsapp: doc.data()!['whatsapp'] ?? '',
       refNo: doc.data()!['refNo'] ?? '',
+      businessClientStatus: BusinessClientStatus.values
+          .elementAt(doc.data()!['businessClientStatus'] ?? BusinessClientStatus.Active),
     );
   }
 
@@ -193,5 +204,38 @@ class CreditRecord {
       creditBefore: doc.data()!['creditBefore'],
       creditAfter: doc.data()!['creditAfter'],
     );
+  }
+}
+
+
+
+class ClientHistory {
+  DocumentReference? docRef;
+  DateTime timestamp;
+  String text;
+  String? uid;
+
+  ClientHistory({
+    this.docRef,
+    required this.timestamp,
+    required this.text,
+    this.uid = '',
+  });
+  Map<String, dynamic> get toMap => {
+    'timestamp': timestamp,
+    'text': text,
+    'uid': uid,
+  };
+  factory ClientHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return ClientHistory(
+      docRef: doc.reference,
+      timestamp: doc.data()!['timestamp']?.toDate(),
+      text: doc.data()!['text'] ?? '',
+      uid: doc.data()!['uid'] ?? '',
+    );
+  }
+
+  Future<void> update() async {
+    await docRef!.update(toMap);
   }
 }
