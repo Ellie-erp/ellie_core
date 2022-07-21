@@ -92,7 +92,7 @@ class BusinessClient {
       whatsapp: doc.data()!['whatsapp'] ?? '',
       refNo: doc.data()!['refNo'] ?? '',
       businessClientStatus: BusinessClientStatus.values
-          .elementAt(doc.data()!['businessClientStatus'] ?? BusinessClientStatus.Active),
+          .elementAt(doc.data()!['businessClientStatus'] ?? BusinessClientStatus.Active.index),
     );
   }
 
