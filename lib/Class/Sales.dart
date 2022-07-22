@@ -283,6 +283,7 @@ class OrderItem {
   String? barcode;
 
   String get plu => code ?? '';
+  DateTime lastUpdatedDate;
 
   num get totalPrice =>
       List<num>.from(array).fold<num>(0, (p, e) => p + e) * unitPrice;
@@ -332,7 +333,8 @@ class OrderItem {
       required this.array,
       this.remark,
       this.locationId,
-      this.barcode});
+      this.barcode})
+      : lastUpdatedDate = DateTime.now();
 
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
@@ -345,7 +347,8 @@ class OrderItem {
         'array': array,
         'remark': remark,
         'locationId': locationId,
-        'barcode': barcode
+        'barcode': barcode,
+        'lastUpdatedDate': DateTime.now()
       }..removeWhere((key, value) => value == null);
 
   factory OrderItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
