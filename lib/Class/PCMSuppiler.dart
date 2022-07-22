@@ -38,6 +38,10 @@ class PCMSuppiler {
   Currency currency;
   String get currencyName => describeEnum(currency);
   List<History>? history;
+  String? staffAddressbookId;
+  String? defaultRecipientAddressbookId;
+  num defaultDepositRate;
+
 
   PCMSuppiler(
       {this.docRef,
@@ -52,7 +56,10 @@ class PCMSuppiler {
       required this.currency,
       this.website,
       required this.pcmType,
-      this.history});
+      this.history,
+        this.defaultRecipientAddressbookId='',
+        this.staffAddressbookId='',
+      this.defaultDepositRate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -66,6 +73,9 @@ class PCMSuppiler {
         'contact': (contact ?? []).map((e) => e.toMap).toList(),
         'currency': Currency.values.indexOf(currency),
         'history': (history ?? []).map((e) => e.toMap).toList(),
+    'staffAddressbookId': staffAddressbookId,
+    'defaultRecipientAddressbookId':defaultRecipientAddressbookId,
+    'defaultDepositRate': defaultDepositRate,
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
@@ -86,6 +96,9 @@ class PCMSuppiler {
       history: List<History>.from((doc.data()!['history'] ?? [])
           .map((e) => History.fromMap(e))
           .toList()),
+      staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
+      defaultRecipientAddressbookId: doc.data()?['defaultRecipientAddressbookId'] ?? '',
+      defaultDepositRate:  doc.data()?['defaultDepositRate']?? 1,
     );
   }
 

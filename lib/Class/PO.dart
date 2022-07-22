@@ -32,6 +32,11 @@ class PO {
   num? adjAmount;
   String? refNo;
   String? remark;
+  bool showChineseonReport;
+  String? staffAddressbookId;
+  String? recipientAddressbookId;
+  num depositRate;
+
 
   PO(
       {this.docRef,
@@ -50,7 +55,11 @@ class PO {
       this.pcmSuppilerName,
       this.adjAmount,
       this.refNo,
-      this.remark});
+      this.remark,
+      this.showChineseonReport=true,
+      this.recipientAddressbookId='',
+      this.staffAddressbookId='',
+        this.depositRate=1});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -68,6 +77,10 @@ class PO {
         'adjAmount': adjAmount,
         'refNo': refNo,
         'remark': remark,
+    'showChineseonReport': showChineseonReport,
+    'staffAddressbookId': staffAddressbookId,
+    'recipientAddressbookId':recipientAddressbookId,
+    'depositRate': depositRate,
       };
 
   factory PO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -90,6 +103,10 @@ class PO {
       adjAmount: doc.data()?['adjAmount'],
       refNo: doc.data()?['refNo'] ?? '',
       remark: doc.data()?['remark'] ?? '',
+      showChineseonReport: doc.data()?['showChineseonReport'] ?? true,
+      staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
+      recipientAddressbookId: doc.data()?['recipientAddressbookId'] ?? '',
+      depositRate:  doc.data()?['depositRate'] ?? 1,
     );
   }
 
