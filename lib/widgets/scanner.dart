@@ -208,7 +208,7 @@ class _ScannerState extends State<Scanner>
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
 
-    await correctPlayer.setAsset('assets/audio/correct.mp3');
+    await correctPlayer.setAsset('assets/audios/correct.mp3');
     await errorPlayer.setAsset('assets/audios/error.mp3');
   }
 
