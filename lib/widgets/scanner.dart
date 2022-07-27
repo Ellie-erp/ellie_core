@@ -1,3 +1,4 @@
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:honeywell_scanner/honeywell_scanner.dart';
 import 'package:just_audio/just_audio.dart';
@@ -50,6 +51,7 @@ class ScannerDecoder {
   bool checkPrice;
   Function(OrderItem orderItem, num? weight) onItemFound;
   Function(Item item, num? weight, num? price) onAddItem;
+  OrderItem? selectedItem;
 
   ScannerDecoder({
     required this.items,
@@ -57,12 +59,16 @@ class ScannerDecoder {
     required this.onItemFound,
     required this.onAddItem,
     this.checkPrice = false,
+    this.selectedItem,
   });
 
   _handleUpcEan(ScannedData scannedData) async {
     final code = scannedData.code?.trim();
     if (code != null) {
-      if (orderItems.any((orderItem) => matchOrderItem(orderItem, code))) {
+      if (selectedItem != null && matchOrderItem(selectedItem!, code)) {
+        await onItemFound(selectedItem!, null);
+      } else if (orderItems
+          .any((orderItem) => matchOrderItem(orderItem, code))) {
         final orderItem = orderItems
             .firstWhere((orderItem) => matchOrderItem(orderItem, code));
         await onItemFound(orderItem, null);
@@ -88,7 +94,9 @@ class ScannerDecoder {
 
       final price = amount / weight;
 
-      if (orderItems.any((orderItem) =>
+      if (selectedItem != null && matchOrderItem(selectedItem!, code)) {
+        await onItemFound(selectedItem!, weight);
+      } else if (orderItems.any((orderItem) =>
           orderItem.plu == plu &&
           (checkPrice
               ? orderItem.unitPrice.toStringAsFixed(1) ==
@@ -115,7 +123,10 @@ class ScannerDecoder {
   _handleOther(ScannedData scannedData) async {
     final code = scannedData.code?.trim();
     if (code != null) {
-      if (orderItems.any((orderItem) => matchOrderItem(orderItem, code))) {
+      if (selectedItem != null && matchOrderItem(selectedItem!, code)) {
+        await onItemFound(selectedItem!, null);
+      } else if (orderItems
+          .any((orderItem) => matchOrderItem(orderItem, code))) {
         final orderItem = orderItems
             .firstWhere((orderItem) => matchOrderItem(orderItem, code));
         await onItemFound(orderItem, null);
@@ -172,17 +183,8 @@ class _ScannerState extends State<Scanner>
   final HoneywellScanner honeywellScanner = HoneywellScanner();
   bool isSupported = false;
 
-  final AudioPlayer player = AudioPlayer();
-
-  Future<void> playCorrectSound() async {
-    await player.setAsset('assets/audios/correct.wav');
-    return player.play();
-  }
-
-  Future<void> playErrorSound() async {
-    await player.setAsset('assets/audios/error.wav');
-    return player.play();
-  }
+  final AudioPlayer correctPlayer = AudioPlayer();
+  final AudioPlayer errorPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -195,10 +197,36 @@ class _ScannerState extends State<Scanner>
   Future<void> init() async {
     isSupported = await honeywellScanner.isSupported();
     if (isSupported) {
+      await setPlayer();
       updateScanProperties();
       await honeywellScanner.startScanner();
     }
     if (mounted) setState(() {});
+  }
+
+  Future<void> setPlayer() async {
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
+
+    await correctPlayer.setAsset('assets/audio/correct.mp3');
+    await errorPlayer.setAsset('assets/audios/error.mp3');
+  }
+
+  Future<void> play(AudioPlayer player) async {
+    final playing = player.playerState.playing;
+    if (playing != true) {
+      return player.play();
+    } else {
+      return player.seek(Duration.zero);
+    }
+  }
+
+  Future<void> playCorrectSound() async {
+    return play(correctPlayer);
+  }
+
+  Future<void> playErrorSound() async {
+    return play(errorPlayer);
   }
 
   void updateScanProperties() {
@@ -273,6 +301,8 @@ class _ScannerState extends State<Scanner>
       case AppLifecycleState
           .paused: //AppLifecycleState.paused is used as stopped state because deactivate() works more as a pause for lifecycle
         honeywellScanner.pauseScanner();
+        correctPlayer.stop();
+        errorPlayer.stop();
         break;
       case AppLifecycleState.detached:
         honeywellScanner.pauseScanner();
@@ -286,7 +316,8 @@ class _ScannerState extends State<Scanner>
   void dispose() {
     if (isSupported) {
       honeywellScanner.stopScanner();
-      player.dispose();
+      correctPlayer.dispose();
+      errorPlayer.dispose();
     }
     super.dispose();
   }
