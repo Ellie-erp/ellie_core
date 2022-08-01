@@ -5,8 +5,7 @@ import 'Sales.dart';
 ///紀錄每日銷售紀錄,方便做分析,如locationId= '',全部店舖
 class DailySales {
   DocumentReference? docRef;
-  DateTime createDate; 
-  DateTime updateDate;
+  DateTime timestamp;
   DateTime saleDate;
   int numOfCompletion;
   int numOfReserve;
@@ -20,10 +19,9 @@ class DailySales {
 
 
 
-  DailySales({this.docRef,required this.createDate,required this.updateDate,required this.saleDate ,this.numOfCompletion=0, this.numOfReserve=0, this.numOfCancel=0, this.totalSale=0, this.locationId='', this.locationName='',this.dailySalesMethod, this.dailySalesItem});
+  DailySales({this.docRef,required this.timestamp,required this.saleDate ,this.numOfCompletion=0, this.numOfReserve=0, this.numOfCancel=0, this.totalSale=0, this.locationId='', this.locationName='',this.dailySalesMethod, this.dailySalesItem});
   Map<String, dynamic> get toMap => {
-        'createDate': createDate,
-        'updateDate': updateDate,      
+        'timestamp': timestamp,
         'saleDate': saleDate,  
         'NumOfCompletion': numOfCompletion,
         'NumOfReserve': numOfReserve,
@@ -38,8 +36,7 @@ class DailySales {
   factory DailySales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return DailySales(
       docRef: doc.reference,
-      createDate: doc.data()!['createDate']?.toDate(),
-      updateDate: doc.data()!['updateDate']?.toDate(),
+      timestamp: doc.data()!['timestamp']?.toDate(),
       saleDate: doc.data()!['saleDate']?.toDate(),
       numOfCompletion: doc.data()!['numOfCompletion']?? 0,
       numOfReserve: doc.data()!['numOfReserve']?? 0,
