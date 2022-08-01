@@ -6,14 +6,16 @@ class StockRecordItem {
   String name;
   int qty;
   num weight;
+  DateTime timestamp;
 
   StockRecordItem(
-      {this.docRef, required this.plu, this.name='',  this.qty=0,this.weight=0 });
+      {this.docRef, required this.plu, this.name='',  this.qty=0,this.weight=0, required this.timestamp});
   Map<String, dynamic> get toMap => {
         'plu': plu,
         'name': name,
         'qty': qty,
     'weight': weight,
+    'timestamp' : timestamp,
       };
   factory StockRecordItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return StockRecordItem(
@@ -22,6 +24,7 @@ class StockRecordItem {
       name: doc.data()?['name']?? '',
       qty: doc.data()?['qty']?? 0,
       weight: doc.data()?['weight']?? 0,
+      timestamp: doc.data()?['timestamp']?.toDate(),
     );
   }
 
