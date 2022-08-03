@@ -7,15 +7,17 @@ class StockRecordItem {
   int qty;
   num weight;
   DateTime timestamp;
+  String connectId;
 
   StockRecordItem(
-      {this.docRef, required this.plu, this.name='',  this.qty=0,this.weight=0, required this.timestamp});
+      {this.docRef, required this.plu, this.name='',  this.qty=0,this.weight=0, required this.timestamp,this.connectId=''});
   Map<String, dynamic> get toMap => {
         'plu': plu,
         'name': name,
         'qty': qty,
     'weight': weight,
     'timestamp' : timestamp,
+    'connectId': connectId,
       };
   factory StockRecordItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return StockRecordItem(
@@ -25,6 +27,7 @@ class StockRecordItem {
       qty: doc.data()?['qty']?? 0,
       weight: doc.data()?['weight']?? 0,
       timestamp: doc.data()?['timestamp']?.toDate(),
+      connectId: doc.data()?['connectId']?? '',
     );
   }
 

@@ -34,6 +34,7 @@ class StockRecord {
   String? location2Name;
   StockRecordType stockRecordType;
   StockRecordStatus stockRecordStatus;
+  String connectId;
 
 
 
@@ -47,6 +48,7 @@ class StockRecord {
       this.location2Id,
       this.location2Name='',
       required this.stockRecordType,
+        this.connectId='',
 
       required this.stockRecordStatus});
   Map<String, dynamic> get toMap => {
@@ -59,6 +61,7 @@ class StockRecord {
         'stockRecordType': StockRecordType.values.indexOf(stockRecordType),
         'stockRecordStatus':
             StockRecordStatus.values.indexOf(stockRecordStatus),
+    'connectId': connectId,
 
       };
   factory StockRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -74,6 +77,7 @@ class StockRecord {
           StockRecordType.values.elementAt(doc.data()?['stockRecordType'] ?? 0),
       stockRecordStatus: StockRecordStatus.values
           .elementAt(doc.data()?['stockRecordStatus'] ?? 0),
+      connectId: doc.data()?['connectId']?? '',
 
     );
   }
