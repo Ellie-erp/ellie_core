@@ -13,12 +13,13 @@ class StockRecordItem {
         'productName': productName,
         'qty': qty,
       };
-  factory StockRecordItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory StockRecordItem.fromDoc(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return StockRecordItem(
       docRef: doc.reference,
-      plu: doc.data()?['plu'],
-      productName: doc.data()?['productName'],
-      qty: doc.data()?['qty'],
+      plu: data['plu'],
+      productName: data['productName'],
+      qty: data['qty'],
     );
   }
 
