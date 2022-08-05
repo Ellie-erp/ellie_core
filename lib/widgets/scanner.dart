@@ -1,4 +1,5 @@
 import 'package:audio_session/audio_session.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:honeywell_scanner/honeywell_scanner.dart';
 import 'package:just_audio/just_audio.dart';
@@ -279,7 +280,7 @@ class _ScannerState extends State<Scanner>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.debug != null) {
+    if (widget.debug != null && kDebugMode) {
       return Stack(
         children: [widget.child, Center(child: debugWidget)],
       );
