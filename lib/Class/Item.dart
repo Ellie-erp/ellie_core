@@ -172,6 +172,17 @@ class Item {
     }
   }
 
+  Map<String, num> customPrices;
+
+  num customPrice(SalesType salesType, String customPriceName) {
+    final price = customPrices[customPriceName];
+    if (price == null) {
+      return priceFromType(salesType);
+    } else {
+      return price;
+    }
+  }
+
   final Map<String, int> scaleData;
 
   final Map<String, dynamic> additional;
@@ -216,6 +227,7 @@ class Item {
       required this.status,
       required this.subStatus,
       required this.pricing,
+      required this.customPrices,
       required this.scaleData,
       required this.additional,
       required this.createDate,
@@ -248,6 +260,7 @@ class Item {
         status: {},
         subStatus: {},
         pricing: {},
+        customPrices: {},
         scaleData: {},
         additional: {},
         createDate: DateTime.now(),
@@ -272,6 +285,7 @@ class Item {
         status: Map<String, bool>.from(_data['status'] ?? {}),
         subStatus: Map<String, bool>.from(_data['subStatus'] ?? {}),
         pricing: Map<String, num>.from(_data['pricing'] ?? {}),
+        customPrices: Map<String, num>.from(_data['customPrices'] ?? {}),
         scaleData: Map<String, int>.from(_data['scaleData'] ?? {}),
         additional: Map<String, dynamic>.from(_data['additional'] ?? {}),
         createDate: _data['createDate']?.toDate() ?? DateTime(0),
