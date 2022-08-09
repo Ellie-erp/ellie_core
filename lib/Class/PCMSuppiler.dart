@@ -41,7 +41,7 @@ class PCMSuppiler {
   String? staffAddressbookId;
   String? defaultRecipientAddressbookId;
   num defaultDepositRate;
-
+  List<String> categoriesIds;
 
   PCMSuppiler(
       {this.docRef,
@@ -57,9 +57,10 @@ class PCMSuppiler {
       this.website,
       required this.pcmType,
       this.history,
-        this.defaultRecipientAddressbookId='',
-        this.staffAddressbookId='',
-      this.defaultDepositRate=1});
+      this.defaultRecipientAddressbookId = '',
+      this.staffAddressbookId = '',
+      this.defaultDepositRate = 1,
+      this.categoriesIds = const []});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -73,33 +74,35 @@ class PCMSuppiler {
         'contact': (contact ?? []).map((e) => e.toMap).toList(),
         'currency': Currency.values.indexOf(currency),
         'history': (history ?? []).map((e) => e.toMap).toList(),
-    'staffAddressbookId': staffAddressbookId,
-    'defaultRecipientAddressbookId':defaultRecipientAddressbookId,
-    'defaultDepositRate': defaultDepositRate,
+        'staffAddressbookId': staffAddressbookId,
+        'defaultRecipientAddressbookId': defaultRecipientAddressbookId,
+        'defaultDepositRate': defaultDepositRate,
+        'categoriesIds': categoriesIds,
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
-      docRef: doc.reference,
-      createDate: doc.data()!['createDate']?.toDate(),
-      updateDate: doc.data()!['updateDate']?.toDate(),
-      name: doc.data()!['name'],
-      website: doc.data()!['website'],
-      brand: doc.data()!['brand'] ?? '',
-      pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
-      currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
-      origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
-      address: doc.data()!['address'] ?? '',
-      term: Term.values.elementAt(doc.data()!['term'] ?? 0),
-      contact: List<Contact>.from((doc.data()!['contact'] ?? [])
-          .map((e) => Contact.fromMap(e))
-          .toList()),
-      history: List<History>.from((doc.data()!['history'] ?? [])
-          .map((e) => History.fromMap(e))
-          .toList()),
-      staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
-      defaultRecipientAddressbookId: doc.data()?['defaultRecipientAddressbookId'] ?? '',
-      defaultDepositRate:  doc.data()?['defaultDepositRate']?? 1,
-    );
+        docRef: doc.reference,
+        createDate: doc.data()!['createDate']?.toDate(),
+        updateDate: doc.data()!['updateDate']?.toDate(),
+        name: doc.data()!['name'],
+        website: doc.data()!['website'],
+        brand: doc.data()!['brand'] ?? '',
+        pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
+        currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
+        origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
+        address: doc.data()!['address'] ?? '',
+        term: Term.values.elementAt(doc.data()!['term'] ?? 0),
+        contact: List<Contact>.from((doc.data()!['contact'] ?? [])
+            .map((e) => Contact.fromMap(e))
+            .toList()),
+        history: List<History>.from((doc.data()!['history'] ?? [])
+            .map((e) => History.fromMap(e))
+            .toList()),
+        staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
+        defaultRecipientAddressbookId:
+            doc.data()?['defaultRecipientAddressbookId'] ?? '',
+        defaultDepositRate: doc.data()?['defaultDepositRate'] ?? 1,
+        categoriesIds: (doc.data()?['categoriesIds'] as List).cast<String>());
   }
 
   Future<void> update() async {

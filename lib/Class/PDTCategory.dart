@@ -6,24 +6,23 @@ class PDTCategory {
   String fullName;
   DateTime timestamp;
 
-
-
-
-  PDTCategory({this.docRef,required this.shortName,required  this.fullName,required  this.timestamp});
+  PDTCategory({
+    this.docRef,
+    required this.shortName,
+    required this.fullName,
+    required this.timestamp,
+  });
   Map<String, dynamic> get toMap => {
         'shortName': shortName,
         'fullName': fullName,
         'timestamp': timestamp,
-
-
       };
   factory PDTCategory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PDTCategory(
       docRef: doc.reference,
-      shortName: doc.data()!['shortName']?? '',
-      fullName: doc.data()!['fullName']?? '',
+      shortName: doc.data()!['shortName'] ?? '',
+      fullName: doc.data()!['fullName'] ?? '',
       timestamp: doc.data()!['timestamp']?.toDate(),
-
     );
   }
 
