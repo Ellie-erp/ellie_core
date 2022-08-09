@@ -102,7 +102,7 @@ class PCMSuppiler {
         defaultRecipientAddressbookId:
             doc.data()?['defaultRecipientAddressbookId'] ?? '',
         defaultDepositRate: doc.data()?['defaultDepositRate'] ?? 1,
-        categoriesIds: (doc.data()?['categoriesIds'] as List).cast<String>());
+        categoriesIds: ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>());
   }
 
   Future<void> update() async {
