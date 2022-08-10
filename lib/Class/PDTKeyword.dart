@@ -6,6 +6,19 @@ enum PDTKeywordType {
   Variety,
 }
 
+extension PDTKeywordTypeName on PDTKeywordType {
+  String get displayName {
+    switch (this) {
+      case PDTKeywordType.Item:
+        return '名稱';
+      case PDTKeywordType.Variety:
+        return '副種類';
+
+    }
+  }
+}
+
+
 
 class PDTKeyword {
   DocumentReference? docRef;
