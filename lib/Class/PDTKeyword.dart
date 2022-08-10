@@ -7,16 +7,16 @@ class PDTKeyword {
   DateTime timestamp;
   List<String> keywords;
 String pdtCategoryId;
+String pdtCategoryName;
 
-
-  PDTKeyword({this.docRef,required this.chineseName,required this.engName,required this.timestamp , this.keywords = const [], this.pdtCategoryId=''});
+  PDTKeyword({this.docRef,required this.chineseName,required this.engName,required this.timestamp , this.keywords = const [], this.pdtCategoryId='', this.pdtCategoryName=''});
   Map<String, dynamic> get toMap => {
         'chineseName': chineseName,
         'engName': engName,
         'timestamp': timestamp,
     'keywords': keywords,
     'pdtCategoryId': pdtCategoryId,
-
+    'pdtCategoryName': pdtCategoryName,
       };
   factory PDTKeyword.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PDTKeyword(
@@ -26,6 +26,7 @@ String pdtCategoryId;
       timestamp: doc.data()!['timestamp']?.toDate(),
       keywords: ((doc.data()?['keywords'] as List?) ?? []).cast<String>(),
       pdtCategoryId: doc.data()!['pdtCategoryId']?? '',
+      pdtCategoryName: doc.data()!['pdtCategoryName']?? '',
     );
   }
 
