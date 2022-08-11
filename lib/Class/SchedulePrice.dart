@@ -57,7 +57,13 @@ class SchedulePriceList {
   num? onlinePrice;
   DateTime timestamp;
 
-  SchedulePriceList({required this.itemId, this.salePrice, this.wholesalePrice, this.shopPrice, this.onlinePrice,required this.timestamp});
+  num salePriceBefore;
+  num wholesalePriceBefore;
+  num shopPriceBefore;
+  num onlinePriceBefore;
+
+
+  SchedulePriceList({required this.itemId, this.salePrice, this.wholesalePrice, this.shopPrice, this.onlinePrice,required this.timestamp, this.salePriceBefore=0, this.wholesalePriceBefore=0, this.shopPriceBefore=0, this.onlinePriceBefore=0});
 
   Map<String, dynamic> get toMap => {
     'itemId': itemId,
@@ -66,17 +72,24 @@ class SchedulePriceList {
     'shopPrice' : shopPrice,
     'onlinePrice' : onlinePrice,
     'timestamp': timestamp,
-
+    'salePriceBefore': salePriceBefore,
+    'wholesalePriceBefore' : wholesalePriceBefore,
+    'shopPriceBefore' : shopPriceBefore,
+    'onlinePriceBefore' : onlinePriceBefore,
 
   };
 
   factory SchedulePriceList.fromMap(Map<String, dynamic> map) {
     return SchedulePriceList(
       itemId: map['itemId'],
-      salePrice: map['salePrice'],
-      wholesalePrice: map['wholesalePrice'],
-      shopPrice: map['shopPrice'],
-      onlinePrice: map['onlinePrice'],
+      salePrice: map['salePrice']?? 0,
+      wholesalePrice: map['wholesalePrice']?? 0,
+      shopPrice: map['shopPrice']?? 0,
+      onlinePrice: map['onlinePrice']?? 0,
      timestamp: map['timestamp']?.toDate(),
+      salePriceBefore: map['salePriceBefore']?? 0,
+      wholesalePriceBefore: map['wholesalePriceBefore']?? 0,
+      shopPriceBefore: map['shopPriceBefore']?? 0,
+      onlinePriceBefore: map['onlinePriceBefore']?? 0,
     );
   }}
