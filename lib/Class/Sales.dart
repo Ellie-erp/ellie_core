@@ -52,19 +52,16 @@ enum SalesType {
   STOCKIN,
 }
 
-extension SalesTypeExtension on SalesType {
-  SalesType fromType(String type) {
-    switch(type) {
-      case 'sale':return SalesType.RETAIL;
-      case 'wholesale': return SalesType.WHOLESALE;
-      case 'online': return SalesType.ONLINE;
-      case 'shop': return SalesType.STOCKIN;
-      default:
-        throw 'Type $type not found!';
-    }
+SalesType SalesTypeFromString(String type) {
+  switch(type) {
+    case 'sale':return SalesType.RETAIL;
+    case 'wholesale': return SalesType.WHOLESALE;
+    case 'online': return SalesType.ONLINE;
+    case 'shop': return SalesType.STOCKIN;
+    default:
+      throw 'Type $type not found!';
   }
 }
-
 enum SalesStatus {
   OPEN,
   COMPLETE,
