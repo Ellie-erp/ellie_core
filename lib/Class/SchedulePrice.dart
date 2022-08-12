@@ -72,7 +72,7 @@ class SchedulePriceList {
         'wholesale': wholesalePrice,
         'shop': shopPrice,
         'online': onlinePrice,
-      };
+      }..removeWhere((key, value) => value == 0);
 
   Map<String, bool> get status => {
     'sale': salePrice != 0,
