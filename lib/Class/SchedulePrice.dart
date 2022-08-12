@@ -74,6 +74,13 @@ class SchedulePriceList {
         'online': onlinePrice,
       };
 
+  Map<String, bool> get status => {
+    'sale': salePrice != 0,
+    'wholesale': wholesalePrice != 0,
+    'shop': shopPrice != 0,
+    'online': onlinePrice != 0,
+  };
+
   Map<String, num> get beforePrices => {
         'sale': salePriceBefore,
         'wholesale': wholesalePriceBefore,
