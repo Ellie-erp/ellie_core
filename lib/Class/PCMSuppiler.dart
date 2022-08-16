@@ -2,6 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
+enum paymentDetailType {
+  Local,
+  Oversea,
+}
+
 enum PCMType {
   SUPPILER,
   MARKET,
@@ -42,6 +47,7 @@ class PCMSuppiler {
   String? defaultRecipientAddressbookId;
   num defaultDepositRate;
   List<String> categoriesIds;
+  List<PCMBankDetail>? pcmBankDetail;
 
   PCMSuppiler(
       {this.docRef,
@@ -60,7 +66,9 @@ class PCMSuppiler {
       this.defaultRecipientAddressbookId = '',
       this.staffAddressbookId = '',
       this.defaultDepositRate = 1,
-      this.categoriesIds = const []});
+      this.categoriesIds = const [],
+      this.pcmBankDetail,
+      });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -78,6 +86,7 @@ class PCMSuppiler {
         'defaultRecipientAddressbookId': defaultRecipientAddressbookId,
         'defaultDepositRate': defaultDepositRate,
         'categoriesIds': categoriesIds,
+    'pcmBankDetail': (pcmBankDetail ?? []).map((e) => e.toMap).toList(),
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
@@ -102,7 +111,10 @@ class PCMSuppiler {
         defaultRecipientAddressbookId:
             doc.data()?['defaultRecipientAddressbookId'] ?? '',
         defaultDepositRate: doc.data()?['defaultDepositRate'] ?? 1,
-        categoriesIds: ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>());
+        categoriesIds: ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>(),
+      pcmBankDetail: List<PCMBankDetail>.from((doc.data()!['pcmBankDetail'] ?? []).map((e) => PCMBankDetail.fromMap(e)).toList()),
+    );
+
   }
 
   Future<void> update() async {
@@ -110,6 +122,8 @@ class PCMSuppiler {
   }
 }
 
+
+///replaced by AddressBookVw
 class Contact {
   DateTime createDate;
   String? name;
@@ -156,3 +170,48 @@ class History {
     );
   }
 }
+
+
+
+
+
+
+
+
+class PCMBankDetail {
+  DateTime timestamp;
+  String swift;
+  String bankName;
+  String bankAddress;
+  String iban;
+  String accountName;
+  String accountAddress;
+  String BSB;
+
+
+  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB=''});
+
+  Map<String, dynamic> get toMap => {
+    'timestamp': timestamp,
+    'swift': swift,
+    'bankName' : bankName,
+    'bankAddress' : bankAddress,
+    'iban' : iban,
+    'accountName' : accountName,
+    'accountAddress' : accountAddress,
+    'BSB' : BSB,
+  };
+
+
+  factory PCMBankDetail.fromMap(Map<String, dynamic> map) {
+    return PCMBankDetail(
+      timestamp: map['timestamp'],
+      swift: map['swift'],
+      bankName: map['bankName'],
+      bankAddress: map['bankAddress'],
+      iban: map['iban'],
+      accountName: map['accountName'],
+      accountAddress: map['accountAddress'],
+      BSB: map['BSB'],
+    );
+  }}
