@@ -49,6 +49,7 @@ class PCMSuppiler {
   List<String> categoriesIds;
   List<PCMBankDetail>? pcmBankDetail;
 
+
   PCMSuppiler(
       {this.docRef,
       required this.createDate,
@@ -201,7 +202,7 @@ class PCMBankDetail {
 
   factory PCMBankDetail.fromMap(Map<String, dynamic> map) {
     return PCMBankDetail(
-      timestamp: map['timestamp'],
+      timestamp: map['timestamp']?.toDate(),
       swift: map['swift'],
       bankName: map['bankName'],
       bankAddress: map['bankAddress'],
