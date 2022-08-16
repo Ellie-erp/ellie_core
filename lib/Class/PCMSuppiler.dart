@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
 
-enum paymentDetailType {
+enum PaymentDetailType {
   Local,
   Oversea,
 }
@@ -114,8 +114,8 @@ class PCMSuppiler {
         categoriesIds: ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>(),
       pcmBankDetail: List<PCMBankDetail>.from((doc.data()!['pcmBankDetail'] ?? []).map((e) => PCMBankDetail.fromMap(e)).toList()),
     );
-
   }
+
 
   Future<void> update() async {
     await docRef!.update(toMap);
@@ -172,12 +172,6 @@ class History {
 }
 
 
-
-
-
-
-
-
 class PCMBankDetail {
   DateTime timestamp;
   String swift;
@@ -187,9 +181,10 @@ class PCMBankDetail {
   String accountName;
   String accountAddress;
   String BSB;
+  PaymentDetailType paymentDetailType;
 
 
-  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB=''});
+  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB='', required this.paymentDetailType});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
@@ -200,6 +195,7 @@ class PCMBankDetail {
     'accountName' : accountName,
     'accountAddress' : accountAddress,
     'BSB' : BSB,
+    'paymentDetailType' : PaymentDetailType.values.indexOf(paymentDetailType),
   };
 
 
@@ -213,5 +209,7 @@ class PCMBankDetail {
       accountName: map['accountName'],
       accountAddress: map['accountAddress'],
       BSB: map['BSB'],
+      paymentDetailType:
+      PaymentDetailType.values.elementAt(map['paymentDetailType'] ?? 0),
     );
   }}
