@@ -183,9 +183,10 @@ class PCMBankDetail {
   String accountAddress;
   String BSB;
   PaymentDetailType paymentDetailType;
+  bool isDefault;
 
 
-  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB='', required this.paymentDetailType});
+  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB='', required this.paymentDetailType, this.isDefault=true});
 
   Map<String, dynamic> get toMap => {
     'timestamp': timestamp,
@@ -197,6 +198,7 @@ class PCMBankDetail {
     'accountAddress' : accountAddress,
     'BSB' : BSB,
     'paymentDetailType' : PaymentDetailType.values.indexOf(paymentDetailType),
+    'isDefault': isDefault,
   };
 
 
@@ -212,5 +214,6 @@ class PCMBankDetail {
       BSB: map['BSB'],
       paymentDetailType:
       PaymentDetailType.values.elementAt(map['paymentDetailType'] ?? 0),
+      isDefault: map['isDefault']?? true,
     );
   }}
