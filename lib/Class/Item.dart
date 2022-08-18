@@ -174,7 +174,7 @@ class Item {
 
   Map<String, num> customPrices;
 
-  num customPrice(SalesType salesType, String customPriceName) {
+  num customPrice(SalesType salesType, String? customPriceName) {
     final price = customPrices[customPriceName];
     if (price == null) {
       return priceFromType(salesType);
