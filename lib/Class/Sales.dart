@@ -14,6 +14,8 @@ enum PayMethod {
   BankTransferOrCheque,
   FPS,
   UnionPay,
+  Deliveroo,
+  Foodpanda,
 }
 
 extension PayMethodExt on PayMethod {
@@ -41,6 +43,10 @@ extension PayMethodExt on PayMethod {
         return 'FPS';
       case PayMethod.UnionPay:
         return 'UnionPay';
+      case PayMethod.Deliveroo:
+        return 'Deliveroo';
+      case PayMethod.Foodpanda:
+        return 'Foodpanda';
     }
   }
 }
