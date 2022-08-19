@@ -22,6 +22,9 @@ class DailySales {
   /// Storing [Sales] in this DailySales locally.
   List<Sales> sales;
 
+  /// Storing corresponding order items locally.
+  List<List<OrderItem>> itemsGroups;
+
   DailySales(
       {this.docRef,
       required this.timestamp,
@@ -36,7 +39,8 @@ class DailySales {
       this.locationName = '',
       this.dailySalesMethod = const [],
       this.dailySalesItem = const [],
-      this.sales = const []});
+      this.sales = const [],
+      this.itemsGroups = const []});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'saleDate': saleDate,
