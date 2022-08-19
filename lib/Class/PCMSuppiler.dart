@@ -49,27 +49,26 @@ class PCMSuppiler {
   List<String> categoriesIds;
   List<PCMBankDetail>? pcmBankDetail;
 
-
-  PCMSuppiler(
-      {this.docRef,
-      required this.createDate,
-      required this.updateDate,
-      required this.name,
-      this.brand,
-      required this.origin,
-      required this.term,
-      this.address,
-      this.contact,
-      required this.currency,
-      this.website,
-      required this.pcmType,
-      this.history,
-      this.defaultRecipientAddressbookId = '',
-      this.staffAddressbookId = '',
-      this.defaultDepositRate = 1,
-      this.categoriesIds = const [],
-      this.pcmBankDetail,
-      });
+  PCMSuppiler({
+    this.docRef,
+    required this.createDate,
+    required this.updateDate,
+    required this.name,
+    this.brand,
+    required this.origin,
+    required this.term,
+    this.address,
+    this.contact,
+    required this.currency,
+    this.website,
+    required this.pcmType,
+    this.history,
+    this.defaultRecipientAddressbookId = '',
+    this.staffAddressbookId = '',
+    this.defaultDepositRate = 1,
+    this.categoriesIds = const [],
+    this.pcmBankDetail,
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -87,42 +86,44 @@ class PCMSuppiler {
         'defaultRecipientAddressbookId': defaultRecipientAddressbookId,
         'defaultDepositRate': defaultDepositRate,
         'categoriesIds': categoriesIds,
-    'pcmBankDetail': (pcmBankDetail ?? []).map((e) => e.toMap).toList(),
+        'pcmBankDetail': (pcmBankDetail ?? []).map((e) => e.toMap).toList(),
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
-        docRef: doc.reference,
-        createDate: doc.data()!['createDate']?.toDate(),
-        updateDate: doc.data()!['updateDate']?.toDate(),
-        name: doc.data()!['name'],
-        website: doc.data()!['website'],
-        brand: doc.data()!['brand'] ?? '',
-        pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
-        currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
-        origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
-        address: doc.data()!['address'] ?? '',
-        term: Term.values.elementAt(doc.data()!['term'] ?? 0),
-        contact: List<Contact>.from((doc.data()!['contact'] ?? [])
-            .map((e) => Contact.fromMap(e))
-            .toList()),
-        history: List<History>.from((doc.data()!['history'] ?? [])
-            .map((e) => History.fromMap(e))
-            .toList()),
-        staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
-        defaultRecipientAddressbookId:
-            doc.data()?['defaultRecipientAddressbookId'] ?? '',
-        defaultDepositRate: doc.data()?['defaultDepositRate'] ?? 1,
-        categoriesIds: ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>(),
-      pcmBankDetail: List<PCMBankDetail>.from((doc.data()!['pcmBankDetail'] ?? []).map((e) => PCMBankDetail.fromMap(e)).toList()),
+      docRef: doc.reference,
+      createDate: doc.data()!['createDate']?.toDate(),
+      updateDate: doc.data()!['updateDate']?.toDate(),
+      name: doc.data()!['name'],
+      website: doc.data()!['website'],
+      brand: doc.data()!['brand'] ?? '',
+      pcmType: PCMType.values.elementAt(doc.data()!['pcmType'] ?? 0),
+      currency: Currency.values.elementAt(doc.data()!['currency'] ?? 0),
+      origin: Country.values.elementAt(doc.data()!['origin'] ?? 0),
+      address: doc.data()!['address'] ?? '',
+      term: Term.values.elementAt(doc.data()!['term'] ?? 0),
+      contact: List<Contact>.from((doc.data()!['contact'] ?? [])
+          .map((e) => Contact.fromMap(e))
+          .toList()),
+      history: List<History>.from((doc.data()!['history'] ?? [])
+          .map((e) => History.fromMap(e))
+          .toList()),
+      staffAddressbookId: doc.data()?['staffAddressbookId'] ?? '',
+      defaultRecipientAddressbookId:
+          doc.data()?['defaultRecipientAddressbookId'] ?? '',
+      defaultDepositRate: doc.data()?['defaultDepositRate'] ?? 1,
+      categoriesIds:
+          ((doc.data()?['categoriesIds'] as List?) ?? []).cast<String>(),
+      pcmBankDetail: List<PCMBankDetail>.from(
+          (doc.data()!['pcmBankDetail'] ?? [])
+              .map((e) => PCMBankDetail.fromMap(e))
+              .toList()),
     );
   }
-
 
   Future<void> update() async {
     await docRef!.update(toMap);
   }
 }
-
 
 ///replaced by AddressBookVw
 class Contact {
@@ -172,7 +173,6 @@ class History {
   }
 }
 
-
 class PCMBankDetail {
   DateTime timestamp;
   String swift;
@@ -185,22 +185,31 @@ class PCMBankDetail {
   PaymentDetailType paymentDetailType;
   bool isDefault;
 
-
-  PCMBankDetail({required this.timestamp, this.swift='', this.bankName='', this.bankAddress='', this.iban='', this.accountName='', this.accountAddress='', this.BSB='', required this.paymentDetailType, this.isDefault=true});
+  PCMBankDetail(
+      {required this.timestamp,
+      this.swift = '',
+      this.bankName = '',
+      this.bankAddress = '',
+      this.iban = '',
+      this.accountName = '',
+      this.accountAddress = '',
+      this.BSB = '',
+      required this.paymentDetailType,
+      this.isDefault = true});
 
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'swift': swift,
-    'bankName' : bankName,
-    'bankAddress' : bankAddress,
-    'iban' : iban,
-    'accountName' : accountName,
-    'accountAddress' : accountAddress,
-    'BSB' : BSB,
-    'paymentDetailType' : PaymentDetailType.values.indexOf(paymentDetailType),
-    'isDefault': isDefault,
-  };
-
+        'timestamp': timestamp,
+        'swift': swift,
+        'bankName': bankName,
+        'bankAddress': bankAddress,
+        'iban': iban,
+        'accountName': accountName,
+        'accountAddress': accountAddress,
+        'BSB': BSB,
+        'paymentDetailType':
+            PaymentDetailType.values.indexOf(paymentDetailType),
+        'isDefault': isDefault,
+      };
 
   factory PCMBankDetail.fromMap(Map<String, dynamic> map) {
     return PCMBankDetail(
@@ -213,7 +222,8 @@ class PCMBankDetail {
       accountAddress: map['accountAddress'],
       BSB: map['BSB'],
       paymentDetailType:
-      PaymentDetailType.values.elementAt(map['paymentDetailType'] ?? 0),
-      isDefault: map['isDefault']?? true,
+          PaymentDetailType.values.elementAt(map['paymentDetailType'] ?? 0),
+      isDefault: map['isDefault'] ?? true,
     );
-  }}
+  }
+}

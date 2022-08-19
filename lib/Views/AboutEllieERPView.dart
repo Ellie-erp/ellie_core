@@ -5,7 +5,7 @@ class AboutEllieERPView extends StatefulWidget {
   const AboutEllieERPView({Key? key}) : super(key: key);
 
   @override
-  _AboutEllieERPViewState createState() => _AboutEllieERPViewState();
+  State<AboutEllieERPView> createState() => _AboutEllieERPViewState();
 }
 
 class _AboutEllieERPViewState extends State<AboutEllieERPView> {

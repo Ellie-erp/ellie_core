@@ -42,5 +42,3 @@ class StockRecordItem {
     await docRef?.update(toMap);
   }
 }
-
-

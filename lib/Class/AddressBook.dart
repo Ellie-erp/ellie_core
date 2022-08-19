@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ellie_core/Class/Info.dart';
 
-
-
 ///ERP用通訊錄, 預定建立在每個Dempartment enum.方便紀錄及聯絡
 class AddressBook {
   DocumentReference? docRef;
@@ -15,32 +13,46 @@ class AddressBook {
   String emailAddress;
   String companyName;
   Department department;
-String website;
-String address;
+  String website;
+  String address;
   String tel2;
   String tel3;
   String connectId;
   String jobTitle;
 
-
-
-  AddressBook({this.docRef,required this.createDate,required this.contactName, this.tel='' ,this.remark='', this.whatsappNo='', this.emailAddress='',this.companyName='', required this.updateDate, required this.department, this.website='', this.address='',this.tel2='' ,this.tel3='' ,this.connectId='', this.jobTitle=''});
+  AddressBook(
+      {this.docRef,
+      required this.createDate,
+      required this.contactName,
+      this.tel = '',
+      this.remark = '',
+      this.whatsappNo = '',
+      this.emailAddress = '',
+      this.companyName = '',
+      required this.updateDate,
+      required this.department,
+      this.website = '',
+      this.address = '',
+      this.tel2 = '',
+      this.tel3 = '',
+      this.connectId = '',
+      this.jobTitle = ''});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-    'updateDate': updateDate,
+        'updateDate': updateDate,
         'contactName': contactName,
         'tel': tel,
         'remark': remark,
         'whatsappNo': whatsappNo,
         'emailAddress': emailAddress,
- 'companyName' : companyName,
-    'department': Department.values.indexOf(department),
-    'website' : website,
-    'address' : address,
-    'tel2': tel2,
-    'tel3': tel3,
-    'connectId' : connectId,
-    'jobTitle' : jobTitle,
+        'companyName': companyName,
+        'department': Department.values.indexOf(department),
+        'website': website,
+        'address': address,
+        'tel2': tel2,
+        'tel3': tel3,
+        'connectId': connectId,
+        'jobTitle': jobTitle,
       };
   factory AddressBook.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return AddressBook(
@@ -58,8 +70,8 @@ String address;
       address: doc.data()!['address'],
       tel2: doc.data()!['tel2'],
       tel3: doc.data()!['tel3'],
-      connectId: doc.data()!['connectId']?? '',
-      jobTitle: doc.data()!['jobTitle']?? '',
+      connectId: doc.data()!['connectId'] ?? '',
+      jobTitle: doc.data()!['jobTitle'] ?? '',
     );
   }
 

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-
-enum HRLeaveType{
+enum HRLeaveType {
   UnpaidLeave,
   SickLeave,
   AnnualLeave,
@@ -10,17 +8,14 @@ enum HRLeaveType{
   MaternityLeave,
   PaternityLeave,
 }
-enum ApprovalStatus {
-  Processing,
-  Approved,
-  Denied
-}
+
+enum ApprovalStatus { Processing, Approved, Denied }
 
 ///HR 請假用 class,計AL, WIP
 ///需要諗消假安排
 class HRCalendar {
   DocumentReference? docRef;
-  DateTime timestamp; 
+  DateTime timestamp;
   String identityId;
   String identityName;
   DateTime startDate;
@@ -30,21 +25,27 @@ class HRCalendar {
   HRLeaveType hrLeaveType;
   ApprovalStatus approvalStatus;
 
-
-
-
-  HRCalendar({this.docRef,required this.timestamp,required this.identityId,required this.identityName , required this.startDate,required this.endDate, this.remark='', this.document, required this.approvalStatus, required this.hrLeaveType });
+  HRCalendar(
+      {this.docRef,
+      required this.timestamp,
+      required this.identityId,
+      required this.identityName,
+      required this.startDate,
+      required this.endDate,
+      this.remark = '',
+      this.document,
+      required this.approvalStatus,
+      required this.hrLeaveType});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
-        'identityId': identityId,      
-        'identityName': identityName,  
-        'startDate': startDate,  
-        'endDate': endDate,  
-        'remark': remark,  
+        'identityId': identityId,
+        'identityName': identityName,
+        'startDate': startDate,
+        'endDate': endDate,
+        'remark': remark,
         'document': document,
-    'hrLeaveType' : HRLeaveType.values.indexOf(hrLeaveType),
-'approvalStatus': ApprovalStatus.values.indexOf(approvalStatus),
-
+        'hrLeaveType': HRLeaveType.values.indexOf(hrLeaveType),
+        'approvalStatus': ApprovalStatus.values.indexOf(approvalStatus),
       };
   factory HRCalendar.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return HRCalendar(
@@ -56,9 +57,10 @@ class HRCalendar {
       endDate: doc.data()!['endDate']?.toDate(),
       remark: doc.data()!['remark'],
       document: doc.data()!['document'],
- hrLeaveType: HRLeaveType.values.elementAt(doc.data()!['hrLeaveType']?? 0),
-      approvalStatus: ApprovalStatus.values.elementAt(doc.data()!['approvalStatus']?? 0),
-
+      hrLeaveType:
+          HRLeaveType.values.elementAt(doc.data()!['hrLeaveType'] ?? 0),
+      approvalStatus:
+          ApprovalStatus.values.elementAt(doc.data()!['approvalStatus'] ?? 0),
     );
   }
 

@@ -36,20 +36,16 @@ class StockRecord {
   StockRecordStatus stockRecordStatus;
   String connectId;
 
-
-
-
   StockRecord(
       {this.docRef,
       required this.createDate,
       this.sentDate,
       required this.locationId,
-      this.locationName='',
+      this.locationName = '',
       this.location2Id,
-      this.location2Name='',
+      this.location2Name = '',
       required this.stockRecordType,
-        this.connectId='',
-
+      this.connectId = '',
       required this.stockRecordStatus});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -61,8 +57,7 @@ class StockRecord {
         'stockRecordType': StockRecordType.values.indexOf(stockRecordType),
         'stockRecordStatus':
             StockRecordStatus.values.indexOf(stockRecordStatus),
-    'connectId': connectId,
-
+        'connectId': connectId,
       };
   factory StockRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return StockRecord(
@@ -70,15 +65,14 @@ class StockRecord {
       createDate: doc.data()?['createDate']?.toDate(),
       sentDate: doc.data()?['sentDate']?.toDate(),
       locationId: doc.data()?['locationId'],
-      locationName: doc.data()?['locationName']??'',
-      location2Id: doc.data()?['location2Id']?? '',
-      location2Name: doc.data()?['location2Name']?? '',
+      locationName: doc.data()?['locationName'] ?? '',
+      location2Id: doc.data()?['location2Id'] ?? '',
+      location2Name: doc.data()?['location2Name'] ?? '',
       stockRecordType:
           StockRecordType.values.elementAt(doc.data()?['stockRecordType'] ?? 0),
       stockRecordStatus: StockRecordStatus.values
           .elementAt(doc.data()?['stockRecordStatus'] ?? 0),
-      connectId: doc.data()?['connectId']?? '',
-
+      connectId: doc.data()?['connectId'] ?? '',
     );
   }
 

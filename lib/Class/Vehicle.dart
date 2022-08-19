@@ -1,22 +1,23 @@
-import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 ///物流用車輛管理
-enum VehicleType{
+enum VehicleType {
   ///私家車
   Car,
+
   ///輕型貨車
   LGV,
+
   ///中型貨車
   MGV,
+
   ///重型貨車
   HGV,
+
   ///雪車
   RefrigeratorTruck,
-
 }
 
 extension VehicleTypeExtension on VehicleType {
@@ -36,16 +37,18 @@ extension VehicleTypeExtension on VehicleType {
   }
 }
 
-enum VehicleStatus{
+enum VehicleStatus {
   ///運作中
   Normal,
+
   ///維修中
   Repairing,
+
   ///保養中
   Maintainance,
+
   ///已中止
   Cancelled,
-
 }
 
 extension VehicleStatusExtension on VehicleStatus {
@@ -59,9 +62,9 @@ extension VehicleStatusExtension on VehicleStatus {
         return '保養中';
       case VehicleStatus.Cancelled:
         return '已中止';
-
     }
   }
+
   Color get color {
     switch (this) {
       case VehicleStatus.Normal:
@@ -72,45 +75,49 @@ extension VehicleStatusExtension on VehicleStatus {
         return Colors.orange;
       case VehicleStatus.Cancelled:
         return Colors.grey;
-
     }
   }
 }
 
-
 class Vehicle {
   DocumentReference? docRef;
-  DateTime createDate; 
+  DateTime createDate;
   DateTime updateDate;
   String registrationMark;
-String staffId;
-String  staffName;
-VehicleType vehicleType;
-String color;
+  String staffId;
+  String staffName;
+  VehicleType vehicleType;
+  String color;
 
-
-
-  Vehicle({this.docRef,required this.createDate,required this.updateDate,required this.registrationMark ,required this.staffId,this.staffName='Unnamed',required this.vehicleType ,this.color='0xFF9E9E9E'});
+  Vehicle(
+      {this.docRef,
+      required this.createDate,
+      required this.updateDate,
+      required this.registrationMark,
+      required this.staffId,
+      this.staffName = 'Unnamed',
+      required this.vehicleType,
+      this.color = '0xFF9E9E9E'});
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
-        'updateDate': updateDate,      
+        'updateDate': updateDate,
         'registrationMark': registrationMark,
-    'staffId' : staffId,
-    'staffName' : staffName,
-    'vehicleType': VehicleType.values.indexOf(vehicleType),
-    'color': color,
-
-
+        'staffId': staffId,
+        'staffName': staffName,
+        'vehicleType': VehicleType.values.indexOf(vehicleType),
+        'color': color,
       };
   factory Vehicle.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Vehicle(
       docRef: doc.reference,
       createDate: doc.data()!['createDate']?.toDate(),
       updateDate: doc.data()!['updateDate']?.toDate(),
-      registrationMark: doc.data()!['registrationMark']?? '',
-staffId: doc.data()!['staffId'],
+      registrationMark: doc.data()!['registrationMark'] ?? '',
+      staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
-      vehicleType: VehicleType.values.elementAt(doc.data()!['vehicleType']?? 0,),
+      vehicleType: VehicleType.values.elementAt(
+        doc.data()!['vehicleType'] ?? 0,
+      ),
       color: doc.data()!['color'],
     );
   }
@@ -120,24 +127,27 @@ staffId: doc.data()!['staffId'],
   }
 }
 
-
-
 class VehicleRecord {
   DocumentReference? docRef;
   DateTime timestamp;
   String remark;
   String staffId;
   String staffName;
-VehicleStatus vehicleStatus;
+  VehicleStatus vehicleStatus;
 
-
-  VehicleRecord({this.docRef,required this.timestamp, this.remark='',required this.staffId ,this.staffName='Unnamed', required this.vehicleStatus});
+  VehicleRecord(
+      {this.docRef,
+      required this.timestamp,
+      this.remark = '',
+      required this.staffId,
+      this.staffName = 'Unnamed',
+      required this.vehicleStatus});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'remark': remark,
         'staffId': staffId,
         'staffName': staffName,
-  'vehicleStatus': VehicleStatus.values.indexOf(vehicleStatus),
+        'vehicleStatus': VehicleStatus.values.indexOf(vehicleStatus),
       };
   factory VehicleRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return VehicleRecord(
@@ -146,8 +156,8 @@ VehicleStatus vehicleStatus;
       remark: doc.data()!['remark'],
       staffId: doc.data()!['staffId'],
       staffName: doc.data()!['staffName'],
-      vehicleStatus: VehicleStatus.values.elementAt( doc.data()!['vehicleStatus']?? 0),
-
+      vehicleStatus:
+          VehicleStatus.values.elementAt(doc.data()!['vehicleStatus'] ?? 0),
     );
   }
 

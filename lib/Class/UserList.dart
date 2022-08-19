@@ -48,28 +48,27 @@ class UserList {
         'userType': userType.index,
         'mode': mode,
         'locations': locations,
-    'tel': tel,
+        'tel': tel,
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserList(
-        docRef: doc.reference,
-        createDate: doc.data()!['createDate']?.toDate(),
-        displayName: doc.data()!['displayName'] ?? 'Undefined',
-        email: doc.data()!['email'] ?? '',
-        delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? [])
-            .map((e) => DelAddress.fromMap(e))
-            .toList()),
-        credit: doc.data()!['credit'],
-        paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
-        userType: UserType.values.elementAt(doc.data()!['userType'] ?? 0),
-        permissions:
-            (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {},
-        role: doc.data()!['role'] ?? '',
-        mode: doc.data()!['mode'] ?? 'erp',
-        locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>(),
-        tel: doc.data()!['tel'] ?? '',
+      docRef: doc.reference,
+      createDate: doc.data()!['createDate']?.toDate(),
+      displayName: doc.data()!['displayName'] ?? 'Undefined',
+      email: doc.data()!['email'] ?? '',
+      delAddress: List<DelAddress>.from((doc.data()?['delAddress'] ?? [])
+          .map((e) => DelAddress.fromMap(e))
+          .toList()),
+      credit: doc.data()!['credit'],
+      paymentPeriod: doc.data()!['paymentPeriod'] ?? 0,
+      userType: UserType.values.elementAt(doc.data()!['userType'] ?? 0),
+      permissions:
+          (doc.data()!['permissions'] as Map?)?.cast<String, bool>() ?? {},
+      role: doc.data()!['role'] ?? '',
+      mode: doc.data()!['mode'] ?? 'erp',
+      locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>(),
+      tel: doc.data()!['tel'] ?? '',
     );
-
   }
 
   Future<void> update() async {

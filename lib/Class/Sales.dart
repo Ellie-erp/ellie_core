@@ -178,13 +178,13 @@ class Sales {
       this.cartonQty,
       this.tel});
   Map<String, dynamic> get toMap {
-    final _amount = num.parse(amount.toStringAsFixed(1));
-    final _paidAmount = num.parse(paidAmount.toStringAsFixed(1));
-    final _isPaid = _paidAmount >= _amount;
+    final amount = num.parse(this.amount.toStringAsFixed(1));
+    final paidAmount = num.parse(this.paidAmount.toStringAsFixed(1));
+    final isPaid = paidAmount >= amount;
     return {
       'createDate': createDate,
       'updateDate': updateDate,
-      'amount': _amount,
+      'amount': amount,
       'salesStatus': SalesStatus.values.indexOf(salesStatus),
       'salesType': SalesType.values.indexOf(salesType),
       'clientId': clientId,
@@ -193,7 +193,7 @@ class Sales {
       'locationName': locationName,
       'deduction': deduction,
       'discount': discount,
-      'paidAmount': _paidAmount,
+      'paidAmount': paidAmount,
       'payMethod': PayMethod.values.indexOf(payMethod!),
       'deliveryAddress': deliveryAddress,
       'staffId': staffId,
@@ -205,7 +205,7 @@ class Sales {
       'bcBranchName': bcBranchName,
       'remark': remark,
       'freight': freight,
-      'isPaid': _isPaid,
+      'isPaid': isPaid,
       'cartonQty': cartonQty,
       'tel': tel,
     };
