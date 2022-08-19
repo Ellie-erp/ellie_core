@@ -22,6 +22,7 @@ dependencies:
   pdf: ^3.8.1
   printing: ^5.9.1
   audio_session: ^0.1.10
+  collection: ^1.16.0
 
 dev_dependencies:
   flutter_lints: any

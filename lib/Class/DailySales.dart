@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 
 import 'Sales.dart';
 
@@ -15,8 +16,8 @@ class DailySales {
   num reservedTotalPaid;
   String locationId;
   String locationName;
-  List<DailySalesMethod>? dailySalesMethod;
-  List<DailySalesItem>? dailySalesItem;
+  List<DailySalesMethod> dailySalesMethod;
+  List<DailySalesItem> dailySalesItem;
 
   DailySales(
       {this.docRef,
@@ -30,8 +31,8 @@ class DailySales {
       this.reservedTotalPaid = 0,
       this.locationId = '',
       this.locationName = '',
-      this.dailySalesMethod,
-      this.dailySalesItem});
+      this.dailySalesMethod = const [],
+      this.dailySalesItem = const []});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'saleDate': saleDate,
@@ -43,9 +44,8 @@ class DailySales {
         'reservedTotalPaid': reservedTotalPaid,
         'locationId': locationId,
         'locationName': locationName,
-        'dailySalesMethod':
-            (dailySalesMethod ?? []).map((e) => e.toMap).toList(),
-        'dailySalesItem': (dailySalesItem ?? []).map((e) => e.toMap).toList(),
+        'dailySalesMethod': (dailySalesMethod).map((e) => e.toMap).toList(),
+        'dailySalesItem': (dailySalesItem).map((e) => e.toMap).toList(),
       };
   factory DailySales.fromDoc(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -133,5 +133,51 @@ class DailySalesItem {
       qty: map['qty'] ?? 0,
       weight: map['weight'] ?? 0,
     );
+  }
+}
+
+extension DailySalesExtension on List<DailySales> {
+  int get completed => fold(0, (p, e) => p + e.numOfCompletion);
+  int get reserved => fold(0, (p, e) => p + e.numOfReserve);
+  int get cancelled => fold(0, (p, e) => p + e.numOfCancel);
+
+  num get totalAmount => fold(0, (p, e) => p + e.totalSale);
+  num get reservedTotalAmount => fold(0, (p, e) => p + e.reservedTotal);
+  num get reservedTotalPaid => fold(0, (p, e) => p + e.reservedTotalPaid);
+
+  List<DailySalesMethod> get payments => PayMethod.values.map((payMethod) {
+        final targetMethods = expand((sale) => sale.dailySalesMethod)
+            .where((salesMethod) => salesMethod.payMethod == payMethod);
+        final quantity = targetMethods.fold<int>(0, (p, e) => p + e.numOfOrder);
+        final total = targetMethods.fold<num>(0, (p, e) => p + e.total);
+        return DailySalesMethod(
+          numOfOrder: quantity,
+          total: total,
+          payMethod: payMethod,
+        );
+      }).toList();
+
+  List<DailySalesItem> get products {
+    final itemsByPlu = groupBy<DailySalesItem, String>(
+        expand((sale) => sale.dailySalesItem).toList(), (item) => item.plu);
+
+    return itemsByPlu.entries.map((entry) {
+      final plu = entry.key;
+      final items = entry.value;
+
+      final total = items.fold<num>(0, (p, e) => p + e.total);
+      final qty = items.fold<int>(0, (p, e) => p + e.qty);
+      num? weight;
+      if (items.every((item) => item.weight != null)) {
+        weight = items.fold<num>(0, (p, e) => p + e.weight!);
+      }
+
+      return DailySalesItem(
+          plu: plu,
+          itemName: items.first.itemName,
+          total: total,
+          qty: qty,
+          weight: weight);
+    }).toList();
   }
 }
