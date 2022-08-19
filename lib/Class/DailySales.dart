@@ -11,6 +11,7 @@ class DailySales {
   int numOfReserve;
   int numOfCancel;
   num totalSale;
+  num reservedTotal;
   String locationId;
   String locationName;
   List<DailySalesMethod>? dailySalesMethod;
@@ -24,6 +25,7 @@ class DailySales {
       this.numOfReserve = 0,
       this.numOfCancel = 0,
       this.totalSale = 0,
+      this.reservedTotal = 0,
       this.locationId = '',
       this.locationName = '',
       this.dailySalesMethod,
@@ -35,31 +37,33 @@ class DailySales {
         'NumOfReserve': numOfReserve,
         'NumOfCancel': numOfCancel,
         'totalSale': totalSale,
+        'reservedTotal': reservedTotal,
         'locationId': locationId,
         'locationName': locationName,
         'dailySalesMethod':
             (dailySalesMethod ?? []).map((e) => e.toMap).toList(),
         'dailySalesItem': (dailySalesItem ?? []).map((e) => e.toMap).toList(),
       };
-  factory DailySales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory DailySales.fromDoc(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return DailySales(
       docRef: doc.reference,
-      timestamp: doc.data()!['timestamp']?.toDate(),
-      saleDate: doc.data()!['saleDate']?.toDate(),
-      numOfCompletion: doc.data()!['NumOfCompletion'] ?? 0,
-      numOfReserve: doc.data()!['NumOfReserve'] ?? 0,
-      numOfCancel: doc.data()!['NumOfCancel'] ?? 0,
-      totalSale: doc.data()!['totalSale'] ?? 0,
-      locationId: doc.data()!['locationId'] ?? '',
-      locationName: doc.data()!['locationName'] ?? '',
+      timestamp: data['timestamp']?.toDate(),
+      saleDate: data['saleDate']?.toDate(),
+      numOfCompletion: data['NumOfCompletion'] ?? 0,
+      numOfReserve: data['NumOfReserve'] ?? 0,
+      numOfCancel: data['NumOfCancel'] ?? 0,
+      totalSale: data['totalSale'] ?? 0,
+      reservedTotal: data['reservedTotal'],
+      locationId: data['locationId'] ?? '',
+      locationName: data['locationName'] ?? '',
       dailySalesMethod: List<DailySalesMethod>.from(
-          (doc.data()!['dailySalesMethod'] ?? [])
+          (data['dailySalesMethod'] ?? [])
               .map((e) => DailySalesMethod.fromMap(e))
               .toList()),
-      dailySalesItem: List<DailySalesItem>.from(
-          (doc.data()!['dailySalesItem'] ?? [])
-              .map((e) => DailySalesItem.fromMap(e))
-              .toList()),
+      dailySalesItem: List<DailySalesItem>.from((data['dailySalesItem'] ?? [])
+          .map((e) => DailySalesItem.fromMap(e))
+          .toList()),
     );
   }
 
