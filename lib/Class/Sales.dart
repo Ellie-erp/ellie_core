@@ -305,37 +305,38 @@ class OrderItem {
   String get plu => code ?? '';
   DateTime lastUpdatedDate;
 
-  num get totalPrice =>
-      List<num>.from(array).fold<num>(0, (p, e) => p + e) * unitPrice;
+  num get totalWeight =>
+      array.fold(0, (previousValue, element) => previousValue + element);
+
+  num get totalPrice => totalWeight * unitPrice;
 
   String get preWeightString {
     if (preWeight == 1 && unit == Unit.PC) {
       return '';
     }
     if (preWeight > 1) {
-      return num.parse(preWeight.toStringAsFixed(3)).toString() + 'kg';
+      return '${num.parse(preWeight.toStringAsFixed(3))}kg';
     }
-    return num.parse((preWeight * 1000).toStringAsFixed(0)).toString() + 'g';
+    return '${num.parse((preWeight * 1000).toStringAsFixed(0))}g';
   }
 
   String get weightString {
     if (unit == Unit.KG) {
-      final _array = (array).cast<num>();
+      final array = this.array.cast<num>();
 
       String output = '\n[';
 
-      for (final value in _array) {
+      for (final value in array) {
         if (value > 1) {
-          output += num.parse(value.toStringAsFixed(3)).toString() + 'kg';
+          output += '${num.parse(value.toStringAsFixed(3))}kg';
         } else {
-          output +=
-              num.parse((value * 1000).toStringAsFixed(0)).toString() + 'g';
+          output += '${num.parse((value * 1000).toStringAsFixed(0))}g';
         }
-        if (value != _array.last) {
+        if (value != array.last) {
           output += ', ';
         }
       }
-      return output + ']';
+      return '$output]';
     } else {
       return '';
     }
@@ -515,4 +516,15 @@ extension SalesExtension on List<Sales> {
 
   List<Sales> get reserved =>
       where((sales) => sales.salesStatus == SalesStatus.RESERVED).toList();
+}
+
+extension OrderItemsExtension on List<OrderItem> {
+  num get totalAmount =>
+      fold(0, (previousValue, item) => previousValue + item.totalPrice);
+
+  num get totalWeight =>
+      fold(0, (previousValue, item) => previousValue + item.totalWeight);
+
+  int get totalQuantity =>
+      fold(0, (previousValue, element) => previousValue + element.qty);
 }
