@@ -14,38 +14,52 @@ class DailySales {
   String locationId;
   String locationName;
   List<DailySalesMethod>? dailySalesMethod;
-  List<DailySalesItem>?dailySalesItem;
+  List<DailySalesItem>? dailySalesItem;
 
-
-
-
-  DailySales({this.docRef,required this.timestamp,required this.saleDate ,this.numOfCompletion=0, this.numOfReserve=0, this.numOfCancel=0, this.totalSale=0, this.locationId='', this.locationName='',this.dailySalesMethod, this.dailySalesItem});
+  DailySales(
+      {this.docRef,
+      required this.timestamp,
+      required this.saleDate,
+      this.numOfCompletion = 0,
+      this.numOfReserve = 0,
+      this.numOfCancel = 0,
+      this.totalSale = 0,
+      this.locationId = '',
+      this.locationName = '',
+      this.dailySalesMethod,
+      this.dailySalesItem});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
-        'saleDate': saleDate,  
+        'saleDate': saleDate,
         'NumOfCompletion': numOfCompletion,
         'NumOfReserve': numOfReserve,
         'NumOfCancel': numOfCancel,
-        'totalSale': totalSale,  
+        'totalSale': totalSale,
         'locationId': locationId,
         'locationName': locationName,
-    'dailySalesMethod': (dailySalesMethod ?? []).map((e) => e.toMap).toList(),
-    'dailySalesItem': (dailySalesItem ?? []).map((e) => e.toMap).toList(),
-
+        'dailySalesMethod':
+            (dailySalesMethod ?? []).map((e) => e.toMap).toList(),
+        'dailySalesItem': (dailySalesItem ?? []).map((e) => e.toMap).toList(),
       };
   factory DailySales.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return DailySales(
       docRef: doc.reference,
       timestamp: doc.data()!['timestamp']?.toDate(),
       saleDate: doc.data()!['saleDate']?.toDate(),
-      numOfCompletion: doc.data()!['NumOfCompletion']?? 0,
-      numOfReserve: doc.data()!['NumOfReserve']?? 0,
-      numOfCancel: doc.data()!['NumOfCancel']?? 0,
-      totalSale: doc.data()!['totalSale']?? 0,
-      locationId: doc.data()!['locationId']?? '',
-      locationName: doc.data()!['locationName']?? '',
-      dailySalesMethod: List<DailySalesMethod>.from((doc.data()!['dailySalesMethod'] ?? []).map((e) => DailySalesMethod.fromMap(e)).toList()),
-      dailySalesItem: List<DailySalesItem>.from((doc.data()!['dailySalesItem'] ?? []).map((e) => DailySalesItem.fromMap(e)).toList()),
+      numOfCompletion: doc.data()!['NumOfCompletion'] ?? 0,
+      numOfReserve: doc.data()!['NumOfReserve'] ?? 0,
+      numOfCancel: doc.data()!['NumOfCancel'] ?? 0,
+      totalSale: doc.data()!['totalSale'] ?? 0,
+      locationId: doc.data()!['locationId'] ?? '',
+      locationName: doc.data()!['locationName'] ?? '',
+      dailySalesMethod: List<DailySalesMethod>.from(
+          (doc.data()!['dailySalesMethod'] ?? [])
+              .map((e) => DailySalesMethod.fromMap(e))
+              .toList()),
+      dailySalesItem: List<DailySalesItem>.from(
+          (doc.data()!['dailySalesItem'] ?? [])
+              .map((e) => DailySalesItem.fromMap(e))
+              .toList()),
     );
   }
 
@@ -54,40 +68,31 @@ class DailySales {
   }
 }
 
-
-
-
-
-
-
 class DailySalesMethod {
   int numOfOrder;
   num total;
   PayMethod? payMethod;
-  
 
-  DailySalesMethod({this.numOfOrder=0, this.total=0,       this.payMethod,});
+  DailySalesMethod({
+    this.numOfOrder = 0,
+    this.total = 0,
+    this.payMethod,
+  });
 
   Map<String, dynamic> get toMap => {
-    'numOfOrder': numOfOrder,
-    'total': total,
-    'payMethod': PayMethod.values.indexOf(payMethod!),
-    
-  };
+        'numOfOrder': numOfOrder,
+        'total': total,
+        'payMethod': PayMethod.values.indexOf(payMethod!),
+      };
 
   factory DailySalesMethod.fromMap(Map<String, dynamic> map) {
     return DailySalesMethod(
-      numOfOrder: map['numOfOrder']?? 0,
-      total: map['total']?? 0,
+      numOfOrder: map['numOfOrder'] ?? 0,
+      total: map['total'] ?? 0,
       payMethod: PayMethod.values.elementAt(map['payMethod'] ?? 0),
     );
-  }}
-
-
-
-
-
-
+  }
+}
 
 class DailySalesItem {
   String plu;
@@ -96,27 +101,29 @@ class DailySalesItem {
   int qty;
   num? weight;
 
-
-
-  DailySalesItem({required this.plu, this.itemName='', this.total=0, this.qty=0, this.weight,});
+  DailySalesItem({
+    required this.plu,
+    this.itemName = '',
+    this.total = 0,
+    this.qty = 0,
+    this.weight,
+  });
 
   Map<String, dynamic> get toMap => {
-    'plu': plu,
-    'itemName': itemName,
-    'total' : total,
-    'qty' : qty,
-    'weight' : weight,
-
-
-  };
+        'plu': plu,
+        'itemName': itemName,
+        'total': total,
+        'qty': qty,
+        'weight': weight,
+      };
 
   factory DailySalesItem.fromMap(Map<String, dynamic> map) {
     return DailySalesItem(
       plu: map['plu'],
-      itemName: map['itemName']??'',
-      total: map['total']??0,
-      qty: map['qty']??0,
-      weight: map['weight']??0,
-
+      itemName: map['itemName'] ?? '',
+      total: map['total'] ?? 0,
+      qty: map['qty'] ?? 0,
+      weight: map['weight'] ?? 0,
     );
-  }}
+  }
+}

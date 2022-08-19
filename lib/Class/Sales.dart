@@ -59,15 +59,20 @@ enum SalesType {
 }
 
 SalesType SalesTypeFromString(String type) {
-  switch(type) {
-    case 'sale':return SalesType.RETAIL;
-    case 'wholesale': return SalesType.WHOLESALE;
-    case 'online': return SalesType.ONLINE;
-    case 'shop': return SalesType.STOCKIN;
+  switch (type) {
+    case 'sale':
+      return SalesType.RETAIL;
+    case 'wholesale':
+      return SalesType.WHOLESALE;
+    case 'online':
+      return SalesType.ONLINE;
+    case 'shop':
+      return SalesType.STOCKIN;
     default:
       throw 'Type $type not found!';
   }
 }
+
 enum SalesStatus {
   OPEN,
   COMPLETE,
@@ -495,4 +500,19 @@ class PaymentRecord {
   Future<void> update() async {
     await docRef!.update(toMap);
   }
+}
+
+extension SalesExtension on List<Sales> {
+  num get totalAmount =>
+      fold<num>(0, (previousValue, sales) => previousValue + sales.paidAmount);
+
+  List<Sales> get completed => where(
+          (sales) => sales.salesStatus == SalesStatus.COMPLETE && sales.isPaid)
+      .toList();
+
+  List<Sales> get cancelled =>
+      where((sales) => sales.salesStatus == SalesStatus.CANCEL).toList();
+
+  List<Sales> get reserved =>
+      where((sales) => sales.salesStatus == SalesStatus.RESERVED).toList();
 }
