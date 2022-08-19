@@ -12,6 +12,7 @@ class DailySales {
   int numOfCancel;
   num totalSale;
   num reservedTotal;
+  num reservedTotalPaid;
   String locationId;
   String locationName;
   List<DailySalesMethod>? dailySalesMethod;
@@ -26,6 +27,7 @@ class DailySales {
       this.numOfCancel = 0,
       this.totalSale = 0,
       this.reservedTotal = 0,
+      this.reservedTotalPaid = 0,
       this.locationId = '',
       this.locationName = '',
       this.dailySalesMethod,
@@ -38,6 +40,7 @@ class DailySales {
         'NumOfCancel': numOfCancel,
         'totalSale': totalSale,
         'reservedTotal': reservedTotal,
+        'reservedTotalPaid': reservedTotalPaid,
         'locationId': locationId,
         'locationName': locationName,
         'dailySalesMethod':
@@ -54,7 +57,8 @@ class DailySales {
       numOfReserve: data['NumOfReserve'] ?? 0,
       numOfCancel: data['NumOfCancel'] ?? 0,
       totalSale: data['totalSale'] ?? 0,
-      reservedTotal: data['reservedTotal'],
+      reservedTotal: data['reservedTotal'] ?? 0,
+      reservedTotalPaid: data['reservedTotalPaid'] ?? 0,
       locationId: data['locationId'] ?? '',
       locationName: data['locationName'] ?? '',
       dailySalesMethod: List<DailySalesMethod>.from(

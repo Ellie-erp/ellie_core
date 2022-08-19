@@ -505,7 +505,10 @@ class PaymentRecord {
 
 extension SalesExtension on List<Sales> {
   num get totalAmount =>
-      fold<num>(0, (previousValue, sales) => previousValue + sales.paidAmount);
+      fold<num>(0, (previousValue, sales) => previousValue + sales.amount);
+
+  num get totalPaid =>
+      fold(0, (previousValue, sales) => previousValue + sales.paidAmount);
 
   List<Sales> get completed => where(
           (sales) => sales.salesStatus == SalesStatus.COMPLETE && sales.isPaid)
