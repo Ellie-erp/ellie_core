@@ -525,8 +525,9 @@ extension OrderItemsExtension on List<OrderItem> {
   num get totalAmount =>
       fold(0, (previousValue, item) => previousValue + item.totalPrice);
 
-  num get totalWeight =>
-      fold(0, (previousValue, item) => previousValue + item.totalWeight);
+  num? get totalWeight => first.unit == Unit.PC
+      ? null
+      : fold<num>(0, (previousValue, item) => previousValue + item.totalWeight);
 
   int get totalQuantity =>
       fold(0, (previousValue, element) => previousValue + element.qty);
