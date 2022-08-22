@@ -6,6 +6,7 @@ import 'Sales.dart';
 ///紀錄每日銷售紀錄,方便做分析,如locationId= '',全部店舖
 class DailySales {
   DocumentReference? docRef;
+  SalesType salesType;
   DateTime timestamp;
   DateTime saleDate;
   int numOfCompletion;
@@ -27,6 +28,7 @@ class DailySales {
 
   DailySales(
       {this.docRef,
+      this.salesType = SalesType.RETAIL,
       required this.timestamp,
       required this.saleDate,
       this.numOfCompletion = 0,
@@ -43,6 +45,7 @@ class DailySales {
       this.itemsGroups = const []});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
+        'salesType': salesType.name,
         'saleDate': saleDate,
         'NumOfCompletion': numOfCompletion,
         'NumOfReserve': numOfReserve,
@@ -59,6 +62,8 @@ class DailySales {
     final data = doc.data() as Map<String, dynamic>;
     return DailySales(
       docRef: doc.reference,
+      salesType: SalesType.values.singleWhere(
+          (element) => element.name == (data['salesType'] ?? 'RETAIL')),
       timestamp: data['timestamp']?.toDate(),
       saleDate: data['saleDate']?.toDate(),
       numOfCompletion: data['NumOfCompletion'] ?? 0,
