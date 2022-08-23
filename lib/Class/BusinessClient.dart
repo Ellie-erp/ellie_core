@@ -5,11 +5,10 @@ enum BusinessClientType {
   Client,
 }
 
-enum BusinessClientStatus{
+enum BusinessClientStatus {
   Active,
   Inactive,
 }
-
 
 class BusinessClient {
   DocumentReference? docRef;
@@ -47,9 +46,9 @@ class BusinessClient {
     this.contactName = '',
     required this.businessClientType,
     this.remark = '',
-    this.whatsapp='',
-    this.refNo='',
-    this.businessClientStatus=BusinessClientStatus.Active,
+    this.whatsapp = '',
+    this.refNo = '',
+    this.businessClientStatus = BusinessClientStatus.Active,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -67,9 +66,10 @@ class BusinessClient {
         'businessClientType':
             BusinessClientType.values.indexOf(businessClientType),
         'remark': remark,
-    'whatsapp': whatsapp,
-    'refNo': refNo,
-    'businessClientStatus': BusinessClientStatus.values.indexOf(businessClientStatus),
+        'whatsapp': whatsapp,
+        'refNo': refNo,
+        'businessClientStatus':
+            BusinessClientStatus.values.indexOf(businessClientStatus),
       };
   factory BusinessClient.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BusinessClient(
@@ -91,8 +91,9 @@ class BusinessClient {
       remark: doc.data()!['remark'] ?? '',
       whatsapp: doc.data()!['whatsapp'] ?? '',
       refNo: doc.data()!['refNo'] ?? '',
-      businessClientStatus: BusinessClientStatus.values
-          .elementAt(doc.data()!['businessClientStatus'] ?? BusinessClientStatus.Active.index),
+      businessClientStatus: BusinessClientStatus.values.elementAt(
+          doc.data()!['businessClientStatus'] ??
+              BusinessClientStatus.Active.index),
     );
   }
 
@@ -114,12 +115,12 @@ class BCBranch {
   BCBranch(
       {this.docRef,
       required this.branchName,
-      this.tel='',
+      this.tel = '',
       this.address,
       this.contactName,
       required this.createDate,
       required this.updateDate,
-      this.whatsapp=''});
+      this.whatsapp = ''});
   Map<String, dynamic> get toMap => {
         'branchName': branchName,
         'tel': tel,
@@ -127,7 +128,7 @@ class BCBranch {
         'contactName': contactName,
         'createDate': createDate,
         'updateDate': updateDate,
-    'whatsapp': whatsapp,
+        'whatsapp': whatsapp,
       };
   factory BCBranch.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BCBranch(
@@ -207,8 +208,6 @@ class CreditRecord {
   }
 }
 
-
-
 class ClientHistory {
   DocumentReference? docRef;
   DateTime timestamp;
@@ -222,10 +221,10 @@ class ClientHistory {
     this.uid = '',
   });
   Map<String, dynamic> get toMap => {
-    'timestamp': timestamp,
-    'text': text,
-    'uid': uid,
-  };
+        'timestamp': timestamp,
+        'text': text,
+        'uid': uid,
+      };
   factory ClientHistory.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return ClientHistory(
       docRef: doc.reference,

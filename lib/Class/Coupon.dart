@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 
 ///20220615 更新,用於配合promRule, 管理用家 優惠券數量
 class Coupon {
@@ -8,17 +7,16 @@ class Coupon {
   num? qty;
   bool isInfinite;
 
-
   Coupon({
     this.docRef,
     required this.updateDate,
     this.qty,
-    this.isInfinite=false,
+    this.isInfinite = false,
   });
   Map<String, dynamic> get toMap => {
         'updateDate': updateDate,
         'qty': qty,
-    'isInfinite' : isInfinite,
+        'isInfinite': isInfinite,
       };
   factory Coupon.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Coupon(

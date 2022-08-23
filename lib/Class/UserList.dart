@@ -72,8 +72,8 @@ class UserList {
         locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>(),
         tel: doc.data()!['tel'] ?? '',
       starredItemIds: ((doc.data()!['starredItemIds'] as List?) ?? []).cast<String>(),
-    );
 
+    );
   }
 
   Future<void> update() async {

@@ -268,36 +268,36 @@ class Item {
   }
 
   static Item fromDocument(DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    Map<String, dynamic> _data = snapshot.data() ?? {};
+    Map<String, dynamic> data = snapshot.data() ?? {};
     return Item(
-        images: List<String>.from(_data['images'] ?? []),
+        images: List<String>.from(data['images'] ?? []),
         docSnap: snapshot,
         docRef: snapshot.reference,
-        plu: _data['plu'] ?? 'PLU Error',
-        symbol: ItemSymbol.values.elementAt(_data['symbol'] ?? 0),
-        displayName: _data['displayName'] ?? '',
-        originalName: _data['originName'] ?? '',
-        country: _data['country'] ?? '',
-        brand: _data['brand'] ?? '',
-        isKG: _data['isKG'] ?? false,
-        type: _data['type'] ?? 'Unknown',
-        weight: _data['weight'],
-        status: Map<String, bool>.from(_data['status'] ?? {}),
-        subStatus: Map<String, bool>.from(_data['subStatus'] ?? {}),
-        pricing: Map<String, num>.from(_data['pricing'] ?? {}),
-        customPrices: Map<String, num>.from(_data['customPrices'] ?? {}),
-        scaleData: Map<String, int>.from(_data['scaleData'] ?? {}),
-        additional: Map<String, dynamic>.from(_data['additional'] ?? {}),
-        createDate: _data['createDate']?.toDate() ?? DateTime(0),
-        lastUpdate: _data['lastUpdate']?.toDate() ?? DateTime(0),
-        record: _data['record'],
-        spec: _data['spec'],
-        remark: _data['remark'],
-        packages: (_data['packages'] as List? ?? [])
+        plu: data['plu'] ?? 'PLU Error',
+        symbol: ItemSymbol.values.elementAt(data['symbol'] ?? 0),
+        displayName: data['displayName'] ?? '',
+        originalName: data['originName'] ?? '',
+        country: data['country'] ?? '',
+        brand: data['brand'] ?? '',
+        isKG: data['isKG'] ?? false,
+        type: data['type'] ?? 'Unknown',
+        weight: data['weight'],
+        status: Map<String, bool>.from(data['status'] ?? {}),
+        subStatus: Map<String, bool>.from(data['subStatus'] ?? {}),
+        pricing: Map<String, num>.from(data['pricing'] ?? {}),
+        customPrices: Map<String, num>.from(data['customPrices'] ?? {}),
+        scaleData: Map<String, int>.from(data['scaleData'] ?? {}),
+        additional: Map<String, dynamic>.from(data['additional'] ?? {}),
+        createDate: data['createDate']?.toDate() ?? DateTime(0),
+        lastUpdate: data['lastUpdate']?.toDate() ?? DateTime(0),
+        record: data['record'],
+        spec: data['spec'],
+        remark: data['remark'],
+        packages: (data['packages'] as List? ?? [])
             .cast<Map<String, dynamic>>()
             .map((e) => Package.fromMap(e))
             .toList(),
-        tags: List<String>.from(_data['tags'] ?? []));
+        tags: List<String>.from(data['tags'] ?? []));
   }
 
   // static Item fromAlgoliaSnapshot(AlgoliaObjectSnapshot snapshot) {
@@ -327,10 +327,9 @@ class Item {
   // }
 
   Future<void> turnAllStatus(bool input) async {
-    final _subStatus = {};
-    status.forEach((key, value) => _subStatus[key] = input);
-    await docRef!.update({'subStatus': _subStatus});
-    print(subStatus);
+    final subStatus = {};
+    status.forEach((key, value) => subStatus[key] = input);
+    await docRef!.update({'subStatus': subStatus});
   }
 
   Future<void> turnStatus(String string, bool input) async {

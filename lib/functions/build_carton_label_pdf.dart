@@ -20,7 +20,7 @@ String? _remark = 'Here is some remark';
 final _orderDate = DateTime(2022, 5, 31);
 final _deliveryDate = DateTime(2022, 6, 7);
 
-final dateFormatter = DateFormat('dd/MM/yyyy');
+final _dateFormatter = DateFormat('dd/MM/yyyy');
 
 Future<Uint8List> buildCartonLabelPdf({
   required String name,
@@ -81,8 +81,8 @@ Future<Uint8List> buildCartonLabelPdf({
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Text('ORDER DATE: ${dateFormatter.format(orderDate)}'),
-                  Text('DELIVERY DATE: ${dateFormatter.format(deliveryDate)}'),
+                  Text('ORDER DATE: ${_dateFormatter.format(orderDate)}'),
+                  Text('DELIVERY DATE: ${_dateFormatter.format(deliveryDate)}'),
                   Text('ID: $orderId', style: const TextStyle(fontSize: 4))
                 ])),
             SizedBox(width: 20, child: Image(image))

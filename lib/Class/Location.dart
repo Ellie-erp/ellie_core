@@ -50,7 +50,7 @@ class Location {
     required this.createDate,
     this.orgBrandId,
     required this.openHours,
-    this.pettyCash=0,
+    this.pettyCash = 0,
   });
   Map<String, dynamic> get toMap => {
         'name': name,
@@ -69,7 +69,7 @@ class Location {
         'createDate': createDate,
         'orgBrandId': orgBrandId,
         'openHours': (openHours).map((e) => e.toMap).toList(),
-    'pettyCash': pettyCash,
+        'pettyCash': pettyCash,
       };
   factory Location.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Location(
@@ -101,8 +101,7 @@ class Location {
             : (doc.data()!['openHours'] as List)
                 .map((e) => OpenHour.fromMap(e))
                 .toList(),
-        pettyCash: doc.data()!['pettyCash']?? 0);
-
+        pettyCash: doc.data()!['pettyCash'] ?? 0);
   }
 
   Future<void> update() async {

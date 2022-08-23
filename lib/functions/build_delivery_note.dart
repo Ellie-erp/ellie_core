@@ -3,7 +3,6 @@ import 'dart:typed_data' show Uint8List;
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'package:printing/printing.dart';
 
 import 'default_pdf_theme.dart';
 
@@ -40,10 +39,11 @@ Future<Uint8List> buildDeliveryNote(
 }) async {
   const title = 'P&J Food Delivery Note';
 
-  final themeData = (await defaultPdfTheme).copyWith(
-      defaultTextStyle: const TextStyle(fontSize: 10),
-      textAlign: TextAlign.left)
-  .copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
+  final themeData = (await defaultPdfTheme)
+      .copyWith(
+          defaultTextStyle: const TextStyle(fontSize: 10),
+          textAlign: TextAlign.left)
+      .copyWith(defaultTextStyle: const TextStyle(fontSize: 14));
 
   final pdf = Document(title: title, theme: themeData);
 

@@ -18,7 +18,7 @@ class OrgBrand {
   factory OrgBrand.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return OrgBrand(
       docRef: doc.reference,
-      brandName: doc.data()!['brandName']?? '',
+      brandName: doc.data()!['brandName'] ?? '',
       createDate: doc.data()!['createDate']?.toDate(),
     );
   }

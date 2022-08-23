@@ -59,15 +59,20 @@ enum SalesType {
 }
 
 SalesType SalesTypeFromString(String type) {
-  switch(type) {
-    case 'sale':return SalesType.RETAIL;
-    case 'wholesale': return SalesType.WHOLESALE;
-    case 'online': return SalesType.ONLINE;
-    case 'shop': return SalesType.STOCKIN;
+  switch (type) {
+    case 'sale':
+      return SalesType.RETAIL;
+    case 'wholesale':
+      return SalesType.WHOLESALE;
+    case 'online':
+      return SalesType.ONLINE;
+    case 'shop':
+      return SalesType.STOCKIN;
     default:
       throw 'Type $type not found!';
   }
 }
+
 enum SalesStatus {
   OPEN,
   COMPLETE,
@@ -173,13 +178,13 @@ class Sales {
       this.cartonQty,
       this.tel});
   Map<String, dynamic> get toMap {
-    final _amount = num.parse(amount.toStringAsFixed(1));
-    final _paidAmount = num.parse(paidAmount.toStringAsFixed(1));
-    final _isPaid = _paidAmount >= _amount;
+    final amount = num.parse(this.amount.toStringAsFixed(1));
+    final paidAmount = num.parse(this.paidAmount.toStringAsFixed(1));
+    final isPaid = paidAmount >= amount;
     return {
       'createDate': createDate,
       'updateDate': updateDate,
-      'amount': _amount,
+      'amount': amount,
       'salesStatus': SalesStatus.values.indexOf(salesStatus),
       'salesType': SalesType.values.indexOf(salesType),
       'clientId': clientId,
@@ -188,7 +193,7 @@ class Sales {
       'locationName': locationName,
       'deduction': deduction,
       'discount': discount,
-      'paidAmount': _paidAmount,
+      'paidAmount': paidAmount,
       'payMethod': PayMethod.values.indexOf(payMethod!),
       'deliveryAddress': deliveryAddress,
       'staffId': staffId,
@@ -200,7 +205,7 @@ class Sales {
       'bcBranchName': bcBranchName,
       'remark': remark,
       'freight': freight,
-      'isPaid': _isPaid,
+      'isPaid': isPaid,
       'cartonQty': cartonQty,
       'tel': tel,
     };
@@ -300,37 +305,38 @@ class OrderItem {
   String get plu => code ?? '';
   DateTime lastUpdatedDate;
 
-  num get totalPrice =>
-      List<num>.from(array).fold<num>(0, (p, e) => p + e) * unitPrice;
+  num get totalWeight =>
+      array.fold(0, (previousValue, element) => previousValue + element);
+
+  num get totalPrice => totalWeight * unitPrice;
 
   String get preWeightString {
     if (preWeight == 1 && unit == Unit.PC) {
       return '';
     }
     if (preWeight > 1) {
-      return num.parse(preWeight.toStringAsFixed(3)).toString() + 'kg';
+      return '${num.parse(preWeight.toStringAsFixed(3))}kg';
     }
-    return num.parse((preWeight * 1000).toStringAsFixed(0)).toString() + 'g';
+    return '${num.parse((preWeight * 1000).toStringAsFixed(0))}g';
   }
 
   String get weightString {
     if (unit == Unit.KG) {
-      final _array = (array).cast<num>();
+      final array = this.array.cast<num>();
 
       String output = '\n[';
 
-      for (final value in _array) {
+      for (final value in array) {
         if (value > 1) {
-          output += num.parse(value.toStringAsFixed(3)).toString() + 'kg';
+          output += '${num.parse(value.toStringAsFixed(3))}kg';
         } else {
-          output +=
-              num.parse((value * 1000).toStringAsFixed(0)).toString() + 'g';
+          output += '${num.parse((value * 1000).toStringAsFixed(0))}g';
         }
-        if (value != _array.last) {
+        if (value != array.last) {
           output += ', ';
         }
       }
-      return output + ']';
+      return '$output]';
     } else {
       return '';
     }
@@ -495,4 +501,34 @@ class PaymentRecord {
   Future<void> update() async {
     await docRef!.update(toMap);
   }
+}
+
+extension SalesExtension on List<Sales> {
+  num get totalAmount =>
+      fold<num>(0, (previousValue, sales) => previousValue + sales.amount);
+
+  num get totalPaid =>
+      fold(0, (previousValue, sales) => previousValue + sales.paidAmount);
+
+  List<Sales> get completed => where(
+          (sales) => sales.salesStatus == SalesStatus.COMPLETE && sales.isPaid)
+      .toList();
+
+  List<Sales> get cancelled =>
+      where((sales) => sales.salesStatus == SalesStatus.CANCEL).toList();
+
+  List<Sales> get reserved =>
+      where((sales) => sales.salesStatus == SalesStatus.RESERVED).toList();
+}
+
+extension OrderItemsExtension on List<OrderItem> {
+  num get totalAmount =>
+      fold(0, (previousValue, item) => previousValue + item.totalPrice);
+
+  num? get totalWeight => first.unit == Unit.PC
+      ? null
+      : fold<num>(0, (previousValue, item) => previousValue + item.totalWeight);
+
+  int get totalQuantity =>
+      fold(0, (previousValue, element) => previousValue + element.qty);
 }

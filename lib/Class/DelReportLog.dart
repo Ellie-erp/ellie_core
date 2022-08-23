@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 ///物流用,用來回報有問題的訂單,有UI support
 class DelReportLog {
   DocumentReference? docRef;
@@ -11,19 +10,21 @@ class DelReportLog {
   String staffId;
   String staffName;
 
-
-
-
-  DelReportLog({this.docRef,required this.timestamp,required this.orderId, this.remark='' ,this.fixDate, required this.staffName, required this.staffId});
+  DelReportLog(
+      {this.docRef,
+      required this.timestamp,
+      required this.orderId,
+      this.remark = '',
+      this.fixDate,
+      required this.staffName,
+      required this.staffId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'orderId': orderId,
         'remark': remark,
         'fixDate': fixDate,
-    'staffId' : staffId,
-    'staffName' : staffName,
-
-
+        'staffId': staffId,
+        'staffName': staffName,
       };
   factory DelReportLog.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return DelReportLog(
@@ -32,9 +33,8 @@ class DelReportLog {
       orderId: doc.data()!['orderId'],
       remark: doc.data()!['remark'],
       fixDate: doc.data()?['fixDate']?.toDate(),
-staffId: doc.data()!['staffId'],
-staffName: doc.data()!['staffName'],
-
+      staffId: doc.data()!['staffId'],
+      staffName: doc.data()!['staffName'],
     );
   }
 

@@ -21,21 +21,21 @@ class Expense {
   String locationId;
   String locationName;
 
-  Expense(
-      {this.docRef,
-      required this.createDate,
-      required this.updateDate,
-      required this.seller,
-      this.transportCost=0,
-      required this.expStatus,
-      this.total=0,
-      this.refNo='',
-      required this.staffId,
-      required this.staffName,
-      required this.remark,
-      required this.locationId,
-        required this.locationName,
-      });
+  Expense({
+    this.docRef,
+    required this.createDate,
+    required this.updateDate,
+    required this.seller,
+    this.transportCost = 0,
+    required this.expStatus,
+    this.total = 0,
+    this.refNo = '',
+    required this.staffId,
+    required this.staffName,
+    required this.remark,
+    required this.locationId,
+    required this.locationName,
+  });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'updateDate': updateDate,
@@ -47,8 +47,8 @@ class Expense {
         'staffId': staffId,
         'staffName': staffName,
         'remark': remark,
-    'locationId' : locationId,
-    'locationName' : locationName,
+        'locationId': locationId,
+        'locationName': locationName,
       };
 
   factory Expense.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -64,7 +64,7 @@ class Expense {
       staffId: doc.data()?['staffId'],
       staffName: doc.data()?['staffName'],
       remark: doc.data()?['remark'],
-      locationId:  doc.data()?['locationId'],
+      locationId: doc.data()?['locationId'],
       locationName: doc.data()?['locationName'],
     );
   }

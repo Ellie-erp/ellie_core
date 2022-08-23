@@ -29,8 +29,7 @@ class SchedulePrice {
         'scheduleDate': scheduleDate,
         'staffId': staffId,
         'staffName': staffName,
-        'schedulePriceList':
-            (schedulePriceList ?? []).map((e) => e.toMap).toList(),
+        'schedulePriceList': schedulePriceList.map((e) => e.toMap).toList(),
       };
   factory SchedulePrice.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return SchedulePrice(
@@ -75,11 +74,11 @@ class SchedulePriceList {
       }..removeWhere((key, value) => value == 0);
 
   Map<String, bool> get status => {
-    'sale': salePrice != 0,
-    'wholesale': wholesalePrice != 0,
-    'shop': shopPrice != 0,
-    'online': onlinePrice != 0,
-  };
+        'sale': salePrice != 0,
+        'wholesale': wholesalePrice != 0,
+        'shop': shopPrice != 0,
+        'online': onlinePrice != 0,
+      };
 
   Map<String, num> get beforePrices => {
         'sale': salePriceBefore,
