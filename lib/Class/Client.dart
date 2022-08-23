@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+
+///舊class, 現已用Userlist 及 BusinessClient 代替
 enum ClientType {
   PERSONAL,
   BUSINESS,

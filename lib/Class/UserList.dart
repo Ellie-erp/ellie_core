@@ -22,6 +22,7 @@ class UserList {
   String mode;
   List<String> locations;
   String? tel;
+  List<String> starredItemIds;
 
   UserList({
     this.docRef,
@@ -37,6 +38,7 @@ class UserList {
     this.mode = 'erp',
     this.locations = const [],
     this.tel,
+    this.starredItemIds = const [],
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -48,6 +50,7 @@ class UserList {
         'userType': userType.index,
         'mode': mode,
         'locations': locations,
+    'starredItemIds': starredItemIds,
     'tel': tel,
       };
   factory UserList.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -68,6 +71,7 @@ class UserList {
         mode: doc.data()!['mode'] ?? 'erp',
         locations: ((doc.data()!['locations'] as List?) ?? []).cast<String>(),
         tel: doc.data()!['tel'] ?? '',
+      starredItemIds: ((doc.data()!['starredItemIds'] as List?) ?? []).cast<String>(),
     );
 
   }
