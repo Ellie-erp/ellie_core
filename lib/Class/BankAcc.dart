@@ -6,6 +6,9 @@ class BankAcc {
   String bankName;
   String accName;
   String accNo;
+  bool isActive;
+  DateTime updateDate;
+
 
   BankAcc({
     this.docRef,
@@ -13,12 +16,16 @@ class BankAcc {
     required this.bankName,
     required this.accName,
     required this.accNo,
+    this.isActive=true,
+    required this.updateDate,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
         'bankName': bankName,
         'accName': accName,
         'accNo': accNo,
+    'isActive' : isActive,
+    'updateDate': updateDate,
       };
   factory BankAcc.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BankAcc(
@@ -27,6 +34,8 @@ class BankAcc {
       bankName: doc.data()!['bankName'],
       accName: doc.data()!['accName'],
       accNo: doc.data()!['accNo'],
+      isActive: doc.data()!['isActive']?? true,
+      updateDate: doc.data()!['updateDate']?.toDate(),
     );
   }
 
