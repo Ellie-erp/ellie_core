@@ -8,6 +8,8 @@ class BankAcc {
   String accNo;
   bool isActive;
   DateTime updateDate;
+  bool isDefault;
+  String remark;
 
 
   BankAcc({
@@ -18,6 +20,8 @@ class BankAcc {
     required this.accNo,
     this.isActive=true,
     required this.updateDate,
+    required this.isDefault,
+    required this.remark,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -26,6 +30,8 @@ class BankAcc {
         'accNo': accNo,
     'isActive' : isActive,
     'updateDate': updateDate,
+    'isDefault' : isDefault,
+    'remark': remark,
       };
   factory BankAcc.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return BankAcc(
@@ -36,6 +42,8 @@ class BankAcc {
       accNo: doc.data()!['accNo'],
       isActive: doc.data()!['isActive']?? true,
       updateDate: doc.data()!['updateDate']?.toDate(),
+      isDefault: doc.data()!['isDefault']?? false,
+      remark: doc.data()!['remark']?? '',
     );
   }
 
