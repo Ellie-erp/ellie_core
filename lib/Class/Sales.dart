@@ -51,6 +51,40 @@ extension PayMethodExt on PayMethod {
   }
 }
 
+extension PayMethodExts on PayMethod {
+  String get Chinese {
+    switch (this) {
+      case PayMethod.Cash:
+        return '現金';
+      case PayMethod.VisaCard:
+        return 'Visa信用卡';
+      case PayMethod.MasterCard:
+        return 'Master信用卡';
+      case PayMethod.OctopusCard:
+        return '八達通';
+      case PayMethod.Payme:
+        return 'PayMe';
+      case PayMethod.AliPay:
+        return '支付寶';
+      case PayMethod.WechatPay:
+        return '微信支付';
+      case PayMethod.AE:
+        return 'AE美國運通';
+      case PayMethod.BankTransferOrCheque:
+        return '銀行轉帳/支票';
+      case PayMethod.FPS:
+        return '轉數快';
+      case PayMethod.UnionPay:
+        return '銀聯';
+      case PayMethod.Deliveroo:
+        return '戶戶送';
+      case PayMethod.Foodpanda:
+        return 'Foodpanda';
+    }
+  }
+}
+
+
 enum SalesType {
   RETAIL,
   WHOLESALE,
