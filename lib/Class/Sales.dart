@@ -501,6 +501,7 @@ class PaymentRecord {
   String staffId;
   String staffName;
   PaymentRecordType paymentRecordType;
+  PayMethod? payMethod;
 
   PaymentRecord(
       {this.docRef,
@@ -509,7 +510,7 @@ class PaymentRecord {
       this.remark,
       required this.staffId,
       required this.staffName,
-      required this.paymentRecordType});
+      required this.paymentRecordType, this.payMethod});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'amount': amount,
@@ -518,6 +519,8 @@ class PaymentRecord {
         'staffName': staffName,
         'paymentRecordType':
             PaymentRecordType.values.indexOf(paymentRecordType),
+    'payMethod':
+    PayMethod.values.indexOf(payMethod!),
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(
@@ -529,6 +532,8 @@ class PaymentRecord {
       staffName: doc.data()!['staffName'],
       paymentRecordType: PaymentRecordType.values
           .elementAt(doc.data()?['paymentRecordType'] ?? 0),
+      payMethod: PayMethod.values
+          .elementAt(doc.data()?['payMethod']),
     );
   }
 
