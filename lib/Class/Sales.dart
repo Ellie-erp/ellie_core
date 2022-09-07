@@ -16,6 +16,7 @@ enum PayMethod {
   UnionPay,
   Deliveroo,
   Foodpanda,
+  Credit,
 }
 
 extension PayMethodExt on PayMethod {
@@ -47,6 +48,8 @@ extension PayMethodExt on PayMethod {
         return 'Deliveroo';
       case PayMethod.Foodpanda:
         return 'Foodpanda';
+      case PayMethod.Credit:
+        return 'Credit';
     }
   }
 }
@@ -80,6 +83,8 @@ extension PayMethodExts on PayMethod {
         return '戶戶送';
       case PayMethod.Foodpanda:
         return 'Foodpanda';
+      case PayMethod.Credit:
+        return '用戶積分';
     }
   }
 }
