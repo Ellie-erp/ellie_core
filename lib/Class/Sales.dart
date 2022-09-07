@@ -39,7 +39,7 @@ extension PayMethodExt on PayMethod {
       case PayMethod.AE:
         return 'American Express Card';
       case PayMethod.BankTransferOrCheque:
-        return 'Back Transfer / Cheque';
+        return 'Bank Transfer / Cheque';
       case PayMethod.FPS:
         return 'FPS';
       case PayMethod.UnionPay:
