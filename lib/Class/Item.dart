@@ -172,6 +172,20 @@ class Item {
     }
   }
 
+  /// Return a nullable value of sales price.
+  num? priceFromSalesType(SalesType salesType) {
+    switch (salesType) {
+      case SalesType.RETAIL:
+        return pricing['sale'];
+      case SalesType.WHOLESALE:
+        return pricing['wholesale'];
+      case SalesType.ONLINE:
+        return pricing['online'];
+      case SalesType.STOCKIN:
+        return pricing['shop'];
+    }
+  }
+
   Map<String, num> customPrices;
 
   num customPrice(SalesType salesType, String? customPriceName) {
