@@ -520,7 +520,8 @@ class PaymentRecord {
         'paymentRecordType':
             PaymentRecordType.values.indexOf(paymentRecordType),
     'payMethod':
-    PayMethod.values.indexOf(payMethod!),
+   payMethod?.index
+    ,
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(
@@ -532,8 +533,8 @@ class PaymentRecord {
       staffName: doc.data()!['staffName'],
       paymentRecordType: PaymentRecordType.values
           .elementAt(doc.data()?['paymentRecordType'] ?? 0),
-      payMethod: PayMethod.values
-          .elementAt(doc.data()?['payMethod']),
+      payMethod: doc.data()?['payMethod'] == null? null: PayMethod.values
+        .elementAt(doc.data()?['payMethod']),
     );
   }
 
