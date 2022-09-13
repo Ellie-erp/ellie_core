@@ -174,6 +174,8 @@ class Sales {
   num get subTotal => (amount - freight + deduction) / discount;
   num get deductedAmount => amount - freight - subTotal;
   String? tel;
+  bool isVoid;
+String? linkedOrderId;
 
   String get name {
     switch (salesType) {
@@ -215,7 +217,9 @@ class Sales {
       this.freight = 0,
       this.isPaid = false,
       this.cartonQty,
-      this.tel});
+      this.tel,
+      this.isVoid=false,
+      this.linkedOrderId});
   Map<String, dynamic> get toMap {
     final amount = num.parse(this.amount.toStringAsFixed(1));
     final paidAmount = num.parse(this.paidAmount.toStringAsFixed(1));
@@ -247,6 +251,8 @@ class Sales {
       'isPaid': isPaid,
       'cartonQty': cartonQty,
       'tel': tel,
+      'isVoid' : isVoid,
+      'linkedOrderId' : linkedOrderId,
     };
   }
 
@@ -280,6 +286,8 @@ class Sales {
       isPaid: doc.data()!['isPaid'] ?? false,
       cartonQty: doc.data()!['cartonQty'] ?? 0,
       tel: doc.data()!['tel'] ?? '',
+      isVoid: doc.data()!['isVoid'] ?? false,
+      linkedOrderId:  doc.data()!['linkedOrderId']?? '',
     );
   }
 
