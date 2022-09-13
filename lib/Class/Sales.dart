@@ -89,7 +89,6 @@ extension PayMethodExts on PayMethod {
   }
 }
 
-
 enum SalesType {
   RETAIL,
   WHOLESALE,
@@ -175,7 +174,7 @@ class Sales {
   num get deductedAmount => amount - freight - subTotal;
   String? tel;
   bool isVoid;
-String? linkedOrderId;
+  String? linkedOrderId;
 
   String get name {
     switch (salesType) {
@@ -218,7 +217,7 @@ String? linkedOrderId;
       this.isPaid = false,
       this.cartonQty,
       this.tel,
-      this.isVoid=false,
+      this.isVoid = false,
       this.linkedOrderId});
   Map<String, dynamic> get toMap {
     final amount = num.parse(this.amount.toStringAsFixed(1));
@@ -251,8 +250,8 @@ String? linkedOrderId;
       'isPaid': isPaid,
       'cartonQty': cartonQty,
       'tel': tel,
-      'isVoid' : isVoid,
-      'linkedOrderId' : linkedOrderId,
+      'isVoid': isVoid,
+      'linkedOrderId': linkedOrderId,
     };
   }
 
@@ -287,7 +286,7 @@ String? linkedOrderId;
       cartonQty: doc.data()!['cartonQty'] ?? 0,
       tel: doc.data()!['tel'] ?? '',
       isVoid: doc.data()!['isVoid'] ?? false,
-      linkedOrderId:  doc.data()!['linkedOrderId']?? '',
+      linkedOrderId: doc.data()!['linkedOrderId'] ?? '',
     );
   }
 
@@ -319,7 +318,9 @@ String? linkedOrderId;
         isPaid: isPaid,
         cartonQty: cartonQty,
         tel: tel,
-        paidAmount: paidAmount);
+        paidAmount: paidAmount,
+        isVoid: isVoid,
+        linkedOrderId: linkedOrderId);
   }
 
   Future<void> update() async {
@@ -523,7 +524,8 @@ class PaymentRecord {
       this.remark,
       required this.staffId,
       required this.staffName,
-      required this.paymentRecordType, this.payMethod});
+      required this.paymentRecordType,
+      this.payMethod});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'amount': amount,
@@ -532,9 +534,7 @@ class PaymentRecord {
         'staffName': staffName,
         'paymentRecordType':
             PaymentRecordType.values.indexOf(paymentRecordType),
-    'payMethod':
-   payMethod?.index
-    ,
+        'payMethod': payMethod?.index,
       };
   factory PaymentRecord.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PaymentRecord(
@@ -546,8 +546,9 @@ class PaymentRecord {
       staffName: doc.data()!['staffName'],
       paymentRecordType: PaymentRecordType.values
           .elementAt(doc.data()?['paymentRecordType'] ?? 0),
-      payMethod: doc.data()?['payMethod'] == null? null: PayMethod.values
-        .elementAt(doc.data()?['payMethod']),
+      payMethod: doc.data()?['payMethod'] == null
+          ? null
+          : PayMethod.values.elementAt(doc.data()?['payMethod']),
     );
   }
 
