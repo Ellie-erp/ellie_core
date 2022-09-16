@@ -10,6 +10,11 @@ enum ShipmentMethod {
   LOCAL,
 }
 
+enum PCMItemStatus {
+  Active,
+  Inactive,
+}
+
 class PCMItem {
   DocumentReference? docRef;
   DateTime createDate;
@@ -28,6 +33,7 @@ class PCMItem {
   String? plu;
   String? refNo;
   List<String> pdtKeywordIds;
+  PCMItemStatus pcmItemStatus;
 
   PCMItem({
     this.docRef,
@@ -45,6 +51,8 @@ class PCMItem {
     this.nameZh,
     this.refNo,
     this.pdtKeywordIds = const [],
+    required this.pcmItemStatus,
+
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -61,6 +69,7 @@ class PCMItem {
         'plu': plu,
         'refNo': refNo,
         'pdtKeywordIds': pdtKeywordIds,
+    'pcmItemStatus': PCMItemStatus.values.indexOf(pcmItemStatus),
       };
   factory PCMItem.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMItem(
@@ -82,6 +91,7 @@ class PCMItem {
           .toList()),
       pdtKeywordIds:
           ((doc.data()?['pdtKeywordIds'] as List?) ?? []).cast<String>(),
+      pcmItemStatus: PCMItemStatus.values.elementAt(doc.data()!['pcmItemStatus'] ?? 0),
     );
   }
 
