@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:liquidity_gallery/Class.dart';
@@ -48,6 +50,7 @@ class PCMSuppiler {
   num defaultDepositRate;
   List<String> categoriesIds;
   List<PCMBankDetail>? pcmBankDetail;
+  int minArrPeriod;
 
   PCMSuppiler({
     this.docRef,
@@ -68,6 +71,7 @@ class PCMSuppiler {
     this.defaultDepositRate = 1,
     this.categoriesIds = const [],
     this.pcmBankDetail,
+    this.minArrPeriod=7,
   });
   Map<String, dynamic> get toMap => {
         'createDate': createDate,
@@ -87,6 +91,7 @@ class PCMSuppiler {
         'defaultDepositRate': defaultDepositRate,
         'categoriesIds': categoriesIds,
         'pcmBankDetail': (pcmBankDetail ?? []).map((e) => e.toMap).toList(),
+    'minArrPeriod': minArrPeriod,
       };
   factory PCMSuppiler.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return PCMSuppiler(
@@ -117,6 +122,7 @@ class PCMSuppiler {
           (doc.data()!['pcmBankDetail'] ?? [])
               .map((e) => PCMBankDetail.fromMap(e))
               .toList()),
+      minArrPeriod: doc.data()?['minArrPeriod'] ?? 7,
     );
   }
 
