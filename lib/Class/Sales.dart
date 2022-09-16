@@ -559,10 +559,12 @@ class PaymentRecord {
 
 extension SalesExtension on List<Sales> {
   num get totalAmount =>
-      fold<num>(0, (previousValue, sales) => previousValue + sales.amount);
+      fold<num>(0, (previousValue, sales) => previousValue + sales.amount) -
+      voids.totalAmount;
 
   num get totalPaid =>
-      fold(0, (previousValue, sales) => previousValue + sales.paidAmount);
+      fold<num>(0, (previousValue, sales) => previousValue + sales.paidAmount) -
+      voids.totalAmount;
 
   List<Sales> get completed => where(
           (sales) => sales.salesStatus == SalesStatus.COMPLETE && sales.isPaid)
@@ -573,6 +575,11 @@ extension SalesExtension on List<Sales> {
 
   List<Sales> get reserved =>
       where((sales) => sales.salesStatus == SalesStatus.RESERVED).toList();
+
+  List<Sales> get voids => where((sales) =>
+      sales.salesStatus == SalesStatus.COMPLETE &&
+      sales.isPaid &&
+      sales.isVoid).toList();
 }
 
 extension OrderItemsExtension on List<OrderItem> {
