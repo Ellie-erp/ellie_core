@@ -12,9 +12,12 @@ class DailySales {
   int numOfCompletion;
   int numOfReserve;
   int numOfCancel;
+  int numOfVoid;
   num totalSale;
   num reservedTotal;
   num reservedTotalPaid;
+  num voidTotal;
+  num totalDiscountedAmount;
   String locationId;
   String locationName;
   List<DailySalesMethod> dailySalesMethod;
@@ -34,9 +37,12 @@ class DailySales {
       this.numOfCompletion = 0,
       this.numOfReserve = 0,
       this.numOfCancel = 0,
+      this.numOfVoid = 0,
       this.totalSale = 0,
       this.reservedTotal = 0,
       this.reservedTotalPaid = 0,
+      this.voidTotal = 0,
+      this.totalDiscountedAmount = 0,
       this.locationId = '',
       this.locationName = '',
       this.dailySalesMethod = const [],
@@ -50,9 +56,12 @@ class DailySales {
         'NumOfCompletion': numOfCompletion,
         'NumOfReserve': numOfReserve,
         'NumOfCancel': numOfCancel,
+        'NumOfVoid': numOfVoid,
         'totalSale': totalSale,
         'reservedTotal': reservedTotal,
         'reservedTotalPaid': reservedTotalPaid,
+        'voidTotal': voidTotal,
+        'totalDiscountedAmount': totalDiscountedAmount,
         'locationId': locationId,
         'locationName': locationName,
         'dailySalesMethod': (dailySalesMethod).map((e) => e.toMap).toList(),
@@ -69,9 +78,12 @@ class DailySales {
       numOfCompletion: data['NumOfCompletion'] ?? 0,
       numOfReserve: data['NumOfReserve'] ?? 0,
       numOfCancel: data['NumOfCancel'] ?? 0,
+      numOfVoid: data['NumOfVoid'] ?? 0,
       totalSale: data['totalSale'] ?? 0,
       reservedTotal: data['reservedTotal'] ?? 0,
       reservedTotalPaid: data['reservedTotalPaid'] ?? 0,
+      voidTotal: data['voidTotal'] ?? 0,
+      totalDiscountedAmount: data['totalDiscountedAmount'] ?? 0,
       locationId: data['locationId'] ?? '',
       locationName: data['locationName'] ?? '',
       dailySalesMethod: List<DailySalesMethod>.from(
