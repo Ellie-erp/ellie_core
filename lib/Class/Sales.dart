@@ -566,6 +566,9 @@ extension SalesExtension on List<Sales> {
   num get totalPaid =>
       fold<num>(0, (previousValue, sales) => previousValue + sales.paidAmount);
 
+  num get totalDiscountedAmount => fold(
+      0, (previousValue, element) => previousValue + element.deductedAmount);
+
   List<Sales> get completed => where((sales) =>
       sales.salesStatus == SalesStatus.COMPLETE &&
       sales.isPaid &&
