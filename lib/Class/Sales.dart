@@ -586,6 +586,18 @@ extension SalesExtension on List<Sales> {
       sales.salesStatus == SalesStatus.COMPLETE &&
       sales.isPaid &&
       sales.isVoid).toList();
+
+  List<Sales> get retail =>
+      where((element) => element.salesType == SalesType.RETAIL).toList();
+
+  List<Sales> get online =>
+      where((element) => element.salesType == SalesType.ONLINE).toList();
+
+  List<Sales> get stockIn =>
+      where((element) => element.salesType == SalesType.STOCKIN).toList();
+
+  List<Sales> get wholesale =>
+      where((element) => element.salesType == SalesType.WHOLESALE).toList();
 }
 
 extension OrderItemsExtension on List<OrderItem> {
