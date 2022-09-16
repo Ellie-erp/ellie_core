@@ -566,15 +566,18 @@ extension SalesExtension on List<Sales> {
       fold<num>(0, (previousValue, sales) => previousValue + sales.paidAmount) -
       voids.totalAmount;
 
-  List<Sales> get completed => where(
-          (sales) => sales.salesStatus == SalesStatus.COMPLETE && sales.isPaid)
-      .toList();
+  List<Sales> get completed => where((sales) =>
+      sales.salesStatus == SalesStatus.COMPLETE &&
+      sales.isPaid &&
+      !sales.isVoid).toList();
 
   List<Sales> get cancelled =>
-      where((sales) => sales.salesStatus == SalesStatus.CANCEL).toList();
+      where((sales) => sales.salesStatus == SalesStatus.CANCEL && !sales.isVoid)
+          .toList();
 
-  List<Sales> get reserved =>
-      where((sales) => sales.salesStatus == SalesStatus.RESERVED).toList();
+  List<Sales> get reserved => where(
+          (sales) => sales.salesStatus == SalesStatus.RESERVED && !sales.isVoid)
+      .toList();
 
   List<Sales> get voids => where((sales) =>
       sales.salesStatus == SalesStatus.COMPLETE &&
