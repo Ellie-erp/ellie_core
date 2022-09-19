@@ -1,66 +1,70 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum HRLeaveType {
+enum LeaveType {
   UnpaidLeave,
   SickLeave,
   AnnualLeave,
   CompensatoryLeave,
-  MaternityLeave,
-  PaternityLeave,
+  MaternityLeave, ///產假
+  PaternityLeave, ///陪產假
 }
 
 enum ApprovalStatus { Processing, Approved, Denied }
 
 ///HR 請假用 class,計AL, WIP
 ///需要諗消假安排
-class HRCalendar {
+class Leave {
   DocumentReference? docRef;
   DateTime timestamp;
-  String identityId;
-  String identityName;
+  String userId;
+  String userName;
   DateTime startDate;
   DateTime endDate;
   String remark;
   List<String>? document;
-  HRLeaveType hrLeaveType;
+  LeaveType leaveType;
   ApprovalStatus approvalStatus;
+  String companyId;
 
-  HRCalendar(
+  Leave(
       {this.docRef,
       required this.timestamp,
-      required this.identityId,
-      required this.identityName,
+      required this.userId,
+      required this.userName,
       required this.startDate,
       required this.endDate,
       this.remark = '',
       this.document,
       required this.approvalStatus,
-      required this.hrLeaveType});
+      required this.leaveType,
+      required this.companyId});
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
-        'identityId': identityId,
-        'identityName': identityName,
+        'userId': userId,
+        'userName': userName,
         'startDate': startDate,
         'endDate': endDate,
         'remark': remark,
         'document': document,
-        'hrLeaveType': HRLeaveType.values.indexOf(hrLeaveType),
+        'leaveType': LeaveType.values.indexOf(leaveType),
         'approvalStatus': ApprovalStatus.values.indexOf(approvalStatus),
+    'companyId': companyId,
       };
-  factory HRCalendar.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return HRCalendar(
+  factory Leave.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return Leave(
       docRef: doc.reference,
       timestamp: doc.data()!['timestamp']?.toDate(),
-      identityId: doc.data()!['identityId'],
-      identityName: doc.data()!['identityName'],
+      userId: doc.data()!['userId'],
+      userName: doc.data()!['userName'],
       startDate: doc.data()!['startDate']?.toDate(),
       endDate: doc.data()!['endDate']?.toDate(),
       remark: doc.data()!['remark'],
       document: doc.data()!['document'],
-      hrLeaveType:
-          HRLeaveType.values.elementAt(doc.data()!['hrLeaveType'] ?? 0),
+      leaveType:
+          LeaveType.values.elementAt(doc.data()!['leaveType'] ?? 0),
       approvalStatus:
           ApprovalStatus.values.elementAt(doc.data()!['approvalStatus'] ?? 0),
+      companyId: doc.data()!['companyId']?? '',
     );
   }
 

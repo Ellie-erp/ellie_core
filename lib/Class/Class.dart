@@ -16,7 +16,7 @@ export 'Devices.dart';
 export 'Dictionary.dart';
 export 'ExchRate.dart';
 export 'Expense.dart';
-export 'HRCalendar.dart';
+export 'Leave.dart';
 export 'Identity.dart';
 export 'Info.dart';
 export 'Item.dart';
