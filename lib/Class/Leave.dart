@@ -7,7 +7,55 @@ enum LeaveType {
   CompensatoryLeave,
   MaternityLeave, ///產假
   PaternityLeave, ///陪產假
+  PersonalLeave,
 }
+
+extension LeaveTypeExts on LeaveType {
+  String get Chinese {
+    switch (this) {
+      case  LeaveType.UnpaidLeave:
+        return '無薪假';
+      case LeaveType.SickLeave:
+        return '病假';
+      case  LeaveType.AnnualLeave:
+        return '年假';
+      case LeaveType.CompensatoryLeave:
+        return '補假';
+      case LeaveType.MaternityLeave:
+        return '產假';
+      case LeaveType.PaternityLeave:
+        return '陪產假';
+      case LeaveType.PersonalLeave:
+        return '事假';
+    }
+  }
+}
+
+
+extension LeaveTypeExts2 on LeaveType {
+  String get ShortName {
+    switch (this) {
+      case  LeaveType.UnpaidLeave:
+        return 'NPL';
+      case LeaveType.SickLeave:
+        return 'SL';
+      case  LeaveType.AnnualLeave:
+        return 'AL';
+      case LeaveType.CompensatoryLeave:
+        return 'CL';
+      case LeaveType.MaternityLeave:
+        return 'ML';
+      case LeaveType.PaternityLeave:
+        return 'PL';
+      case LeaveType.PersonalLeave:
+        return 'PL';
+    }
+  }
+}
+
+
+
+
 
 enum ApprovalStatus { Processing, Approved, Denied }
 
@@ -37,7 +85,8 @@ class Leave {
       this.document,
       required this.approvalStatus,
       required this.leaveType,
-      required this.companyId});
+      this.companyId='',
+      });
   Map<String, dynamic> get toMap => {
         'timestamp': timestamp,
         'userId': userId,
@@ -49,6 +98,7 @@ class Leave {
         'leaveType': LeaveType.values.indexOf(leaveType),
         'approvalStatus': ApprovalStatus.values.indexOf(approvalStatus),
     'companyId': companyId,
+
       };
   factory Leave.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     return Leave(
@@ -65,6 +115,7 @@ class Leave {
       approvalStatus:
           ApprovalStatus.values.elementAt(doc.data()!['approvalStatus'] ?? 0),
       companyId: doc.data()!['companyId']?? '',
+
     );
   }
 
